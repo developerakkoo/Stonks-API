@@ -5,11 +5,11 @@ const moment = require ('moment')
 // console.log(`crTime: ${crTime}`);
 // console.log(`timeDelay: ${timeDelay}`);
 
-const time = moment().subtract(10,"m").format('hh.mm')
+const time = moment().subtract(10,"min").format('hh.mm')
 console.log("Time",time)
 
-const time1 = moment().subtract(20,"m").format('hh.mm')
-console.log("Time1",time1)
+// const time1 = moment().subtract(20,"m").format('hh.mm')
+// console.log("Time1",time1)
 // let m3 = moment(moment(crTime,"hh:mm").diff(moment(m2,"hh:mm"))).format("hh:mm"); 
 // console.log(m3);
 // let n=11.04

@@ -60,10 +60,6 @@ const dataSchema = mongoose.Schema({
     Time:{
         type:String,
         required: true
-    },
-    Date_Time:{
-        type:String,
-        // required: true
     }
 });
 
