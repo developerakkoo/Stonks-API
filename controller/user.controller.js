@@ -27,44 +27,52 @@ async function createUser(req,res){
 }
 
 async function FindAll(req,res){
-    const user = await User.find();
-    res.status(200).send(user);
-
+    try{
+        const user = await User.find();
+        res.status(200).send(user);
+    }catch(error){
+        res.status(500).json({message:"something went wrong"})
+    }
     
 }
 
 async function FindById(req,res){
-    const user =  await User.findOne({ _id:req.params.id})
-    if (!user){
-        return res.status(400).send({message:"user doesn't exists"})
+    try{
+        const user =  await User.findOne({ _id:req.params.id})
+        if (!user){
+            return res.status(400).send({message:"user doesn't exists"})
+        }
+        res.status(200).send(user)
+    }catch(error){
+        res.status(500).json({message:"something went wrong"})
     }
-    
-    res.status(200).send(user)
 }
 
 async function UpdateUser(req,res){
-    
+    try{        
         const user = await User.findOne({_id:req.params.id});
-            
-            if (!user){
-                return res.status(400).send({message:"user doesn't exists"})
-            }
-            user.email=req.body.email ? req.body.email : user.email;
-            user.mobile=req.body.mobile ? req.body.mobile : user.mobile;
-
-            const updateUser = await user.save();
-        
-        res.status(200).send({  message: `User record has been updated successfully`,updateUser})
-    
+    if (!user){
+        return res.status(400).send({message:"user doesn't exists"})
+    }
+    user.email=req.body.email ? req.body.email : user.email;
+    user.mobile=req.body.mobile ? req.body.mobile : user.mobile;
+    const updateUser = await user.save();
+    res.status(200).send({  message: `User record has been updated successfully`,updateUser})
+}catch(error){
+    res.status(500).json({message:"something went wrong"})
+}
 }
 
 async function deleteUser (req, res){
-    await User.findByIdAndDelete({
-        _id:req.params.id
-    });
-    res.status(200).send({message:`Successfully delete user with id:${req.params.id}`})
+    try{
+        await User.findByIdAndDelete({
+            _id:req.params.id
+        });
+        res.status(200).send({message:`Successfully delete user with id:${req.params.id}`})
+    }catch(error){
+        res.status(500).json({message:"something went wrong"})
+    }
 }
-
 
 async function UserCount(req,res){
     let user
@@ -73,18 +81,21 @@ async function UserCount(req,res){
         '$count': 'usercount'
         }
     ]]
-
-    user = await User.aggregate(pipeline)
-    res.status(200).send(user);
-
-    
+    try{    
+        user = await User.aggregate(pipeline)
+        res.status(200).send(user);
+    }catch(error){
+        res.status(500).json({message:"something went wrong"})
+    }
 }
 
 async function TotalActiveUser(req,res){
-    const user = await User.find();
-    res.status(200).send(user);
-
-    
+    try{
+        const user = await User.find();
+        res.status(200).send(user);
+    }catch(error){
+        res.status(500).json({message:"something went wrong"})
+    }
 }
 
 module.exports = {

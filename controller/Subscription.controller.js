@@ -28,47 +28,58 @@ async function createSubscription(req,res){
 }
 
 async function getAllPlans(req,res){
-
-    const plans= await Subscription.find()
-    res.status(201).send(plans)
+    try{
+        const plans= await Subscription.find()
+        res.status(201).send(plans)
+    }catch(error){
+        res.status(500).json({message:"something went wrong"})
+    }
 }
 
 async function updatePlans(req,res){
-    console.log("up c>>>")
-    // const id = req.params.id;
-    console.log("Id>>>",req.params.id)
-    const plan = await Subscription.findOne({_id:req.params.id});
-    if(!plan){
-        return res.status(400).send({message:"plan does't exists"})
+    try{
+        console.log("Id>>>",req.params.id)
+        const plan = await Subscription.findOne({_id:req.params.id});
+        if(!plan){
+            return res.status(400).send({message:"plan does't exists"})
+        }
+        plan.name = req.body.name 
+        plan.price = req.body.price 
+        plan.duration = req.body.duration 
+        plan.description = req.body.description 
+        const updatePlan = await plan.save();
+        res.status(200).send(updatePlan);
+    }catch(error){
+        res.status(500).json({message:"something went wrong"})
     }
-    plan.name = req.body.name 
-    plan.price = req.body.price 
-    plan.duration = req.body.duration 
-    plan.description = req.body.description 
-
-    const updatePlan = await plan.save();
-    res.status(200).send(updatePlan);
 }
 
 
 async function deletePlans(req,res){
-        // _id = req.params.id; 
-    const plan = await Subscription.findOne({_id:req.params.id});
-    if(!plan){
-        return res.status(400).send({message:"plan does't exists"})
+    try{
+        const plan = await Subscription.findOne({_id:req.params.id});
+        if(!plan){
+            return res.status(400).send({message:"plan does't exists"})
+        }
+            await Subscription.deleteOne({
+                _id : req.params.id
+            });
+            res.status(200).send({message:`Successfully deleted  plan with id: ${req.params.id}`});
+    }catch(error){
+        res.status(500).json({message:"something went wrong"})
     }
-        await Subscription.deleteOne({
-            _id : req.params.id
-        });
-        res.status(200).send({message:`Successfully deleted  plan with id: ${req.params.id}`});
     }
 
 async function FindSubscriptionById(req,res){
+    try{
         const SubscriptionById = await Subscription.findOne({_id:req.params.id});
         if(!SubscriptionById){
             return res.status(400).send({message:"call does't exists"})
         }
         res.status(200).send(SubscriptionById)
+    }catch(error){
+        res.status(500).json({message:"something went wrong"})
+    }
         }
         
 async function getMonthlyInr(req,res){
@@ -95,10 +106,13 @@ async function getMonthlyInr(req,res){
                     }
                 }
             ]
+            try{
                 plans = await Subscription.aggregate(pipeline);
-                
-            res.status(201).send(plans)
-            //console.log(plans);
+                res.status(201).send(plans)
+            }catch(error){
+                res.status(500).json({message:"something went wrong"})
+            }
+        
     }
 
 async function getYearlyInr(req,res){
@@ -120,9 +134,12 @@ async function getYearlyInr(req,res){
                 }
                 }
             ]
+            try{
                 plans = await Subscription.aggregate(pipeline)
-            //plans= await Subscription.find()
-            res.status(201).send(plans)
+                res.status(201).send(plans)
+            }catch(error){
+                res.status(500).json({message:"something went wrong"})
+            }
         }
 module.exports = 
 {

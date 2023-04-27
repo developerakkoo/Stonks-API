@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate');
 
 const dataSchema = mongoose.Schema({
     SYMBOL:{
@@ -63,5 +64,5 @@ const dataSchema = mongoose.Schema({
     }
 });
 
-
+dataSchema.plugin(mongoosePaginate);
 module.exports = mongoose.model("Data",dataSchema);
