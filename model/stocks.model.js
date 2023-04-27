@@ -18,9 +18,12 @@ targetPrice:{
 stopLoss:{
     type:Number,
     required: true,
+},
+Date: {
+    type: String,
+    default: moment().format('DD-MM-YYYY'),
 },createdAt: {
     type: Date,
-    
     default: moment().format('LL'),
 },
 updatedAt: {

@@ -61,8 +61,7 @@ async function deletePlans(req,res){
         res.status(200).send({message:`Successfully deleted  plan with id: ${req.params.id}`});
     }
 
-
-    async function FindSubscriptionById(req,res){
+async function FindSubscriptionById(req,res){
         const SubscriptionById = await Subscription.findOne({_id:req.params.id});
         if(!SubscriptionById){
             return res.status(400).send({message:"call does't exists"})
@@ -70,10 +69,7 @@ async function deletePlans(req,res){
         res.status(200).send(SubscriptionById)
         }
         
-
-
-
-        async function getMonthlyInr(req,res){
+async function getMonthlyInr(req,res){
             let plans
             const pipeline = [
                 {
@@ -101,9 +97,9 @@ async function deletePlans(req,res){
                 
             res.status(201).send(plans)
             //console.log(plans);
-        }
+    }
 
-        async function getYearlyInr(req,res){
+async function getYearlyInr(req,res){
             let plans
             const pipeline =[
                 {

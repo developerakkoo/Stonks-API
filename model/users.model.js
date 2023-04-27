@@ -7,21 +7,25 @@ const userSchema = mongoose.Schema({
         unique: true,
         isEmail: true,
 },
-mobile:{
-    type:Number,
+name:{
+    type:String,
     required: true,
     length:10
     
 },
+photo:{
+    type:String,
+    required: true
+},
 isActive: {
-    type: String,
+    type: Boolean,
     required: true,
-    default:"false"
+    default:false
 },
 isBlocked: {
-    type: Date,
+    type: Boolean,
     required: true,
-    default: "false"
+    default: false
 },
 createdAt: {
     type: Date,

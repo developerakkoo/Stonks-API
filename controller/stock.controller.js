@@ -37,10 +37,10 @@ async function updateCall(req,res){
     if(!call){
         return res.status(400).send({message:"call does't exists"})
     }
-    call.CALL = req.body.CALL ? req.body.CALL : call.CALL;
-    call.PUT = req.body.PUT ? req.body.PUT : call.PUT;
-    call.targetPrice = req.body.targetPrice ? req.body.targetPrice : call.targetPrice;
-    call.stopLoss = req.body.stopLoss ? req.body.stopLoss : call.stopLoss;
+    call.call = req.body.CALL 
+    call.put = req.body.PUT 
+    call.targetPrice = req.body.targetPrice 
+    call.stopLoss = req.body.stopLoss 
 
     const updatePlan = await call.save();
     res.status(200).send(updatePlan);
@@ -69,7 +69,7 @@ res.status(200).send(call)
 async function FindStockByDate(req,res){
     
     let dates
-    const pipeline = [{$match : {createdAt:req.params.date}}]
+    const pipeline = [{$match : {Date:req.params.date}}]
     dates = await Stock.aggregate(pipeline)
         
     res.status(200).send(dates)

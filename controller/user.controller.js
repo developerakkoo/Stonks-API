@@ -1,16 +1,21 @@
 const User = require('../model/users.model');
+require('../passport-setup')
+const passport = require('passport')
+const express= require('express');
+const session = require('express-session');
 
 async function createUser(req,res){
     const userObj = {
 
         email:req.body.email,
-        mobile: req.body.mobile
+        name: req.body.name,
+        photo: req.body.photo
     }
     try {
         const userCreated = await User.create(userObj)
         const postResponse = {
             email: userCreated.email,
-            mobile: userCreated.mobile,
+            name: userCreated.name,
             
         }
         res.status(201).send(postResponse)
