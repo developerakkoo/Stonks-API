@@ -964,5 +964,9 @@ if(!stocksData[0]){
 res.status(200).send(stocksData)
 }  
 
-module.exports={getScrapData,getScrapData20,scrapData}
+async function getAllSTocksData(req,res){
+    const data= await Data.find()
+    res.status(201).send(data)
+}
+module.exports={getScrapData,getScrapData20,scrapData,getAllSTocksData}
 // [{$match : {Date:req.params.date}}]

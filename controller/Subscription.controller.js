@@ -34,15 +34,17 @@ async function getAllPlans(req,res){
 }
 
 async function updatePlans(req,res){
-    const id = req.params.id;
+    console.log("up c>>>")
+    // const id = req.params.id;
+    console.log("Id>>>",req.params.id)
     const plan = await Subscription.findOne({_id:req.params.id});
     if(!plan){
         return res.status(400).send({message:"plan does't exists"})
     }
-    plan.name = req.body.name ? req.body.name : plan.name;
-    plan.price = req.body.price ? req.body.price : plan.price;
-    plan.duration = req.body.duration ? req.body.duration : plan.duration;
-    plan.description = req.body.description ? req.body.description : plan.description;
+    plan.name = req.body.name 
+    plan.price = req.body.price 
+    plan.duration = req.body.duration 
+    plan.description = req.body.description 
 
     const updatePlan = await plan.save();
     res.status(200).send(updatePlan);
@@ -50,7 +52,7 @@ async function updatePlans(req,res){
 
 
 async function deletePlans(req,res){
-        _id = req.params.id; 
+        // _id = req.params.id; 
     const plan = await Subscription.findOne({_id:req.params.id});
     if(!plan){
         return res.status(400).send({message:"plan does't exists"})
