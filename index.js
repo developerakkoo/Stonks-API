@@ -1,16 +1,21 @@
 require('dotenv').config();
+const bodyParser = require('body-parser')
+const path =  require('path')
 const mongoose = require('mongoose');
 const passport = require('passport')
 const express= require('express');
-const session = require('express-session');
-const {UserRoutes,ScrapDataRoutes,StockRoutes,SubscriptionRoutes}= require ('./routes/index.routes')
-require('./passport-setup')
 const app = express();
+const session = require('express-session');
+const {UserRoutes,ScrapDataRoutes,StockRoutes,SubscriptionRoutes,PaymentRoute}= require ('./routes/index.routes')
+app.use(bodyParser.urlencoded({extended:false}))
+app.use(bodyParser.json())
+require('./passport-setup')
 app.use(express.json())
 app.use(UserRoutes)
 app.use(StockRoutes)
 app.use(SubscriptionRoutes)
 app.use(ScrapDataRoutes)
+app.use(PaymentRoute)
 app.use(express.urlencoded({extended:false}));
 app.use(session({
     resave: false,
@@ -42,6 +47,12 @@ app.get('/google/callback', passport.authenticate('google', {failureRedirect:'/f
 function(req, res) {
     res.redirect('/success')
 })
+
+
+
+
+
+
 
 
 app.listen(8000,()=> 
