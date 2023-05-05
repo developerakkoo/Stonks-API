@@ -70,15 +70,15 @@ metaData.push({SYMBOL:Data['quoteResponse']['result'][49]['shortName'],LTP: Data
 
     IO.getIO().emit('get:Stocks',metaData);
     res.status(200).json(metaData)
-
+      }
 
 /*******************************************************************************************************************************/
-        } catch (error) {
+        catch (error) {
             console.error(error);
             res.status(500).json({message:"something went wrong"})
       }
     }
-
+    
 module.exports={
     getStock
 }

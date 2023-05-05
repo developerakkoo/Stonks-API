@@ -955,7 +955,7 @@ try {
     ]);
     res.status(201).send({message: `Data inserted successfully `});
 }catch(err){
-    console.log("Something went wrong while saving to DB", err.message);
+    console.log("Something went wrong while saving to DB");
     res.status(500).send({message: "Some internal error while inserting the element"});
 }
 }
@@ -987,6 +987,7 @@ async function getScrapData(req,res){
         }
         res.status(200).send(stocksData)
     }catch(error){
+        console.log()
         res.status(500).json({message:"something went wrong"})
     }
 
