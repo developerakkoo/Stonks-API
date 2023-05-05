@@ -6,13 +6,14 @@ const passport = require('passport')
 const express= require('express');
 const app = express();
 const session = require('express-session');
-const {UserRoutes,ScrapDataRoutes,StockRoutes,SubscriptionRoutes,PaymentRoute}= require ('./routes/index.routes')
+const {UserRoutes,ScrapDataRoutes,GetStocksRoute,StockRoutes,SubscriptionRoutes,PaymentRoute}= require ('./routes/index.routes')
 app.use(bodyParser.urlencoded({extended:false}))
 app.use(bodyParser.json())
 require('./passport-setup')
 app.use(express.json())
 app.use(UserRoutes)
 app.use(StockRoutes)
+app.use(GetStocksRoute)
 app.use(SubscriptionRoutes)
 app.use(ScrapDataRoutes)
 app.use(PaymentRoute)
@@ -25,6 +26,8 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session())
 app.set("view engine", "ejs");
+const MONGODB_URI = process.env.DB_URL
+
 mongoose.connect(process.env.DB_URL)
 const db = mongoose.connection
 db.on("error", () => console.log("ERROR while connecting to DB"))  //code for connecting mongodb
@@ -55,11 +58,35 @@ function(req, res) {
 
 
 
-app.listen(8000,()=> 
-console.log('Running at localhost:8000'));
+// app.listen(8000,()=> 
+// console.log('Running at localhost:8000'))
+// const io = require("./socket").init(server)
 
 
 
 
 
 
+mongoose
+    .connect(MONGODB_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      
+    })
+    .then((result) => {
+      const server = app.listen(8080);
+      console.log("app is running")
+      const io = require("./socket").init(server);
+  
+      io.on("connection", (socket) => {
+        console.log("Connected a User");
+  
+        socket.on("disconnect", () => {
+          console.log("User Disconnected");
+        });
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  
