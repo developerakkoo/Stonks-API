@@ -1,12 +1,16 @@
 const mongoose = require('mongoose');
 const moment = require('moment');
 const userSchema = mongoose.Schema({
-    email:{
-        type:String,
-        required: true,
-        unique: true,
-        isEmail: true,
+googleId:{
+    type:String,
+    require:true
 },
+email:{
+    type:String,
+    required: true,
+    unique: true,
+    isEmail: true,
+}, 
 name:{
     type:String,
     required: true,

@@ -1,8 +1,9 @@
 const express = require('express');
 const routes = express.Router();
-const userController =  require('../controller/user.controller')
+const userController =  require('../controller/user.controller');
+const verifyUser = require('../middlewares/verifyUser')
 
-routes.post('/App/api/v1/create',userController.createUser);
+routes.post('/App/api/v1/create',[verifyUser.ValidateUsers],userController.createUser);
 routes.get('/App/api/v1/getAll',userController.FindAll);
 routes.get('/App/api/v1/UserCount',userController.UserCount);
 //routes.get('/App/api/v1/TotalActiveUser',userController.TotalActiveUser);

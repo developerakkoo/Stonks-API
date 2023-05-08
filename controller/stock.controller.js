@@ -57,12 +57,12 @@ async function deleteStock(req,res){
         _id = req.params.id; 
         const stock = await Stock.findOne({_id:req.params.id});
         if(!stock){
-            return res.status(400).send({message:"plan does't exists"})
+            return res.status(400).send({message:"call does't exists"})
         }
             await Stock.deleteOne({
                 _id : req.params.id
             });
-            res.status(200).send({message:`Successfully deleted  stock with id: ${req.params.id}`});
+            res.status(200).send({message:`Successfully deleted  call with id: ${req.params.id}`});
     }catch(error){
         res.status(500).json({message:"something went wrong"})
     }
