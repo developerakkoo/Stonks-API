@@ -1012,7 +1012,7 @@ async function getScrapData20(req,res){
 async function getAllSTocksData(req,res){
     try{
     const pageNumber = req.query.page || 1; // Get the current page number from the query parameters
-    const pageSize = 10; // Number of items per page
+    const pageSize = 20; // Number of items per page
     
     Data.paginate({}, { page: pageNumber, limit: pageSize }, (err, result) => {
     if (err) {
