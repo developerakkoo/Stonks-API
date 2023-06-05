@@ -75,7 +75,7 @@ metaData.push({SYMBOL:Data['quoteResponse']['result'][49]['shortName'],LTP: Data
 /*******************************************************************************************************************************/
         catch (error) {
             console.error(error);
-            res.status(500).json({message:"something went wrong"})
+            res.status(500).json({message:error.message,status:`ERROR`})
       }
     }
     

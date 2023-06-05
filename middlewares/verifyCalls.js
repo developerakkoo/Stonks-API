@@ -7,20 +7,20 @@ const ValidateCalls = (req, res, next) =>{
     }
     if (!stockObj.call){
         return res.status(403).json({
-            message: "Call Value is  require"
+            message: "Call Value Is  Require"
         })
     }    else if (!stockObj.put ){
         return res.status(403).json({
-            message: " put Value is require"
+            message: " Put Value Is Require"
         })
     }
     else if (!stockObj.targetPrice ){
         return res.status(403).json({
-            message: " targetPrice Value is require"
+            message: " TargetPrice Value Is Require"
         })
     }  else if (!stockObj.stopLoss ){
         return res.status(403).json({
-            message: " stopLoss Value is require"
+            message: " StopLoss Value Is Require"
         })
     }
     else{

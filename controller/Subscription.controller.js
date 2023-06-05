@@ -19,20 +19,23 @@ async function createSubscription(req,res){
             description: subscriptionCreated.description,
             
         }
-        res.status(201).send(postResponse)
+        res.status(201).json({message:`Subscription Created Successfully`,postResponse})
     }
     catch (err) {
         console.log("Something went wrong while saving to DB", err.message);
-        res.status(500).send({message: "Some internal error while inserting the element"})
+        res.status(500).json({message: err.message,status:`ERROR`});
     }
 }
 
 async function getAllPlans(req,res){
     try{
-        const plans= await Subscription.find()
-        res.status(201).send(plans)
+        const plans= await Subscription.find();
+        if(!plans){
+            res.status(400).json({message:`Subscription Not Found `});
+        }
+        res.status(201).json({message:`All Plans Fetched Successfully` ,plans});
     }catch(error){
-        res.status(500).json({message:"something went wrong"})
+        res.status(500).json({message:error.message,status:`ERROR`});
     }
 }
 
@@ -41,16 +44,16 @@ async function updatePlans(req,res){
         console.log("Id>>>",req.params.id)
         const plan = await Subscription.findOne({_id:req.params.id});
         if(!plan){
-            return res.status(400).send({message:"plan does't exists"})
+            return res.status(400).json({message:"plan does't exists"})
         }
         plan.name = req.body.name 
         plan.price = req.body.price 
         plan.duration = req.body.duration 
         plan.description = req.body.description 
         const updatePlan = await plan.save();
-        res.status(200).send(updatePlan);
+        res.status(200).json({message:`Plan Updated Successfully`,updatePlan});
     }catch(error){
-        res.status(500).json({message:"something went wrong"})
+        res.status(500).json({message:error.message,status:`ERROR`});
     }
 }
 
@@ -59,14 +62,14 @@ async function deletePlans(req,res){
     try{
         const plan = await Subscription.findOne({_id:req.params.id});
         if(!plan){
-            return res.status(400).send({message:"plan does't exists"})
+            return res.status(400).Json({message:"plan does't exists"})
         }
             await Subscription.deleteOne({
                 _id : req.params.id
             });
-            res.status(200).send({message:`Successfully deleted  plan with id: ${req.params.id}`});
+            res.status(200).Json({message:`Successfully Deleted  Plan With Id: ${req.params.id}`});
     }catch(error){
-        res.status(500).json({message:"something went wrong"})
+        res.status(500).json({message:error.message,status:`ERROR`})
     }
     }
 
@@ -74,11 +77,11 @@ async function FindSubscriptionById(req,res){
     try{
         const SubscriptionById = await Subscription.findOne({_id:req.params.id});
         if(!SubscriptionById){
-            return res.status(400).send({message:"call does't exists"})
+            return res.status(400).json({message:"Call Does't Exists"})
         }
-        res.status(200).send(SubscriptionById)
+        res.status(200).json({message:`Subscription Fetched Successfully`,SubscriptionById})
     }catch(error){
-        res.status(500).json({message:"something went wrong"})
+        res.status(500).json({message:error.message,status:`ERROR`})
     }
         }
         
@@ -108,9 +111,9 @@ async function getMonthlyInr(req,res){
             ]
             try{
                 plans = await Subscription.aggregate(pipeline);
-                res.status(201).send(plans)
+                res.status(201).json({message:`Monthly Earning Fetched Successfully`, plans});
             }catch(error){
-                res.status(500).json({message:"something went wrong"})
+                res.status(500).json({message:error.message,status:`ERROR`});
             }
         
     }
@@ -136,9 +139,9 @@ async function getYearlyInr(req,res){
             ]
             try{
                 plans = await Subscription.aggregate(pipeline)
-                res.status(201).send(plans)
+                res.status(201).json({message:`Yearly Earning Fetched Successfully`, plans})
             }catch(error){
-                res.status(500).json({message:"something went wrong"})
+                res.status(500).json({message:error.message,status:`ERROR`})
             }
         }
 module.exports = 

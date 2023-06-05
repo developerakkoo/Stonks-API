@@ -18,20 +18,26 @@ async function createUser(req,res){
             name: userCreated.name,
             
         }
-        res.status(201).send(postResponse)
+        res.status(201).json({message:`User Created Successfully`,postResponse});
     }
     catch (err) {
+        if(err.code == 11000){
+            return res.status(400).json({message: `User With This Email  Is Already Exist Please Try With Different  Email Address ` })
+        }
         console.log("Something went wrong while saving to DB", err.message);
-        res.status(500).send({message: "Some internal error while inserting the element"});
+        res.status(500).send({message:err.message,status:`ERROR`});
     }
 }
 
 async function FindAll(req,res){
     try{
         const user = await User.find();
-        res.status(200).send(user);
+        if(!user){
+            return res.status(400).json({message:`Users Not Found`});
+        }
+        res.status(200).json({message:`User Fetched Successfully`, user});
     }catch(error){
-        res.status(500).json({message:"something went wrong"})
+        res.status(500).json({message:error.message,status:`ERROR`})
     }
     
 }
@@ -40,11 +46,11 @@ async function FindById(req,res){
     try{
         const user =  await User.findOne({ _id:req.params.id})
         if (!user){
-            return res.status(400).send({message:"user doesn't exists"})
+            return res.status(400).json({message:"User Doesn't Exists"})
         }
-        res.status(200).send(user)
+        res.status(200).json({message:`User Fetched Successfully`,user})
     }catch(error){
-        res.status(500).json({message:"something went wrong"})
+        res.status(500).json({message:error.message,status:`ERROR`})
     }
 }
 
@@ -57,9 +63,9 @@ async function UpdateUser(req,res){
     user.email=req.body.email ? req.body.email : user.email;
     user.mobile=req.body.mobile ? req.body.mobile : user.mobile;
     const updateUser = await user.save();
-    res.status(200).send({  message: `User record has been updated successfully`,updateUser})
+    res.status(200).send({message:`User Record Has been Updated Successfully`,updateUser});
 }catch(error){
-    res.status(500).json({message:"something went wrong"})
+    res.status(500).json({message:error.message,status:`ERROR`});
 }
 }
 
@@ -68,9 +74,9 @@ async function deleteUser (req, res){
         await User.findByIdAndDelete({
             _id:req.params.id
         });
-        res.status(200).send({message:`Successfully delete user with id:${req.params.id}`})
+        res.status(200).json({message:`User Deleted Successfully   With Id:${req.params.id}`});
     }catch(error){
-        res.status(500).json({message:"something went wrong"})
+        res.status(500).json({message:error.message,status:`ERROR`});
     }
 }
 
@@ -82,19 +88,25 @@ async function UserCount(req,res){
         }
     ]]
     try{    
-        user = await User.aggregate(pipeline)
-        res.status(200).send(user);
+        user = await User.aggregate(pipeline);
+        if(!user){
+            res.status(400).json({message:`User Count Not Found`});
+        }
+        res.status(200).json({message:`User Count`, user});
     }catch(error){
-        res.status(500).json({message:"something went wrong"})
+        res.status(500).json({message:error.message,status:`ERROR`})
     }
 }
 
 async function TotalActiveUser(req,res){
     try{
         const user = await User.find();
-        res.status(200).send(user);
+        if(!user){
+            res.status(400).json({message:`Total user Count  Not Found`});
+        }
+        res.status(200).json({message:`Total Active User`, user});
     }catch(error){
-        res.status(500).json({message:"something went wrong"})
+        res.status(500).json({message:error.message,status:`ERROR`});
     }
 }
 

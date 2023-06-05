@@ -7,20 +7,20 @@ const ValidateSubscription = (req, res, next) =>{
     }
     if (!subscriptionObj.name){
         return res.status(403).json({
-            message: "Subscription name is  require"
+            message: "Subscription Name Is  Require"
         })
     }    else if (!subscriptionObj.price ){
         return res.status(403).json({
-            message: " Subscription Price is require"
+            message: " Subscription Price is Require"
         })
     }
     else if (!subscriptionObj.duration ){
         return res.status(403).json({
-            message: " Subscription Duration is require"
+            message: " Subscription Duration Is Require"
         })
     }  else if (!subscriptionObj.description ){
         return res.status(403).json({
-            message: " Subscription Description is require"
+            message: " Subscription Description Is Require"
         })
     }
     else{

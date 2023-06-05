@@ -956,7 +956,7 @@ try {
     res.status(201).send({message: `Data inserted successfully `});
 }catch(err){
     console.log("Something went wrong while saving to DB");
-    res.status(500).send({message: "Some internal error while inserting the element"});
+    res.status(500).send({message:err.message,status: `ERROR`});
 }
 }
 
@@ -967,12 +967,12 @@ async function getAdminSpecificData(req,res){
             Time:req.headers.time
         })
         if(!data[0]){
-            return res.status(404).send({message:`Stock data is not found for given Time please wait we are collecting data`})
+            return res.status(404).send({message:`Stock data is not found for given Time stamp please wait we are collecting data`})
         }
         covert(data);
         res.status(200).json({message:`Sheet updated successfully with Date: ${req.headers.date} & Time: ${req.headers.time}`})
     }catch(error){
-        res.status(500).json({message:"something went wrong"})
+        res.status(500).json({message:error.message,status:`ERROR`})
     }
 } 
 async function getScrapData(req,res){
@@ -985,10 +985,10 @@ async function getScrapData(req,res){
         if(!stocksData[0]){
             return res.status(404).send({message:`Stock data is not found for given Time please wait we are collecting data`})
         }
-        res.status(200).send(stocksData)
+        res.status(200).json(stocksData)
     }catch(error){
         console.log()
-        res.status(500).json({message:"something went wrong"})
+        res.status(500).json({message:error.message,status:`ERROR`})
     }
 
 }  
@@ -1005,7 +1005,7 @@ async function getScrapData20(req,res){
         }
         res.status(200).send(stocksData)
     }catch(error){
-        res.status(500).json({message:"something went wrong"})
+        res.status(500).json({message:error.message,status:`ERROR`})
     }
 }  
 
@@ -1022,7 +1022,7 @@ async function getAllSTocksData(req,res){
     const { docs, total, limit, page, pages } = result;
     res.json({ users: docs, total, limit, page, pages });
     });}catch(error){
-            res.status(500).json({message:"something went wrong"})
+            res.status(500).json({message:error.message,status:`ERROR`})
             }
 }
 
