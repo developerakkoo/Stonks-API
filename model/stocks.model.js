@@ -4,12 +4,10 @@ const moment = require('moment');
 
 const stockSchema = mongoose.Schema({
 call:{
-    type:Number,
-    required: true
+    type:String,
 },
 put:{
-    type:Number,
-    required: true,
+    type:String,
 },
 targetPrice:{
     type:Number,
@@ -18,6 +16,11 @@ targetPrice:{
 stopLoss:{
     type:Number,
     required: true,
+},
+
+isCall:{
+    type: Boolean,
+    default:false
 },
 Date: {
     type: String,

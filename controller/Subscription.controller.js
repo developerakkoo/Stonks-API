@@ -62,12 +62,12 @@ async function deletePlans(req,res){
     try{
         const plan = await Subscription.findOne({_id:req.params.id});
         if(!plan){
-            return res.status(400).Json({message:"plan does't exists"})
+            return res.status(400).json({message:"plan does't exists"})
         }
             await Subscription.deleteOne({
                 _id : req.params.id
             });
-            res.status(200).Json({message:`Successfully Deleted  Plan With Id: ${req.params.id}`});
+            res.status(200).json({message:`Successfully Deleted  Plan With Id: ${req.params.id}`});
     }catch(error){
         res.status(500).json({message:error.message,status:`ERROR`})
     }
