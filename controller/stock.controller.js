@@ -6,7 +6,7 @@ async function createStock(req,res){
         call: req.body.call,
         put: req.body.put,
         targetPrice: req.body.targetPrice,
-        stopLoss:req.body.stopLoss
+        stopLoss:req.body.stopLoss,
 	isCall: req.body.isCall
     }
     try {
@@ -15,7 +15,7 @@ async function createStock(req,res){
             call: stockCreated.call,
             put: stockCreated.put,
             targetPrice: stockCreated.targetPrice,
-            stopLoss: stockCreated.stopLoss
+            stopLoss: stockCreated.stopLoss,
             isCall: stockCreated.isCall
         }
         res.status(201).json({message:`Call Created successfully `,postResponse})
