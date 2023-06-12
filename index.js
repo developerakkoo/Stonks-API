@@ -8,7 +8,7 @@ require('./passport-setup')(passport)
 const bodyParser = require('body-parser')
 const path =  require('path')
 const {UserRoutes,authRoute,ScrapDataRoutes,GetStocksRoute,StockRoutes,SubscriptionRoutes,PaymentRoute}= require ('./routes/index.routes');
-
+const cors = require('cors');
 const app = express();
 
 app.use(session({
@@ -20,11 +20,13 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session())
 
+app.use(cors());
 app.use(bodyParser.urlencoded({extended:false}))
 app.use(bodyParser.json())
 app.use(express.json())
-app.use(UserRoutes)
+
 app.use(authRoute)
+app.use(UserRoutes);
 app.use(StockRoutes)
 app.use(GetStocksRoute)
 app.use(SubscriptionRoutes)

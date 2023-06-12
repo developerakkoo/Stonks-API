@@ -6,7 +6,8 @@ async function createStock(req,res){
         call: req.body.call,
         put: req.body.put,
         targetPrice: req.body.targetPrice,
-        stopLoss:req.body.stopLoss
+        stopLoss:req.body.stopLoss,
+	isCall: req.body.isCall
     }
     try {
         const stockCreated = await Stock.create(stockObj)
@@ -14,8 +15,8 @@ async function createStock(req,res){
             call: stockCreated.call,
             put: stockCreated.put,
             targetPrice: stockCreated.targetPrice,
-            stopLoss: stockCreated.stopLoss
-            
+            stopLoss: stockCreated.stopLoss,
+            isCall: stockCreated.isCall
         }
         res.status(201).json({message:`Call Created successfully `,postResponse})
     }
@@ -47,7 +48,8 @@ async function updateCall(req,res){
         call.call = req.body.CALL 
         call.put = req.body.PUT 
         call.targetPrice = req.body.targetPrice 
-        call.stopLoss = req.body.stopLoss 
+        call.stopLoss = req.body.stopLoss
+	call.isCall = req.body.isCall 
         const updatePlan = await call.save();
         res.status(200).json({message:`Call Updated Successfully`, updatePlan});
     }catch(error){

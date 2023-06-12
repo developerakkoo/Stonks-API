@@ -18,7 +18,7 @@ async function createUser(req,res){
             name: userCreated.name,
             
         }
-        res.status(201).json({message:`User Created Successfully`,postResponse});
+        res.status(201).json({message:`User Created Successfully`,userCreated});
     }
     catch (err) {
         if(err.code == 11000){
