@@ -1,4 +1,4 @@
-const moment = require ('moment')
+const moment = require ('moment');
 // const momentTime= moment()
 // let crTime = moment().format('hh.mm')
 // let timeDelay = moment().subtract(10,"m").format('hh.mm')
@@ -8,9 +8,9 @@ const moment = require ('moment')
 // const time = moment().subtract(10,"min").format('hh.mm')
 // console.log("Time",time)
 console.log(moment().format('DD-MM-YYYY'))
-const time1 = moment().add(1,"day").format('LLLL')
-const t =moment().add(5, 'days').calendar();  
-console.log("Time1",time1)
+const time1 = moment().subtract(20,"day").format('DD-MM-YYYY')
+const t =moment().add(5, 'days').format('DD-MM-YYYY')  
+console.log("Time1",time1,t)
 // let m3 = moment(moment(crTime,"hh:mm").diff(moment(m2,"hh:mm"))).format("hh:mm"); 
 // console.log(m3);
 // let n=11.04
@@ -31,3 +31,4 @@ TimeoutError: Waiting for selector `#equityStockTable` failed: Waiting failed: 3
     at listOnTimeout (node:internal/timers:555:17)
     at processTimers (node:internal/timers:498:7)
 */
+

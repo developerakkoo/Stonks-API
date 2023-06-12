@@ -1,5 +1,6 @@
 const Stock = require('../model/stocks.model');
-
+const moment = require('moment');
+const IO = require('../socket');
 
 async function createStock(req,res){
     const stockObj = {
@@ -98,12 +99,64 @@ async function FindStockByDate(req,res){
     }
 }
 
+async function chartData(req, res, next){
+    try {
+        const Start = moment().subtract(10,"day").format('DD-MM-YYYY')
+        const End =moment().format('DD-MM-YYYY')
+        // console.log(Start,End);
+        const pipeline =
+        [
+            { 
+                $match: {
+                Date: {
+                    $gte: Start,
+                    $lte: End,
+                },
+                },
+            },
+        ]
+        const Data = await Stock.aggregate(pipeline)
+        
+        const label = []
+        const dataSet = []
+        const entryPrice = []
+        Data.forEach(item=>{
+            label.push(item.Date)
+            
+        })
+        Data.forEach(item=>{
+            dataSet.push( item.targetPrice - item.entryPrice)
+            
+        })
+        Data.forEach(item=>{
+            entryPrice.push( item.entryPrice)
+            
+        })
+        const mainData ={
+            label:label,
+            profit:dataSet
+        }
+        IO.getIO().emit('get:Stock',mainData);
+        res.status(200).json({message:'ChartData',label,Profit:{dataSet}});
+    } catch (error) {
+        res.status(500).json({message:error.message,Status:'ERROR'});
+    }
+
+}
+
+async  function get(req,res){
+    const sub =  await Stock.updateMany({entryPrice:100})
+    res.status(200).json("ok")
+}
+
 module.exports = 
 {
+    get,
     createStock,
     getAllCalls,
     FindStockById,
     updateCall,
     deleteStock,
-    FindStockByDate
+    FindStockByDate,
+    chartData
 }

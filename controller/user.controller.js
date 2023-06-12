@@ -1,5 +1,7 @@
 const User = require('../model/users.model');
-require('../passport-setup')
+require('../passport-setup');
+const stock = require('../model/stocks.model');
+const Subscription =  require('../model/subscription.model');
 const passport = require('passport')
 const express= require('express');
 const session = require('express-session');
@@ -31,7 +33,7 @@ async function createUser(req,res){
 
 async function FindAll(req,res){
     try{
-        const user = await User.find();
+        const user = await User.find()
         if(!user){
             return res.status(400).json({message:`Users Not Found`});
         }
@@ -44,12 +46,13 @@ async function FindAll(req,res){
 
 async function FindById(req,res){
     try{
-        const user =  await User.findOne({ _id:req.params.id})
+        const user =  await User.findOne({ _id:req.params.id}).populate('SubscriptionId') 
         if (!user){
             return res.status(400).json({message:"User Doesn't Exists"})
         }
         res.status(200).json({message:`User Fetched Successfully`,user})
     }catch(error){
+        console.log(error);
         res.status(500).json({message:error.message,status:`ERROR`})
     }
 }
@@ -110,8 +113,31 @@ async function TotalActiveUser(req,res){
     }
 }
 
+
+async function userSubscribe(req,res,){
+try {
+    const savedSubscription = Subscription.findOne({_id:req.body.planId});
+    if(!savedSubscription){
+    return res.status(404).json({message:`Plan Not Found With Id:${req.body.planId}`});
+    }
+    const savedUser = await User.findOne({_id:req.body.userId});
+    if(!savedUser){
+        return res.status(404).json({message:`User Not Found With Id:${req.body.userId}`});
+        }
+        savedUser.SubscriptionId = req.body.planId  != undefined
+        ? req.body.planId
+        :savedUser.SubscriptionId
+
+        const updatedUser = await savedUser.save()
+        res.status(201).json({message:"Subscription Added Successfully",updatedUser})
+} catch (error) {
+    res.status(500).json({message:error.message,status:`ERROR`});
+}
+}
+
 module.exports = {
     createUser,
+    userSubscribe,
     FindAll,
     UserCount,
     TotalActiveUser,

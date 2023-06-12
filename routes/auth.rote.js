@@ -1,7 +1,7 @@
 const express = require('express');
 const routes = express.Router();
 const passport = require('passport')
-const {ensureAuth,ensureGest} = require ('../middlewares/auth')
+const {ensureAuth,ensureGest} = require ('../middleware/auth')
 
 
 

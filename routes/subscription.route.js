@@ -1,7 +1,7 @@
 const express = require('express');
 const routes = express.Router();
 const subscriptionController = require('../controller/Subscription.controller')
-const  ValidateSubscription = require('../middlewares/verifySubscription')
+const  ValidateSubscription = require('../middleware/verifySubscription')
 
 routes.get ('/App/api/v1/getAllPlans',subscriptionController.getAllPlans);
 routes.get ('/App/api/v1/getMonthlyInr',subscriptionController.getMonthlyInr);

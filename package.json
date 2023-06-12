@@ -21,10 +21,12 @@
     "express-session": "^1.17.3",
     "googleapis": "^118.0.0",
     "moment": "^2.29.4",
-    "mongoose": "^7.1.0",
+    "mongoose": "^7.0.3",
     "mongoose-paginate": "^5.0.3",
+    "node-cron": "^3.0.2",
     "passport": "^0.6.0",
     "passport-google-oauth2": "^0.2.0",
+    "razorpay": "^2.8.6",
     "socket.io": "^4.6.1",
     "stripe": "^12.9.0"
   }

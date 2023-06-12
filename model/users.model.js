@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const moment = require('moment');
-const userSchema = mongoose.Schema({
+const Schema = mongoose.Schema;
+const userSchema = new Schema({
 googleId:{
     type:String,
     require:true
@@ -20,6 +21,10 @@ name:{
 photo:{
     type:String,
     required: true
+},
+SubscriptionId:{
+    type:mongoose.Types.ObjectId,
+    ref:"subscription"
 },
 isActive: {
     type: Boolean,

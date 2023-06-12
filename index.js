@@ -4,13 +4,15 @@ const passport = require('passport')
 const express= require('express');
 const session = require('express-session');
 const  MongoStore = require('connect-mongo')(session)
-require('./passport-setup')(passport)
-const bodyParser = require('body-parser')
-const path =  require('path')
+require('./passport-setup')(passport);
+const bodyParser = require('body-parser');
+const path =  require('path');
+require('./controller/cron');
 const {UserRoutes,authRoute,ScrapDataRoutes,GetStocksRoute,StockRoutes,SubscriptionRoutes,PaymentRoute}= require ('./routes/index.routes');
 const cors = require('cors');
 const app = express();
-
+app.use( express.static('public'));
+app.use('/public', express.static('public'))
 app.use(session({
   resave: false,
   saveUninitialized: false,
@@ -35,6 +37,7 @@ app.use(PaymentRoute)
 app.use(express.urlencoded({extended:false}));
 
 app.set("view engine", "ejs");
+
 const MONGODB_URI = process.env.DB_URL
 
 

@@ -6,7 +6,7 @@ const controller = require('../controller/payment');
 
 
 
-routes.post('/make/payment',controller.makePayment)
+routes.post('/make/payment',controller.createOrder)
 
 
 

@@ -1,12 +1,15 @@
 const mongoose = require('mongoose');
 const moment = require('moment');
 
-
-const stockSchema = mongoose.Schema({
+const Schema = mongoose.Schema
+const stockSchema = new Schema({
 call:{
     type:String,
 },
 put:{
+    type:String,
+},
+entryPrice:{
     type:String,
 },
 targetPrice:{

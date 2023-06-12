@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const moment = require('moment');
-const subscriptionSchema = new mongoose.Schema({
+const Schema = mongoose.Schema;
+const subscriptionSchema = new Schema({
 name:{
     type:String,
     required: true

@@ -1,29 +1,30 @@
-require('dotenv').config();
-const stripeKey = process.env.STRIPE_SECRET_KEY
-const stripe = require('stripe')(stripeKey);
+const razorpay = require('razorpay');
+var instance = new razorpay({
+    key_id:process.env.key_id,
+    key_secret:process.env.key_secret,
+});
 
-
-async function makePayment(req,res){
-    const { amount, currency } = req.body;
+exports.createOrder = async(req, res, next) => {
     try {
-        const paymentIntent = await stripe.paymentIntents.create({
-        amount,
-        currency,
+        const amount = req.body.amount;
+        
+        var options = {
+            amount: amount,
+            currency:'INR'
+        }
+
+        instance.orders.create(options, function(err, order) {
+            console.log("ORDER: " + order);
+
+            if(err) {
+                return res.status(400).json({ message: err.message, status: 'error' });
+            }
+            return res.status(201).json({status: 'success', message: 'Order Created.', order});
         });
-        res.status(200).json({ clientSecret: paymentIntent });
-    } catch (err) {
-        res.status(500).json({ Message: err.message,Status:"ERROR" });
+    } catch (error) {
+        return res.status(400).json({message: error.message, status:'error'});
     }
 }
 
 
-module.exports = {
-    makePayment
-}
 
-//get latest  call route  
-// user get subscri
-// current nifty50 price
-//user subscription route
-
-//socket integraton
