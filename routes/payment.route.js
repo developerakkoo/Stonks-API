@@ -1,6 +1,13 @@
 require('dotenv').config();
 const express = require('express');
 const routes = express.Router();
+const controller = require('../controller/payment');
+
+
+
+
+routes.post('/make/payment',controller.makePayment)
+
 
 
 
