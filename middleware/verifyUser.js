@@ -6,21 +6,16 @@ async  function ValidateUsers(req, res, next){
     const userObj = {
         email:req.body.email,
         name: req.body.name,
-        photo: req.body.photo
+        password: req.body.password
     }
-    
-    const user = await User.findOne({
-        email:userObj.email,
-        name:userObj.name
-});
     if(!userObj.email){
-        res.status(400).json({message:`Email Is Require`});
+        return res.status(400).json({message:`Email Is Require`});
     }
     if(!userObj.name){
-        res.status(400).json({message:`Name Is Require`});
+        return res.status(400).json({message:`Name Is Require`});
     }
-    if(!userObj.photo){
-        res.status(400).json({message:`Photo Is Require`});
+    if(!userObj.password){
+        return res.status(400).json({message:`password Is Require`});
     }
 next();
 }

@@ -68,17 +68,46 @@ metaData.push({SYMBOL:Data['quoteResponse']['result'][47]['shortName'],LTP: Data
 metaData.push({SYMBOL:Data['quoteResponse']['result'][48]['shortName'],LTP: Data['quoteResponse']['result'][48]['regularMarketPrice'],CHNG: parseFloat(Data['quoteResponse']['result'][48]['regularMarketChange'].toFixed(2)),PcCHNG: parseFloat(Data['quoteResponse']['result'][48]['regularMarketChangePercent'].toFixed(2)),sign: Math.sign(Data['quoteResponse']['result'][48]['regularMarketChange'].toString().split('.')[0])})
 metaData.push({SYMBOL:Data['quoteResponse']['result'][49]['shortName'],LTP: Data['quoteResponse']['result'][49]['regularMarketPrice'],CHNG: parseFloat(Data['quoteResponse']['result'][49]['regularMarketChange'].toFixed(2)),PcCHNG: parseFloat(Data['quoteResponse']['result'][49]['regularMarketChangePercent'].toFixed(2)),sign: Math.sign(Data['quoteResponse']['result'][49]['regularMarketChange'].toString().split('.')[0])})
 
+
     IO.getIO().emit('get:Stocks',metaData);
     res.status(200).json(metaData)
       }
 
 /*******************************************************************************************************************************/
-        catch (error) {
-            console.error(error);
-            res.status(500).json({message:error.message,status:`ERROR`})
-      }
+    catch (error) {
+    console.error(error);
+    res.status(500).json({message:error.message,status:`ERROR`})
     }
+  }
     
+async function getNifty50(req,res){
+  const options = {
+    method: 'GET',url: 'https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/v2/get-quotes',
+    params: {
+      region: 'IN',
+      symbols: '^NSEI'
+    },headers: {
+      'X-RapidAPI-Key': 'c6e48adc6dmsh05900b13b361ae0p17f651jsn7a03c8e8b550',
+      'X-RapidAPI-Host': 'apidojo-yahoo-finance-v1.p.rapidapi.com'
+    }
+    };try {
+      const response = await axios.request(options);
+      const Data = response.data
+      const nifty20Data =[]
+
+      nifty20Data.push({SYMBOL:Data['quoteResponse']['result'][0]['shortName'],LTP: Data['quoteResponse']['result'][0]['regularMarketPrice'],CHNG: parseFloat(Data['quoteResponse']['result'][0]['regularMarketChange'].toFixed(2)),PcCHNG: parseFloat(Data['quoteResponse']['result'][0]['regularMarketChangePercent'].toFixed(2)),sign: Math.sign(Data['quoteResponse']['result'][0]['regularMarketChange'].toString().split('.')[0])});
+
+      IO.getIO().emit('get:Stocks',nifty20Data);
+      res.status(200).json(nifty20Data)
+        }
+    
+  /*******************************************************************************************************************************/
+          catch (error) {
+              console.error(error);
+              res.status(500).json({message:error.message,status:`ERROR`})
+        }
+      }
 module.exports={
-    getStock
+    getStock,
+    getNifty50
 }

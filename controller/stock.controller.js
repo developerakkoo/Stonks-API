@@ -114,6 +114,11 @@ async function chartData(req, res, next){
                 },
                 },
             },
+            {
+                '$sort': {
+                    'Date': 1
+                }
+            }
         ]
         const Data = await Stock.aggregate(pipeline)
         
@@ -160,3 +165,7 @@ module.exports =
     FindStockByDate,
     chartData
 }
+
+
+//export to excel
+//firebase notify if 14 day left

@@ -1,35 +1,106 @@
 const User = require('../model/users.model');
 require('../passport-setup');
-const stock = require('../model/stocks.model');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const Subscription =  require('../model/subscription.model');
-const passport = require('passport')
-const express= require('express');
-const session = require('express-session');
 
-async function createUser(req,res){
-    const userObj = {
 
-        email:req.body.email,
-        name: req.body.name,
-        photo: req.body.photo
+async function createUser (req,res){
+    const defaultImage  = 'public/defaultProfile.png'
+    try {    const userData = {
+        name : req.body.name,
+        email: req.body.email,
+        password: await bcrypt.hash(req.body.password,10),
+        photo : req.protocol +"://"+req.hostname +"/"+ defaultImage.replace(/\\/g, "/")
     }
-    try {
-        const userCreated = await User.create(userObj)
-        const postResponse = {
-            email: userCreated.email,
-            name: userCreated.name,
-            
-        }
-        res.status(201).json({message:`User Created Successfully`,userCreated});
+    const checkUser =  await User.findOne({email:req.body.email});
+    if(checkUser){
+    return res.status(202).json({message:`User Already Exist with Email ${req.body.email} Please With Different Email `})
     }
-    catch (err) {
-        if(err.code == 11000){
-            return res.status(400).json({message: `User With This Email  Is Already Exist Please Try With Different  Email Address ` })
+        const createdUser = await User.create(userData);
+    postRes = {
+        ID:createdUser._id,
+        name : createdUser.name,
+        email: createdUser.email,
+        Image: createdUser.photo
+    }
+        res.status(201).json({message:`User created Successfully`,User:postRes})
+        }catch(error){
+            res.status(500).json({status:'ERROR',message:error.message});
         }
-        console.log("Something went wrong while saving to DB", err.message);
-        res.status(500).send({message:err.message,status:`ERROR`});
+    }
+    
+async function loginUser(req,res) {
+    try     {    
+        const email = req.body.email
+        const password = req.body.password
+        const savedUser = await User.findOne({email:email});
+    if(!savedUser){
+        return res.status(404).json({message:`User not found with this email ${req.body.email}`})
+    }
+    if(!(await bcrypt.compare(password, savedUser.password))){
+        return res.status(401).json({message:`Incorrect Password`});
+    }
+        const payload = {
+            userId: savedUser._id,
+            email:  savedUser.email 
+    }
+    const token = await jwt.sign(payload, process.env.JWT_SECRET_KEY, {expiresIn: '24h'});
+    const postRes = {
+        User : savedUser.name,
+        Id:savedUser._id,
+        accessToken : token
+    }
+    res.status(202).json({message:`User login successfully`,postRes});
+    }catch(error){
+    res.status(500).json({status:'ERROR',Message:error.message});
     }
 }
+
+async function postImage(req,res){
+    try {
+    
+        const path = req.protocol +"://"+req.hostname +"/"+ req.file.path.replace(/\\/g, "/");
+        const savedUser = await User.findOne({_id:req.params.userId});
+        if(!savedUser){
+        return res.status(404).json({message:`User Not Found With This userId: ${req.params.userId}`});
+        }
+        savedUser.photo = path != undefined
+        ? path
+        : savedTeam.photo
+    
+        const updatedUser = await savedUser.save();
+        res.status(201).json({message:'User Photo Uploaded Successfully',updatedUser})
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({message: error.message,status:"ERROR" });
+    }
+}
+
+// async function createUser(req,res){
+//     const userObj = {
+
+//         email:req.body.email,
+//         name: req.body.name,
+//         photo: req.body.photo
+//     }
+//     try {
+//         const userCreated = await User.create(userObj)
+//         const postResponse = {
+//             email: userCreated.email,
+//             name: userCreated.name,
+            
+//         }
+//         res.status(201).json({message:`User Created Successfully`,userCreated});
+//     }
+//     catch (err) {
+//         if(err.code == 11000){
+//             return res.status(400).json({message: `User With This Email  Is Already Exist Please Try With Different  Email Address ` })
+//         }
+//         console.log("Something went wrong while saving to DB", err.message);
+//         res.status(500).send({message:err.message,status:`ERROR`});
+//     }
+// }
 
 async function FindAll(req,res){
     try{
@@ -137,6 +208,8 @@ try {
 
 module.exports = {
     createUser,
+    loginUser,
+    postImage,
     userSubscribe,
     FindAll,
     UserCount,

@@ -18,9 +18,16 @@ name:{
     length:10
     
 },
+password:{
+    type:String,
+    required: true,    
+},
+firebaseToken:{
+    type:String
+},
 photo:{
     type:String,
-    required: true
+    
 },
 SubscriptionId:{
     type:mongoose.Types.ObjectId,
