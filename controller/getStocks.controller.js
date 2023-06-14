@@ -93,12 +93,12 @@ async function getNifty50(req,res){
     };try {
       const response = await axios.request(options);
       const Data = response.data
-      const nifty20Data =[]
+      const nifty50Data =[]
 
-      nifty20Data.push({SYMBOL:Data['quoteResponse']['result'][0]['shortName'],LTP: Data['quoteResponse']['result'][0]['regularMarketPrice'],CHNG: parseFloat(Data['quoteResponse']['result'][0]['regularMarketChange'].toFixed(2)),PcCHNG: parseFloat(Data['quoteResponse']['result'][0]['regularMarketChangePercent'].toFixed(2)),sign: Math.sign(Data['quoteResponse']['result'][0]['regularMarketChange'].toString().split('.')[0])});
+      nifty50Data.push({SYMBOL:Data['quoteResponse']['result'][0]['shortName'],LTP: Data['quoteResponse']['result'][0]['regularMarketPrice'],CHNG: parseFloat(Data['quoteResponse']['result'][0]['regularMarketChange'].toFixed(2)),PcCHNG: parseFloat(Data['quoteResponse']['result'][0]['regularMarketChangePercent'].toFixed(2)),sign: Math.sign(Data['quoteResponse']['result'][0]['regularMarketChange'].toString().split('.')[0])});
 
-      IO.getIO().emit('get:Stocks',nifty20Data);
-      res.status(200).json(nifty20Data)
+      IO.getIO().emit('get:Stocks',nifty50Data);
+      res.status(200).json(nifty50Data)
         }
     
   /*******************************************************************************************************************************/
