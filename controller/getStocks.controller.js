@@ -97,7 +97,7 @@ async function getNifty50(req,res){
 
       nifty50Data.push({SYMBOL:Data['quoteResponse']['result'][0]['shortName'],LTP: Data['quoteResponse']['result'][0]['regularMarketPrice'],CHNG: parseFloat(Data['quoteResponse']['result'][0]['regularMarketChange'].toFixed(2)),PcCHNG: parseFloat(Data['quoteResponse']['result'][0]['regularMarketChangePercent'].toFixed(2)),sign: Math.sign(Data['quoteResponse']['result'][0]['regularMarketChange'].toString().split('.')[0])});
 
-      IO.getIO().emit('get:Stocks',nifty50Data);
+      IO.getIO().emit('get:Nifty50',nifty50Data);
       res.status(200).json(nifty50Data)
         }
     
