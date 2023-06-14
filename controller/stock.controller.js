@@ -124,25 +124,27 @@ async function chartData(req, res, next){
         
         const label = []
         const dataSet = []
-        const entryPrice = []
+        const data =[]
         Data.forEach(item=>{
             label.push(item.Date)
             
         })
         Data.forEach(item=>{
-            dataSet.push( item.targetPrice - item.entryPrice)
-            
+            data.push( item.entryPrice - item.stopLoss )
         })
         Data.forEach(item=>{
-            entryPrice.push( item.entryPrice)
+            dataSet.push( item.entryPrice - item.targetPrice )
             
         })
         const mainData ={
             label:label,
-            profit:dataSet
+            profit:dataSet,
+            loss:data
+            
         }
+
         IO.getIO().emit('get:Stock',mainData);
-        res.status(200).json({message:'ChartData',label,Profit:{dataSet}});
+        res.status(200).json({message:'ChartData',label,Profit:{dataSet},loss:{data}});
     } catch (error) {
         res.status(500).json({message:error.message,Status:'ERROR'});
     }
@@ -150,7 +152,7 @@ async function chartData(req, res, next){
 }
 
 async  function get(req,res){
-    const sub =  await Stock.updateMany({entryPrice:100})
+    const sub =  await Stock.updateMany({entryPrice:1000})
     res.status(200).json("ok")
 }
 
