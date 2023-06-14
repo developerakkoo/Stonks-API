@@ -50,7 +50,11 @@ db.once("open", () => {console.log("Connected to mongoDB ")
 
 
 
-
+app.get('/Export-to-excel-weeklyOrder', (req, res,next)=>{
+  res.status(200).json({
+    file:"http://localhost:8000/public/userData.csv",
+  })
+})
 // app.get('/Dashboard', (req,res) =>{
 //     res.render("Dashboard")
 // })
