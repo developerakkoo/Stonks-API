@@ -46,11 +46,21 @@ async function updateCall(req,res){
         if(!call){
             return res.status(400).json({message:"call does't exists"})
         }
-        call.call = req.body.CALL 
-        call.put = req.body.PUT 
-        call.targetPrice = req.body.targetPrice 
-        call.stopLoss = req.body.stopLoss
-	call.isCall = req.body.isCall 
+        call.call = req.body.CALL !=undefined
+        ? req.body.CALL
+        :call.call
+        call.put = req.body.PUT !=undefined
+        ? req.body.PUT
+        : call.put
+        call.targetPrice = req.body.targetPrice !=undefined
+        ?req.body.targetPrice
+        :call.targetPrice
+        call.stopLoss = req.body.stopLoss !=undefined
+        ? req.body.stopLoss
+        :call.stopLoss 
+        call.isCall = req.body.isCall !=undefined
+        ? req.body.isCall
+        :call.isCall
         const updatePlan = await call.save();
         res.status(200).json({message:`Call Updated Successfully`, updatePlan});
     }catch(error){
@@ -90,7 +100,7 @@ async function FindStockById(req,res){
 async function FindStockByDate(req,res){
     try{
         const stock = await Stock.find({Date:req.params.date});
-        if(!stock){
+        if(stock.length == 0){
             return res.status(400).json({message:`Call Not found`});
         }
         res.status(200).json({message:`Call Fetched Successfully`, stock});
