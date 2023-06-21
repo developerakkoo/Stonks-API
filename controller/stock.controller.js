@@ -101,7 +101,7 @@ async function FindStockByDate(req,res){
         if(stock.length == 0){
             return res.status(400).json({message:`Call Not found`});
         }
-        res.status(200).json({message:`Call Fetched Successfully`, stock});
+        res.status(200).json({message:`Call Fetched Successfully`,length:stock.length,stock});
     }catch(error){
         res.status(500).json({message:error.message,status:`ERROR`});
     }
