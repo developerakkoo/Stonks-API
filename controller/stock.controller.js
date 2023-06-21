@@ -97,7 +97,7 @@ async function FindStockById(req,res){
 
 async function FindStockByDate(req,res){
     try{
-        const stock = await Stock.find({Date:req.params.date});
+        const stock = await Stock.find({Date:req.params.date}).sort({'createdAt':-1})
         if(stock.length == 0){
             return res.status(400).json({message:`Call Not found`});
         }
@@ -114,45 +114,188 @@ async function chartData(req, res, next){
         // console.log(Start,End);
         const pipeline =
         [
-            { 
-                $match: {
-                Date: {
-                    $gte: Start,
-                    $lte: End,
-                },
-                },
-            },
             {
-                '$sort': {
-                    'Date': 1
-                }
+            '$match': {
+                'Date': moment().format('DD-MM-YYYY')
+            }
+            }, {
+            '$sort': {
+                'createdAt': -1
+            }
             }
         ]
+        const pipeline1 =
+        [
+            {
+            '$match': {
+                'Date': moment().subtract(1,"day").format('DD-MM-YYYY')
+            }
+            }, {
+            '$sort': {
+                'createdAt': -1
+            }
+            }
+        ]
+        const pipeline2 =
+        [
+            {
+            '$match': {
+                'Date': moment().subtract(2,"day").format('DD-MM-YYYY')
+            }
+            }, {
+            '$sort': {
+                'createdAt': -1
+            }
+            }
+        ]
+        const pipeline3 =
+        [
+            {
+            '$match': {
+                'Date': moment().subtract(3,"day").format('DD-MM-YYYY')
+            }
+            }, {
+            '$sort': {
+                'createdAt': -1
+            }
+            }
+        ]
+        const pipeline4 =
+        [
+            {
+            '$match': {
+                'Date': moment().subtract(4,"day").format('DD-MM-YYYY')
+            }
+            }, {
+            '$sort': {
+                'createdAt': -1
+            }
+            }
+        ]
+        const pipeline5 =
+        [
+            {
+            '$match': {
+                'Date': moment().subtract(5,"day").format('DD-MM-YYYY')
+            }
+            }, {
+            '$sort': {
+                'createdAt': -1
+            }
+            }
+        ]
+        const pipeline6 =
+        [
+            {
+            '$match': {
+                'Date': moment().subtract(6,"day").format('DD-MM-YYYY')
+            }
+            }, {
+            '$sort': {
+                'createdAt': -1
+            }
+            }
+        ]
+        const pipeline7 =
+        [
+            {
+            '$match': {
+                'Date': moment().subtract(7,"day").format('DD-MM-YYYY')
+            }
+            }, {
+            '$sort': {
+                'createdAt': -1
+            }
+            }
+        ]
+        const pipeline8 =
+        [
+            {
+            '$match': {
+                'Date': moment().subtract(8,"day").format('DD-MM-YYYY')
+            }
+            }, {
+            '$sort': {
+                'createdAt': -1
+            }
+            }
+        ]
+        const pipeline9 =
+        [
+            {
+            '$match': {
+                'Date': moment().subtract(9,"day").format('DD-MM-YYYY')
+            }
+            }, {
+            '$sort': {
+                'createdAt': -1
+            }
+            }
+        ]
+        const metaData = []
         const Data = await Stock.aggregate(pipeline)
-        
+        metaData.push(Data[0])
+        const Data1 = await Stock.aggregate(pipeline1)
+        metaData.push(Data1[0])
+        const Data2 = await Stock.aggregate(pipeline2)
+        metaData.push(Data2[0])
+        const Data3 = await Stock.aggregate(pipeline3)
+        metaData.push(Data3[0])
+        const Data4 = await Stock.aggregate(pipeline4)
+        metaData.push(Data4[0])
+        const Data5 = await Stock.aggregate(pipeline5)
+        metaData.push(Data5[0])
+        const Data6 = await Stock.aggregate(pipeline6)
+        metaData.push(Data6[0])
+        const Data7 = await Stock.aggregate(pipeline7)
+        metaData.push(Data7[0])
+        const Data8 = await Stock.aggregate(pipeline8)
+        metaData.push(Data8[0])
+        const Data9 = await Stock.aggregate(pipeline9)
+        metaData.push(Data9[0])
+
         const label = []
         const dataSet = []
         const data =[]
-        Data.forEach(item=>{
+        for(item of metaData){
+            if (item == undefined) {
+                continue;
+            }
             label.push(item.Date)
             
-        })
-        Data.forEach(item=>{
-            data.push( item.entryPrice - item.stopLoss )
-        })
-        Data.forEach(item=>{
-            dataSet.push( item.entryPrice - item.targetPrice )
+        }
+        for(item of metaData){
+            if (item == undefined) {
+                continue;
+            }
+            data.push(Math.abs(item.entryPrice - item.stopLoss))
             
-        })
+        }
+        for(item of metaData){
+            if (item == undefined) {
+                continue;
+            }
+            dataSet.push(Math.abs(item.entryPrice - item.targetPrice))
+            
+        }
+        // console.log("Date:",label);
+        // metaData.forEach(item=>{
+    
+        //     data.push( Math.abs(item.entryPrice - item.stopLoss) )
+        // })
+        // metaData.forEach(item=>{
+        //     dataSet.push( Math.abs(item.entryPrice - item.targetPrice) )
+            
+        // })
         const mainData ={
             label:label,
             profit:dataSet,
-            loss:data
-            
+            loss:data 
         }
 
         IO.getIO().emit('get:Stock',mainData);
-        res.status(200).json({message:'ChartData',label,Profit:{dataSet},loss:{data}});
+        // res.status(200).json({message:'ChartData',length:label.length,label})
+        res.status(200).json({message:'ChartData',length:label.length,label,Profit:{dataSet},loss:{data}});
     } catch (error) {
         res.status(500).json({message:error.message,Status:'ERROR'});
     }

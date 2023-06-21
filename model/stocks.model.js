@@ -28,14 +28,7 @@ isCall:{
 Date: {
     type: String,
     default: moment().format('DD-MM-YYYY'),
-},createdAt: {
-    type: Date,
-    default: moment().format('LL'),
-},
-updatedAt: {
-    type: Date,
-    default: moment().format('LL')
 }
-});
+},{ timestamps: true});
 
 module.exports = mongoose.model("stock",stockSchema);

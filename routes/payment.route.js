@@ -9,7 +9,7 @@ const controller = require('../controller/payment');
 // routes.post('/make/payment',controller.createOrder)
 
 
-routes.post('/make/payment',controller.order)
+// routes.post('/make/payment',controller.order)
 
 routes.get('/pay',(req,res) =>{
     res.render('Payment')
