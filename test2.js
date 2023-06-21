@@ -22,13 +22,3 @@ console.log("Time1",time1)
 
 // console.log(moment().format('LT'));
 
-/* 
-                this.terminate(new Errors_js_1.TimeoutError(`Waiting failed: ${options.timeout}ms exceeded`));
-                               ^
-
-TimeoutError: Waiting for selector `#equityStockTable` failed: Waiting failed: 30000ms exceeded
-    at Timeout.<anonymous> (C:\Users\sakib\OneDrive\Desktop\NSESCRAPPER-STOCKS\node_modules\puppeteer-core\lib\cjs\puppeteer\common\WaitTask.js:63:32)
-    at listOnTimeout (node:internal/timers:555:17)
-    at processTimers (node:internal/timers:498:7)
-*/
-
