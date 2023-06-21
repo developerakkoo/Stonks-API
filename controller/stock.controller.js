@@ -8,18 +8,13 @@ async function createStock(req,res){
         put: req.body.put,
         targetPrice: req.body.targetPrice,
         stopLoss:req.body.stopLoss,
-	isCall: req.body.isCall
+        isCall: req.body.isCall,
+        entryPrice:req.body.entryPrice
     }
     try {
         const stockCreated = await Stock.create(stockObj)
-        const postResponse = {
-            call: stockCreated.call,
-            put: stockCreated.put,
-            targetPrice: stockCreated.targetPrice,
-            stopLoss: stockCreated.stopLoss,
-            isCall: stockCreated.isCall
-        }
-        res.status(201).json({message:`Call Created successfully `,postResponse})
+
+        res.status(201).json({message:`Call Created successfully `,stockCreated})
     }
     catch (err) {
         console.log("Something went wrong while saving to DB", err.message);
@@ -58,6 +53,9 @@ async function updateCall(req,res){
         call.stopLoss = req.body.stopLoss !=undefined
         ? req.body.stopLoss
         :call.stopLoss 
+        call.entryPrice = req.body.entryPrice !=undefined
+        ? req.body.entryPrice
+        :call.entryPrice
         call.isCall = req.body.isCall !=undefined
         ? req.body.isCall
         :call.isCall
