@@ -22,25 +22,25 @@ const moment = require ('moment');
 
 // console.log(moment().format('LT'));
 
-var jsonexport = require('jsonexport');
-const fs = require('fs')
-var contacts = [   {
-    userName: 'Scribble Studio',
-    email: 'akkijadhav079@gmail.com',
-    isActive: false,
-    isBlocked: false,
-    SubscriptionName: 'Basic',
-    price: 100,
-    duration: '1',
-    description: 'Include only callls'
-  }];
-function data(data){
-jsonexport(data,function(err, csv){
-    if(err) return console.log(err);
-    fs.writeFile('msg.csv',csv,err =>{
-    console.log(csv);
-});
-});
-}
-// data(contacts)
-module.exports = {data}
+// var jsonexport = require('jsonexport');
+// const fs = require('fs')
+// var contacts = [   {
+//     userName: 'Scribble Studio',
+//     email: 'akkijadhav079@gmail.com',
+//     isActive: false,
+//     isBlocked: false,
+//     SubscriptionName: 'Basic',
+//     price: 100,
+//     duration: '1',
+//     description: 'Include only callls'
+//   }];
+// function data(data){
+// jsonexport(data,function(err, csv){
+//     if(err) return console.log(err);
+//     fs.writeFile('msg.csv',csv,err =>{
+//     console.log(csv);
+// });
+// });
+// }
+// // data(contacts)
+// module.exports = {data}
