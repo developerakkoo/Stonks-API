@@ -4,7 +4,8 @@ const {SubscriptionRoutes} = require('./subscription.route')
 const {ScrapDataRoutes}= require('../routes/scrapData.route')
 const {PaymentRoute } = require('../routes/payment.route')
 const {GetStocksRoute} = require('../routes/getStocks.route')
-const {authRoute} = require('./auth.rote')
+const {authRoute} = require('./auth.rote');
+const {NoCallRoute} = require('./noCall.route'); 
 
 module.exports = {
     UserRoutes,
@@ -13,5 +14,6 @@ module.exports = {
     ScrapDataRoutes,
     GetStocksRoute,
     PaymentRoute,
-    authRoute
+    authRoute,
+    NoCallRoute
 }

@@ -1,10 +1,9 @@
 const mongoose = require ('mongoose');
 const Schema = mongoose.Schema;
 const noCallSchema =new Schema({
-    name:{
+    isNoCall:{
         type:Boolean,
-        default:false,
-        require:true,
+        require:true
     }
 },{ timestamps: true});
 

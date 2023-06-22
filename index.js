@@ -8,7 +8,7 @@ require('./passport-setup')(passport);
 const bodyParser = require('body-parser');
 const path =  require('path');
 require('./controller/cron');
-const {UserRoutes,authRoute,ScrapDataRoutes,GetStocksRoute,StockRoutes,SubscriptionRoutes,PaymentRoute}= require ('./routes/index.routes');
+const {UserRoutes,authRoute,ScrapDataRoutes,GetStocksRoute,StockRoutes,SubscriptionRoutes,PaymentRoute,NoCallRoute}= require ('./routes/index.routes');
 const cors = require('cors');
 const app = express();
 app.use( express.static('public'));
@@ -34,6 +34,7 @@ app.use(GetStocksRoute)
 app.use(SubscriptionRoutes)
 app.use(ScrapDataRoutes)
 app.use(PaymentRoute)
+app.use(NoCallRoute);
 app.use(express.urlencoded({extended:false}));
 
 app.set("view engine", "ejs");
