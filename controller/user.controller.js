@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const Subscription =  require('../model/subscription.model');
 const nodemailer = require('nodemailer');
 const path = require('path');
+var jsonexport = require('jsonexport');
 const csvWriter =  require('csv-writer');
 const writer = csvWriter.createObjectCsvWriter(
     {path:'public/userData.csv',
@@ -12,7 +13,7 @@ const writer = csvWriter.createObjectCsvWriter(
         { id: '_id', title: 'UserId'},
         { id: 'email', title: 'Email'},
         { id: 'name', title: 'Name' },
-        { id: 'SubscriptionId', title: 'SubscriptionId'},
+        { id: 'price', title: 'SubscriptionId'},
         { id: 'isActive', title: 'isActive' },
         { id: 'createdAt', title: 'Date'},
 ]});
@@ -147,7 +148,28 @@ async function FindById(req,res){
             return res.status(400).json({message:"User Doesn't Exists"})
         }
         res.status(200).json({message:`User Fetched Successfully`,user});
-        const data =[user] 
+    }catch(error){
+        console.log(error);
+        res.status(500).json({message:error.message,status:`ERROR`})
+    }
+    
+}
+
+async function exportData(req,res){
+    console.log('here');
+    try{
+        
+        const user =  await User.find({ }).populate('SubscriptionId') 
+        if (!user){
+            return res.status(400).json({message:"User Doesn't Exists"})
+        }
+        let x = user.SubscriptionId;
+        console.log(user[1].SubscriptionId);
+        res.status(200).json({message:`User Fetched Successfully`,user});
+        jsonexport(user,function(err, csv){
+            if(err) return console.log(err);
+            console.log(csv);
+        });
         writer.writeRecords(user)
         .then(() =>{
         console.log("DONE!");
@@ -351,6 +373,7 @@ module.exports = {
     FindById,
     UpdateUser,
     deleteUser,
+    exportData,
     ResetPassword,
     getResetPassword,
     forgotPassword
