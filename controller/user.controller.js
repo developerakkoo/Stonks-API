@@ -10,12 +10,14 @@ const csvWriter =  require('csv-writer');
 const writer = csvWriter.createObjectCsvWriter(
     {path:'public/userData.csv',
     header:[
-        { id: '_id', title: 'UserId'},
+        { id: 'userName', title: 'Name' },
         { id: 'email', title: 'Email'},
-        { id: 'name', title: 'Name' },
-        { id: 'price', title: 'SubscriptionId'},
-        { id: 'isActive', title: 'isActive' },
-        { id: 'createdAt', title: 'Date'},
+        { id: 'SubscriptionName', title: 'Subscribed Plane'},
+        { id: 'price', title: 'Price' },
+        { id: 'duration', title: 'Duration'},
+        { id: 'description', title: 'Description' },
+        { id: 'isActive', title: 'Active' },
+        { id: 'isBlocked', title: 'Blocked' },
 ]});
 
 let msg = nodemailer.createTransport({
@@ -140,7 +142,6 @@ async function FindAll(req,res){
 }
 
 async function FindById(req,res){
-    console.log('here');
     try{
         
         const user =  await User.findOne({ _id:req.params.id}).populate('SubscriptionId') 
@@ -156,21 +157,31 @@ async function FindById(req,res){
 }
 
 async function exportData(req,res){
-    console.log('here');
     try{
         
-        const user =  await User.find({ }).populate('SubscriptionId') 
+        const user =  await User.find({ }).select('-password').select('-photo').populate('SubscriptionId') 
         if (!user){
             return res.status(400).json({message:"User Doesn't Exists"})
         }
-        let x = user.SubscriptionId;
-        console.log(user[1].SubscriptionId);
-        res.status(200).json({message:`User Fetched Successfully`,user});
-        jsonexport(user,function(err, csv){
-            if(err) return console.log(err);
-            console.log(csv);
-        });
-        writer.writeRecords(user)
+        res.status(200).json({message:`Excel Generated Successfully`,statusCode:200, DownloadLink:`${req.protocol +"://"+req.hostname +"/"+`public/userData.csv`}`});
+        const metadata = []
+        for(item of user){
+            if (item.SubscriptionId == undefined) {
+                continue;
+            }
+            metadata.push({
+                userName:item.name,
+                email:item.email,
+                isActive:item.isActive,
+                isBlocked:item.isBlocked,
+                SubscriptionName:item['SubscriptionId'].name,
+                price:item['SubscriptionId'].price,
+                duration:item['SubscriptionId'].duration,
+                description:item['SubscriptionId'].description
+            })
+            
+        }
+        writer.writeRecords(metadata)
         .then(() =>{
         console.log("DONE!");
         }).catch((error) =>{

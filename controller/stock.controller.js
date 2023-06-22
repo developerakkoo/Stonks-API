@@ -1,7 +1,17 @@
 const Stock = require('../model/stocks.model');
 const moment = require('moment');
 const IO = require('../socket');
-
+const csvWriter =  require('csv-writer');
+const writer = csvWriter.createObjectCsvWriter(
+    {path:'public/stokeData.csv',
+    header:[
+        { id: 'call', title: 'Call'},
+        { id: 'put', title: 'put'},
+        { id: 'entryPrice', title: 'entry Price' },
+        { id: 'targetPrice', title: 'target Price' },
+        { id: 'stopLoss', title: 'stop Loss'},
+        { id: 'createdAt', title: 'Date'},
+]});
 async function createStock(req,res){
     const stockObj = {
         call: req.body.call,
@@ -307,6 +317,25 @@ async  function get(req,res){
     res.status(200).json("ok")
 }
 
+
+async function exportExcelCalls(req,res){
+    try{
+        const calls= await Stock.find();
+        if(!calls){
+        return res.status(201).json({message:`Call's Not found `})
+        }
+        res.status(201).json({message:`Excel Generated Successfully`,statusCode:200,DownloadLink:`${req.protocol +"://"+req.hostname +"/"+`public/stokeData.csv`}`})
+        writer.writeRecords(calls)
+        .then(() =>{
+        console.log("DONE!");
+        }).catch((error) =>{
+        console.log(error);
+        });
+    }catch(error){
+        res.status(500).json({message:error.message,status:`ERROR`})
+    }
+}
+
 module.exports = 
 {
     get,
@@ -316,7 +345,8 @@ module.exports =
     updateCall,
     deleteStock,
     FindStockByDate,
-    chartData
+    chartData,
+    exportExcelCalls
 }
 
 

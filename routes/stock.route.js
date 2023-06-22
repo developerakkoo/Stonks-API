@@ -11,7 +11,7 @@ routes.post('/App/api/v1/createData',VerifyCall.ValidateCalls,stockController.cr
 routes.put('/App/api/v1/updateData/:id', stockController.updateCall);
 routes.delete('/App/api/v1/data/:id', stockController.deleteStock);
 
-
+routes.get('/export-To-Excel/CallData',stockController.exportExcelCalls)
 
 routes.get('/add',stockController.get)
 

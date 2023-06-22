@@ -24,7 +24,7 @@ routes.put('/App/api/v1/get/subscription',userController.userSubscribe);
 
 routes.put('/App/api/v1/update/fireBaseToken/:userId',userController.addFireBaseId);
 
-routes.get('/App/api/v1/export-to-excel',userController.exportData);
+routes.get('/App/api/v1/export-to-excel/userData',userController.exportData);
 
 
 routes.get('/App/api/v1/user-forgot-password',(req,res,next)=>{
