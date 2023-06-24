@@ -1,7 +1,6 @@
 const ValidateCalls = (req, res, next) =>{
     const stockObj = {
         call: req.body.call,
-        put: req.body.put,
         targetPrice: req.body.targetPrice,
         stopLoss:req.body.stopLoss,
         entryPrice:req.body.entryPrice,
@@ -12,11 +11,6 @@ const ValidateCalls = (req, res, next) =>{
             message: "Call Value Is  Require"
         })
     }    
-    else if (!stockObj.put ){
-        return res.status(403).json({
-            message: " Put Value Is Require"
-        })
-    }
     else if (!stockObj.targetPrice ){
         return res.status(403).json({
             message: " TargetPrice Value Is Require"

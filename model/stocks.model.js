@@ -6,9 +6,6 @@ const stockSchema = new Schema({
 call:{
     type:String,
 },
-put:{
-    type:String,
-},
 entryPrice:{
     type:String,
 },
@@ -20,7 +17,6 @@ stopLoss:{
     type:Number,
     required: true,
 },
-
 isCall:{
     type: Boolean,
     default:false

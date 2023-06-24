@@ -6,16 +6,15 @@ const writer = csvWriter.createObjectCsvWriter(
     {path:'public/stokeData.csv',
     header:[
         { id: 'call', title: 'Call'},
-        { id: 'put', title: 'put'},
         { id: 'entryPrice', title: 'entry Price' },
         { id: 'targetPrice', title: 'target Price' },
         { id: 'stopLoss', title: 'stop Loss'},
+        { id: 'isCall', title: 'isCall'},
         { id: 'createdAt', title: 'Date'},
 ]});
 async function createStock(req,res){
     const stockObj = {
         call: req.body.call,
-        put: req.body.put,
         targetPrice: req.body.targetPrice,
         stopLoss:req.body.stopLoss,
         isCall: req.body.isCall,
@@ -54,9 +53,6 @@ async function updateCall(req,res){
         call.call = req.body.CALL !=undefined
         ? req.body.CALL
         :call.call
-        call.put = req.body.PUT !=undefined
-        ? req.body.PUT
-        : call.put
         call.targetPrice = req.body.targetPrice !=undefined
         ?req.body.targetPrice
         :call.targetPrice
@@ -350,5 +346,3 @@ module.exports =
 }
 
 
-//export to excel
-//firebase notify if 14 day left
