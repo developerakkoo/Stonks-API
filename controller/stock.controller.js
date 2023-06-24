@@ -33,11 +33,11 @@ async function createStock(req,res){
 
 async function getAllCalls(req,res){
     try{
-        const calls= await Stock.find();
+        const calls= await Stock.find().sort({'createdAt': -1}).limit(10)
         if(!calls){
         return res.status(201).json({message:`Call's Not found `})
         }
-        res.status(201).json({message:`All Call Fetched Successfully `, calls})
+        res.status(201).json({message:`All Call Fetched Successfully `,length:calls.length,calls})
     }catch(error){
         res.status(500).json({message:error.message,status:`ERROR`})
     }
