@@ -5,8 +5,8 @@ const moment = require ('moment');
 // console.log(`crTime: ${crTime}`);
 // console.log(`timeDelay: ${timeDelay}`);
 
-// const time = moment().subtract(10,"min").format('hh.mm')
-// console.log("Time",time)
+const time = moment().add(1,'day').format('DD-MM-YYYY')
+console.log("day",time)
 // console.log(moment().format('DD-MM-YYYY'))
 // const time1 = moment().subtract(20,"day").format('DD-MM-YYYY')
 // const t =moment().add(5, 'days').format('DD-MM-YYYY')  

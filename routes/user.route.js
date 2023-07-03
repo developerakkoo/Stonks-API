@@ -5,7 +5,7 @@ const verifyUser = require('../middleware/verifyUser');
 const uploadImage = require('../middleware/upload');
 routes.post('/App/api/v1/create/user',[verifyUser.ValidateUsers],userController.createUser);
 
-routes.post('/App/api/v1/login/User',userController.loginUser);
+routes.post('/App/api/v1/login/user',userController.loginUser);
 
 routes.put('/App/api/v1/add/userImage/:userId',uploadImage.single("image"),userController.postImage);
 

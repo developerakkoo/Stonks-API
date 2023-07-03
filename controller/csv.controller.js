@@ -1088,7 +1088,7 @@ async function gsRun4(client,GetStock){
     try{
         const gsApi = google.sheets({version:'v4',auth:client});
         const updateOption1= {
-            spreadsheetId:'119gDcIeYaoS7K63btfj1KjbjyKqEFG4iDFhOjD1FvRI', // spreadsheetId
+            spreadsheetId:'1iA8gKAehpYPaI8XMb5PhE6dFs0HTxNohZQHizScRk84', // spreadsheetId
             range: 'Data4!A2',
             valueInputOption:'USER_ENTERED',
             resource: {values:GetStock}
