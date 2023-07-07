@@ -37,4 +37,10 @@ routes.get('/rest-password/:id/:token',userController.getResetPassword);
 
 routes.post('/rest-password/:id/:token',userController.ResetPassword);
 
+//verify email
+
+routes.post('/request/verify-email',userController.reqVerifyEmail);
+
+routes.post('/verify-email/:userId/:token',userController.verifyEmail);
+
 module.exports = {UserRoutes : routes}

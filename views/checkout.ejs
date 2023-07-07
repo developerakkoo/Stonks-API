@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Payment</title>
+	
+</head>
+<body>
+	<div>
+		<button id="order-btn" class="w3-btn w3-round-large w3-deep-purple"></button>
+		<script src="https://js.stripe.com/v3/" async></script>
+		<script>
+			const strip = Stripe('pk_test_51N3XzqSDlNvEqtUKNt9AnAHwBxqQhCGyruzsEuPVRVULA3sN2DKnKyjodqusVBCSvfRqhOm01HxuNeZc09WdrWBI00PJHhtSGA');
+			const orderBtn = document.getElementById('order-btn');
+			orderBtn.addEventListener('click', function(){
+				strip.redirectToCheckout({
+					sessionId
+				})
+			})
+		</script>
+	</div>
+</body>
+</html>

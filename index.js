@@ -1,12 +1,18 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
-const passport = require('passport')
+const passport = require('passport');
+const admin = require('firebase-admin');
 const express= require('express');
 const session = require('express-session');
 const  MongoStore = require('connect-mongo')(session)
 require('./passport-setup')(passport);
 const bodyParser = require('body-parser');
 const path =  require('path');
+const serviceAccount  = require('./stonks-b66d4-be8791d7d5c7.json')
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://stonks-b66d4-default-rtdb.firebaseio.com/"
+})
 require('./controller/cron');
 const {UserRoutes,authRoute,ScrapDataRoutes,GetStocksRoute,StockRoutes,SubscriptionRoutes,PaymentRoute,NoCallRoute}= require ('./routes/index.routes');
 const cors = require('cors');
@@ -50,6 +56,24 @@ app.set("view engine", "ejs");
 
 const MONGODB_URI = process.env.DB_URL
 
+const notification_options = {
+  priority: "high",
+  timeToLive: 60 * 60 * 24
+};
+app.post('/firebase/notification', (req, res)=>{
+  const  registrationToken = req.body.registrationToken
+  const options =  notification_options
+  
+    admin.messaging().sendToDevice(registrationToken, message, options)
+    .then( response => {
+
+    })
+    .catch( error => {
+      res.status(404).json({msg: error})
+        console.log(error);
+    });
+
+})
 
 
 mongoose.connect(process.env.DB_URL)

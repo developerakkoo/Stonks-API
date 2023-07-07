@@ -308,7 +308,7 @@ async function forgotPassword(req,res){
     }
     let token = jwt.sign(payload, process.env.JWT_SECRET_KEY + savedUser.password, { expiresIn: 86400 });// 24 hours
     const Link = `http://localhost:8000/rest-password/${savedUser._id}/${token}`
-    console.log(Link)
+    // console.log(Link)
 
 
     let mailOptions = {
@@ -372,6 +372,71 @@ async function ResetPassword(req,res){
     }
 }
 
+
+async function reqVerifyEmail(req,res){
+    try {
+        const {email}= req.body;
+        const savedUser = await User.findOne({ email: req.body.email });
+        if(!savedUser){
+            res.status(404).json({message:'User Not Registered',statusCode:404});
+            return;
+        }
+        const payload = {
+            userId: savedUser._id,
+            email:savedUser.email 
+        }
+        let token = jwt.sign(payload, process.env.JWT_SECRET_KEY + savedUser.password, { expiresIn: 86400 });// 24 hours
+        const Link = `http://localhost:8000/verify-email/${savedUser._id}/${token}`
+        // console.log(Link)
+    
+    
+        let mailOptions = {
+            from: 'serviceacount.premieleague@gmail.com',
+            to: savedUser.email,
+            subject:'Verify your email',
+            text:`Hi ${savedUser.name}, To activate your Account, please verify your email address. Click Or copy and paste the following URL into your browser:  ${Link}`
+        };
+        msg.sendMail(mailOptions, function(error, info){
+            if (error) {
+            console.log(error);
+            } else {
+            console.log('Email sent: ' + info.response);
+            }
+        });
+        res.status(200).json({message:'Email verify link has been sent to your email..!'})
+    } catch (error) {
+        res.status(500).json({message:error.message,statusCode:500,status:'ERROR'});
+    }
+}
+
+
+async function verifyEmail(req,res){
+    try {
+        let {userId,token} = req.params
+        const savedUser = await User.findOne({ _id: userId });
+        if(!savedUser){
+            res.status(404).json({message:'User Not Registered',statusCode:404});
+            return;
+        }
+        jwt.verify(token,process.env.JWT_SECRET_KEY + savedUser.password);
+        
+        savedUser.isEmailVerified = true  != undefined
+        ? true
+        : savedUser.isEmailVerified ;
+        const updatedUser= await savedUser.save();
+        const postRes = {
+            Id:updatedUser._id,
+            email:updatedUser.email,
+            isEmailVerified:updatedUser.isEmailVerified
+        }
+        res.status(200).json({message:"Email Verified Successfully ",postRes});
+    } catch (error) {
+        res.status(500).json({message:error.message,statusCode:500,status:'ERROR'});
+    }
+}
+
+
+
 module.exports = {
     createUser,
     loginUser,
@@ -387,5 +452,7 @@ module.exports = {
     exportData,
     ResetPassword,
     getResetPassword,
-    forgotPassword
+    forgotPassword,
+    reqVerifyEmail,
+    verifyEmail
 }

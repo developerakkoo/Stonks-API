@@ -12,6 +12,11 @@ email:{
     unique: true,
     isEmail: true,
 }, 
+isEmailVerified: {
+    type: Boolean,
+    required: true,
+    default: false
+},
 name:{
     type:String,
     required: true,
