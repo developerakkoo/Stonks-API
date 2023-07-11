@@ -451,7 +451,7 @@ async function verifyEmail(req,res){
             isActive:updatedUser.isActive,
             isEmailVerified:updatedUser.isEmailVerified
         }
-        res.status(200).json({message:"Email Verified Successfully ",postRes});
+        res.render('emailSuccess');
     } catch (error) {
         res.status(500).json({message:error.message,statusCode:500,status:'ERROR'});
     }
