@@ -126,33 +126,8 @@ async function postImage(req,res){
     }
 }
 
-// async function createUser(req,res){
-//     const userObj = {
-
-//         email:req.body.email,
-//         name: req.body.name,
-//         photo: req.body.photo
-//     }
-//     try {
-//         const userCreated = await User.create(userObj)
-//         const postResponse = {
-//             email: userCreated.email,
-//             name: userCreated.name,
-            
-//         }
-//         res.status(201).json({message:`User Created Successfully`,userCreated});
-//     }
-//     catch (err) {
-//         if(err.code == 11000){
-//             return res.status(400).json({message: `User With This Email  Is Already Exist Please Try With Different  Email Address ` })
-//         }
-//         console.log("Something went wrong while saving to DB", err.message);
-//         res.status(500).send({message:err.message,status:`ERROR`});
-//     }
-// }
-
 async function FindAll(req,res){
-    console.log('1234');
+    // console.log('1234');
     try{
         const user = await User.find()
         if(!user){
@@ -333,7 +308,7 @@ async function forgotPassword(req,res){
         email:savedUser.email 
     }
     let token = jwt.sign(payload, process.env.JWT_SECRET_KEY + savedUser.password, { expiresIn: 86400 });// 24 hours
-    const Link = `http://localhost:8000/rest-password/${savedUser._id}/${token}`
+    const Link = req.protocol+"://"+req.hostname+"/rest-password/"+savedUser._id+"/"+token
     // console.log(Link)
 
 
