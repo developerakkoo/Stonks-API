@@ -45,8 +45,31 @@ async function createUser (req,res){
         ID:createdUser._id,
         name : createdUser.name,
         email: createdUser.email,
-        Image: createdUser.photo
+        Image: createdUser.photo,
+        message:'Email verify link has been sent to your email..!'
     }
+    const payload = {
+        userId: createdUser._id,
+        email:createdUser.email 
+    }
+    let token = jwt.sign(payload, process.env.JWT_SECRET_KEY + createdUser.password, { expiresIn: 86400 });// 24 hours
+    const Link = `http://localhost:8000/verify-email/${createdUser._id}/${token}`
+    // console.log(Link)
+
+
+    let mailOptions = {
+        from: 'serviceacount.premieleague@gmail.com',
+        to: createdUser.email,
+        subject:'Verify your email',
+        text:`Hi ${createdUser.name}, To activate your Account, please verify your email address. Click Or copy and paste the following URL into your browser:  ${Link}`
+    };
+    msg.sendMail(mailOptions, function(error, info){
+        if (error) {
+        console.log(error);
+        } else {
+        console.log('Email sent: ' + info.response);
+        }
+    });
         res.status(201).json({message:`User created Successfully`,User:postRes})
         }catch(error){
             res.status(500).json({status:'ERROR',message:error.message});
@@ -62,7 +85,7 @@ async function loginUser(req,res) {
         return res.status(404).json({message:`User not found with this email ${req.body.email}`})
     }
     if(!savedUser.isEmailVerified === true ){
-        return res.status(400).json({message:`Please Verify Email First ${req.body.email} Then Continue To Login`})
+        return res.status(400).json({message:`Please Verify Email First ${req.body.email} With Verification Link, Check Your Inbox For Verification Link Then Continue To Login`})
     }
     if(!(await bcrypt.compare(password, savedUser.password))){
         return res.status(401).json({message:`Incorrect Password`});
@@ -376,41 +399,41 @@ async function ResetPassword(req,res){
 }
 
 
-async function reqVerifyEmail(req,res){
-    try {
-        const {email}= req.body;
-        const savedUser = await User.findOne({ email: req.body.email });
-        if(!savedUser){
-            res.status(404).json({message:'User Not Registered',statusCode:404});
-            return;
-        }
-        const payload = {
-            userId: savedUser._id,
-            email:savedUser.email 
-        }
-        let token = jwt.sign(payload, process.env.JWT_SECRET_KEY + savedUser.password, { expiresIn: 86400 });// 24 hours
-        const Link = `http://localhost:8000/verify-email/${savedUser._id}/${token}`
-        // console.log(Link)
+// async function reqVerifyEmail(req,res){
+//     try {
+//         const {email}= req.body;
+//         const savedUser = await User.findOne({ email: req.body.email });
+//         if(!savedUser){
+//             res.status(404).json({message:'User Not Registered',statusCode:404});
+//             return;
+//         }
+//         const payload = {
+//             userId: savedUser._id,
+//             email:savedUser.email 
+//         }
+//         let token = jwt.sign(payload, process.env.JWT_SECRET_KEY + savedUser.password, { expiresIn: 86400 });// 24 hours
+//         const Link = `http://localhost:8000/verify-email/${savedUser._id}/${token}`
+//         // console.log(Link)
     
     
-        let mailOptions = {
-            from: 'serviceacount.premieleague@gmail.com',
-            to: savedUser.email,
-            subject:'Verify your email',
-            text:`Hi ${savedUser.name}, To activate your Account, please verify your email address. Click Or copy and paste the following URL into your browser:  ${Link}`
-        };
-        msg.sendMail(mailOptions, function(error, info){
-            if (error) {
-            console.log(error);
-            } else {
-            console.log('Email sent: ' + info.response);
-            }
-        });
-        res.status(200).json({message:'Email verify link has been sent to your email..!'})
-    } catch (error) {
-        res.status(500).json({message:error.message,statusCode:500,status:'ERROR'});
-    }
-}
+//         let mailOptions = {
+//             from: 'serviceacount.premieleague@gmail.com',
+//             to: savedUser.email,
+//             subject:'Verify your email',
+//             text:`Hi ${savedUser.name}, To activate your Account, please verify your email address. Click Or copy and paste the following URL into your browser:  ${Link}`
+//         };
+//         msg.sendMail(mailOptions, function(error, info){
+//             if (error) {
+//             console.log(error);
+//             } else {
+//             console.log('Email sent: ' + info.response);
+//             }
+//         });
+//         res.status(200).json({message:'Email verify link has been sent to your email..!'})
+//     } catch (error) {
+//         res.status(500).json({message:error.message,statusCode:500,status:'ERROR'});
+//     }
+// }
 
 async function getVerifyEmail(req,res){
     try{
@@ -477,7 +500,6 @@ module.exports = {
     ResetPassword,
     getResetPassword,
     forgotPassword,
-    reqVerifyEmail,
     verifyEmail,
     getVerifyEmail
 }
