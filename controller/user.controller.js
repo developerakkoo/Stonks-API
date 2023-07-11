@@ -61,6 +61,9 @@ async function loginUser(req,res) {
     if(!savedUser){
         return res.status(404).json({message:`User not found with this email ${req.body.email}`})
     }
+    if(!savedUser.isEmailVerified === true ){
+        return res.status(400).json({message:`Please Verify Email First ${req.body.email} Then Continue To Login`})
+    }
     if(!(await bcrypt.compare(password, savedUser.password))){
         return res.status(401).json({message:`Incorrect Password`});
     }
@@ -409,6 +412,23 @@ async function reqVerifyEmail(req,res){
     }
 }
 
+async function getVerifyEmail(req,res){
+    try{
+    let {userId,token} = req.params
+    const savedUser = await User.findOne({ _id: userId });
+    if(!savedUser){
+        res.status(404).json({message:'User Not Registered',statusCode:404});
+        return;
+    }
+    jwt.verify(token,process.env.JWT_SECRET_KEY + savedUser.password);
+    
+        res.render('verifyEmail', {email:savedUser.email});
+
+    }catch(error){
+        console.log(error);
+        res.send(error.message);
+    }
+}
 
 async function verifyEmail(req,res){
     try {
@@ -423,10 +443,14 @@ async function verifyEmail(req,res){
         savedUser.isEmailVerified = true  != undefined
         ? true
         : savedUser.isEmailVerified ;
+        savedUser.isActive = true  != undefined
+        ? true
+        : savedUser.isActive ;
         const updatedUser= await savedUser.save();
         const postRes = {
             Id:updatedUser._id,
             email:updatedUser.email,
+            isActive:updatedUser.isActive,
             isEmailVerified:updatedUser.isEmailVerified
         }
         res.status(200).json({message:"Email Verified Successfully ",postRes});
@@ -454,5 +478,6 @@ module.exports = {
     getResetPassword,
     forgotPassword,
     reqVerifyEmail,
-    verifyEmail
+    verifyEmail,
+    getVerifyEmail
 }
