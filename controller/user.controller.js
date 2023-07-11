@@ -145,7 +145,7 @@ async function FindAll(req,res){
 async function FindById(req,res){
     try{
         
-        const user =  await User.findOne({ _id:req.params.id}).populate('SubscriptionId') 
+        const user =  await User.findOne({ _id:req.params.id}).select('-password').populate('SubscriptionId') 
         if (!user){
             return res.status(400).json({message:"User Doesn't Exists"})
         }
@@ -267,6 +267,7 @@ try {
         :savedUser.SubscriptionId
 
         const updatedUser = await savedUser.save()
+
         res.status(201).json({message:"Subscription Added Successfully",updatedUser})
 } catch (error) {
     res.status(500).json({message:error.message,status:`ERROR`});
@@ -325,7 +326,7 @@ async function forgotPassword(req,res){
         console.log('Email sent: ' + info.response);
         }
     });
-    res.send('Password reset link has been sent to your email..!')
+    res.render('message')
     
 }
 
