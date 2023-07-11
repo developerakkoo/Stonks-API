@@ -365,7 +365,7 @@ async function ResetPassword(req,res){
             email:updatedUser.email,
             photo:updatedUser.photo
         }
-        res.status(200).json({message:"Password Updated Successfully ",postRes});
+        res.render('success');
 
     }catch(error){
         console.log(error.message);
