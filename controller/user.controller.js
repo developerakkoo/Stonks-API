@@ -53,7 +53,7 @@ async function createUser (req,res){
         email:createdUser.email 
     }
     let token = jwt.sign(payload, process.env.JWT_SECRET_KEY + createdUser.password, { expiresIn: 86400 });// 24 hours
-    const Link = `http://localhost:8000/verify-email/${createdUser._id}/${token}`
+    const Link = `${req.protocol} +"://"+${req.hostname}/verify-email/${createdUser._id}/${token}`
     // console.log(Link)
 
 
