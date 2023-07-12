@@ -945,7 +945,7 @@ async function scrapData(req,res){
     } 
 
 try {
-    const insertedData = await Data.insertMany([
+await Data.insertMany([
         DataObj1,DataObj2,DataObj3,DataObj4,DataObj5,DataObj6,DataObj7,DataObj8,DataObj9,DataObj10,
         data11,DataObj12,DataObj13,DataObj14,DataObj15,DataObj16,DataObj17,DataObj18,DataObj19,DataObj20,
         DataObj21,DataObj22,DataObj23,DataObj24,DataObj25,DataObj26,DataObj27,DataObj28,DataObj29,DataObj30,
@@ -967,7 +967,7 @@ async function getAdminSpecificData(req,res){
             Time:req.headers.time
         })
         if(!data[0]){
-            return res.status(404).send({message:`Stock data is not found for given Time stamp please wait we are collecting data`})
+            return res.status(404).send({message:`Stock data is not found for "Sheet2" with given Time stamp please wait we are collecting data`})
         }
         covert(data);
         res.status(200).json({message:`Sheet updated successfully with Date: ${req.headers.date} & Time: ${req.headers.time}`})
@@ -983,7 +983,7 @@ async function getScrapData(req,res){
             Time:req.headers.time
         })
         if(!stocksData[0]){
-            return res.status(404).send({message:`Stock data is not found for given Time please wait we are collecting data`})
+            return res.status(404).send({message:`Stock data is not found for "Sheet3" with given Time please wait we are collecting data`})
         }
         res.status(200).json(stocksData)
     }catch(error){
