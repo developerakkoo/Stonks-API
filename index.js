@@ -61,12 +61,14 @@ const notification_options = {
   timeToLive: 60 * 60 * 24
 };
 app.post('/firebase/notification', (req, res)=>{
+  const message = req.body.message
+  console.log(message);
   const  registrationToken = req.body.registrationToken
   const options =  notification_options
   
-    admin.messaging().sendToDevice(registrationToken, message, options)
+    admin.messaging().sendToDevice(registrationToken,message, options)
     .then( response => {
-
+      res.status(200).json({msg: "Notification sent successfully"})
     })
     .catch( error => {
       res.status(404).json({msg: error})
