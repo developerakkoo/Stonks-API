@@ -64,7 +64,7 @@ exports.getImageById = async(req,res)=>{
 
 exports.get = async(req,res)=>{
     try {
-        const savedImage = req
+        const savedImage = req.body
 
         res.status(200).json({message:'fetched Successfully',savedImage});
     } catch (error) {
