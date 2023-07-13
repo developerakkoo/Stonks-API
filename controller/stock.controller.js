@@ -31,6 +31,8 @@ async function createStock(req,res){
     }
 }
 
+//
+
 async function getAllCalls(req,res){
     try{
         const calls= await Stock.find().sort({'createdAt': -1}).limit(10)

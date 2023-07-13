@@ -14,7 +14,7 @@ admin.initializeApp({
   databaseURL: "https://stonks-b66d4-default-rtdb.firebaseio.com/"
 })
 require('./controller/cron');
-const {UserRoutes,authRoute,ScrapDataRoutes,GetStocksRoute,StockRoutes,SubscriptionRoutes,PaymentRoute,NoCallRoute}= require ('./routes/index.routes');
+const {UserRoutes,authRoute,ScrapDataRoutes,GetStocksRoute,StockRoutes,ImageRoutes,SubscriptionRoutes,PaymentRoute,NoCallRoute}= require ('./routes/index.routes');
 const cors = require('cors');
 const app = express();
 
@@ -49,6 +49,7 @@ app.use(GetStocksRoute)
 app.use(SubscriptionRoutes)
 app.use(ScrapDataRoutes)
 app.use(PaymentRoute)
+app.use(ImageRoutes);
 app.use(NoCallRoute);
 app.use(express.urlencoded({extended:false}));
 

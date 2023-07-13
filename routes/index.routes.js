@@ -6,6 +6,7 @@ const {PaymentRoute } = require('../routes/payment.route')
 const {GetStocksRoute} = require('../routes/getStocks.route')
 const {authRoute} = require('./auth.rote');
 const {NoCallRoute} = require('./noCall.route'); 
+const {ImageRoutes} = require('./image.route');
 
 module.exports = {
     UserRoutes,
@@ -15,5 +16,6 @@ module.exports = {
     GetStocksRoute,
     PaymentRoute,
     authRoute,
-    NoCallRoute
+    NoCallRoute,
+    ImageRoutes
 }
