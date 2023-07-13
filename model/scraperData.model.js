@@ -38,19 +38,11 @@ const dataSchema = mongoose.Schema({
         type:String,
         required: true
     },
-    VALUE:{
-        type:String,
-        required: true
-    },
     fiftyTwo_WH:{
         type:String,
         required: true
     },
     fiftyTwo_WL:{
-        type:String,
-        required: true
-    },
-    TODAY:{
         type:String,
         required: true
     },
