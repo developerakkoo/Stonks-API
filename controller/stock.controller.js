@@ -47,7 +47,7 @@ async function createStock(req,res){
         const message= {
             notification: {
                 title: 'Nifty Level Tracker',
-                body: 'Todays Call',
+                body: 'Calls Provided Based On The Recent Movement Of Nifty Level',
                 sound: 'default',
                 image:'https://api.niftyleveltracker.in/public/1689314621436.jpeg'
                 },
