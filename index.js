@@ -137,6 +137,7 @@ mongoose.connect(MONGODB_URI, {
       });
 
       io.on("get:Nifty50", (socket) => {
+        console.log('nifty50 data socket');
         getNifty50()
         socket.on("disconnect", () => {
           console.log("User Disconnected");
