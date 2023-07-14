@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const Subscription =  require('../model/subscription.model');
 const nodemailer = require('nodemailer');
 const path = require('path');
-var jsonexport = require('jsonexport');
+const moment = require('moment');
 const csvWriter =  require('csv-writer');
 const writer = csvWriter.createObjectCsvWriter(
     {path:'public/userData.csv',
@@ -375,42 +375,6 @@ async function ResetPassword(req,res){
 }
 
 
-// async function reqVerifyEmail(req,res){
-//     try {
-//         const {email}= req.body;
-//         const savedUser = await User.findOne({ email: req.body.email });
-//         if(!savedUser){
-//             res.status(404).json({message:'User Not Registered',statusCode:404});
-//             return;
-//         }
-//         const payload = {
-//             userId: savedUser._id,
-//             email:savedUser.email 
-//         }
-//         let token = jwt.sign(payload, process.env.JWT_SECRET_KEY + savedUser.password, { expiresIn: 86400 });// 24 hours
-//         const Link = `http://localhost:8000/verify-email/${savedUser._id}/${token}`
-//         // console.log(Link)
-    
-    
-//         let mailOptions = {
-//             from: 'serviceacount.premieleague@gmail.com',
-//             to: savedUser.email,
-//             subject:'Verify your email',
-//             text:`Hi ${savedUser.name}, To activate your Account, please verify your email address. Click Or copy and paste the following URL into your browser:  ${Link}`
-//         };
-//         msg.sendMail(mailOptions, function(error, info){
-//             if (error) {
-//             console.log(error);
-//             } else {
-//             console.log('Email sent: ' + info.response);
-//             }
-//         });
-//         res.status(200).json({message:'Email verify link has been sent to your email..!'})
-//     } catch (error) {
-//         res.status(500).json({message:error.message,statusCode:500,status:'ERROR'});
-//     }
-// }
-
 async function getVerifyEmail(req,res){
     try{
     let {userId,token} = req.params
@@ -445,6 +409,12 @@ async function verifyEmail(req,res){
         savedUser.isActive = true  != undefined
         ? true
         : savedUser.isActive ;
+        savedUser.SubscriptionId = '64b0e9def9f113fb70699106'  != undefined
+        ? '64b0e9def9f113fb70699106'
+        : savedUser.SubscriptionId ;
+        savedUser.SubscriptionEndDate = moment().add(2,'month').format('DD-MM-YYYY')  != undefined
+        ? moment().add(2,'month').format('DD-MM-YYYY')
+        : savedUser.SubscriptionEndDate ;
         const updatedUser= await savedUser.save();
         const postRes = {
             Id:updatedUser._id,
@@ -452,7 +422,7 @@ async function verifyEmail(req,res){
             isActive:updatedUser.isActive,
             isEmailVerified:updatedUser.isEmailVerified
         }
-        res.render('emailSuccess');
+        res.render('emailSuccess'); 
     } catch (error) {
         res.status(500).json({message:error.message,statusCode:500,status:'ERROR'});
     }

@@ -17,6 +17,7 @@ require('./controller/cron');
 const {UserRoutes,authRoute,ScrapDataRoutes,GetStocksRoute,StockRoutes,ImageRoutes,SubscriptionRoutes,PaymentRoute,NoCallRoute}= require ('./routes/index.routes');
 const cors = require('cors');
 const app = express();
+const {getNifty50}=require('./controller/getStocks.controller');
 
 app.use(function (req, res, next) {
   res.setHeader('Access-Control-Allow-Origin',"http://localhost:8080", '*');
@@ -62,7 +63,15 @@ const notification_options = {
   timeToLive: 60 * 60 * 24
 };
 app.post('/firebase/notification', (req, res)=>{
-  const message = req.body.message
+  const message = {
+    notification: {
+        title: 'Nifty Level Tracker',
+        body: req.body.message,
+        sound: 'default',
+        image:'https://api.niftyleveltracker.in/public/1689314621436.jpeg'
+        },
+        data: { key1: 'value1', key2: 'value2' }
+    }
   console.log(message);
   const  registrationToken = req.body.registrationToken
   const options =  notification_options
@@ -122,6 +131,13 @@ mongoose.connect(MONGODB_URI, {
       io.on("connection", (socket) => {
         console.log("Connected a User");
   
+        socket.on("disconnect", () => {
+          console.log("User Disconnected");
+        });
+      });
+
+      io.on("get:Nifty50", (socket) => {
+        getNifty50()
         socket.on("disconnect", () => {
           console.log("User Disconnected");
         });

@@ -1,5 +1,8 @@
 const Stock = require('../model/stocks.model');
+const User = require('../model/users.model');
 const moment = require('moment');
+const admin = require('firebase-admin');
+const serviceAccount  = require('../stonks-b66d4-be8791d7d5c7.json');
 const IO = require('../socket');
 const csvWriter =  require('csv-writer');
 const writer = csvWriter.createObjectCsvWriter(
@@ -12,7 +15,13 @@ const writer = csvWriter.createObjectCsvWriter(
         { id: 'isCall', title: 'isCall'},
         { id: 'createdAt', title: 'Date'},
 ]});
+
+const notification_options = {
+    priority: "high",
+    timeToLive: 60 * 60 * 24,
+    };
 async function createStock(req,res){
+    const tokens = []
     const stockObj = {
         call: req.body.call,
         targetPrice: req.body.targetPrice,
@@ -21,9 +30,42 @@ async function createStock(req,res){
         entryPrice:req.body.entryPrice
     }
     try {
-        const stockCreated = await Stock.create(stockObj)
+        const stockCreated = await Stock.create(stockObj);
+        const savedUser = await User.find({
+            isBlocked:false,
 
-        res.status(201).json({message:`Call Created successfully `,stockCreated})
+        });
+
+        for(user of savedUser){
+            if (user.firebaseToken == undefined) {
+                continue;
+            }
+            tokens.push(user.firebaseToken)
+            
+        }
+        
+        const message= {
+            notification: {
+                title: 'Nifty Level Tracker',
+                body: 'Todays Call',
+                sound: 'default',
+                image:'https://api.niftyleveltracker.in/public/1689314621436.jpeg'
+                },
+                data: { key1: 'value1', key2: 'value2' }
+            }
+        
+        const  registrationToken = tokens
+        const options =  notification_options
+        admin.messaging().sendToDevice(registrationToken,message, options)
+        .then( response => {
+        console.log({msg: "Notification sent successfully"});
+        })
+        .catch( error => {
+            console.log({msg: error});
+        });
+
+        res.status(201).json({message:`Call Created successfully `,stockCreated});
+        
     }
     catch (err) {
         console.log("Something went wrong while saving to DB", err.message);

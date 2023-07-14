@@ -80,7 +80,7 @@ metaData.push({SYMBOL:Data['quoteResponse']['result'][49]['shortName'],LTP: Data
     }
   }
     
-async function getNifty50(req,res){
+async function getNifty50(){
   const options = {
     method: 'GET',url: 'https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/v2/get-quotes',
     params: {
@@ -94,19 +94,14 @@ async function getNifty50(req,res){
       const response = await axios.request(options);
       const Data = response.data
       const nifty50Data =[]
-
       nifty50Data.push({SYMBOL:Data['quoteResponse']['result'][0]['shortName'],LTP: Data['quoteResponse']['result'][0]['regularMarketPrice'],CHNG: parseFloat(Data['quoteResponse']['result'][0]['regularMarketChange'].toFixed(2)),PcCHNG: parseFloat(Data['quoteResponse']['result'][0]['regularMarketChangePercent'].toFixed(2)),sign: Math.sign(Data['quoteResponse']['result'][0]['regularMarketChange'].toString().split('.')[0])});
-
       IO.getIO().emit('get:Nifty50',nifty50Data);
-      res.status(200).json(nifty50Data)
+      
         }
-    
-  /*******************************************************************************************************************************/
-          catch (error) {
-              console.error(error);
-              res.status(500).json({message:error.message,status:`ERROR`})
-        }
-      }
+      catch (error) {
+          console.error(error)
+    }
+  }
 module.exports={
     getStock,
     getNifty50

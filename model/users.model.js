@@ -38,6 +38,10 @@ SubscriptionId:{
     type:mongoose.Types.ObjectId,
     ref:"subscription"
 },
+SubscriptionEndDate: {
+    type: String,
+    default:''
+},
 isActive: {
     type: Boolean,
     required: true,
