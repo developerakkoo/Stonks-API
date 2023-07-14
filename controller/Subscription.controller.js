@@ -1,4 +1,5 @@
 const Subscription =  require('../model/subscription.model');
+const User = require('../model/users.model');
 const moment = require('moment');
 
 
@@ -77,7 +78,7 @@ async function FindSubscriptionById(req,res){
     try{
         const SubscriptionById = await Subscription.findOne({_id:req.params.id});
         if(!SubscriptionById){
-            return res.status(400).json({message:"Call Does't Exists"})
+            return res.status(400).json({message:"Subscription Does't Exists"})
         }
         res.status(200).json({message:`Subscription Fetched Successfully`,SubscriptionById})
     }catch(error){
@@ -144,6 +145,37 @@ async function getYearlyInr(req,res){
                 res.status(500).json({message:error.message,status:`ERROR`})
             }
         }
+
+        async function userSubscribe(req,res,){
+
+        try {
+            const {planId}=req.body
+            const savedSubscription = await Subscription.findOne({_id:planId});
+            // console.log(savedSubscription);
+            if(!savedSubscription){
+            return res.status(404).json({message:`Plan Not Found With Id:${req.body.planId}`});
+            }
+            
+            const savedUser = await User.findOne({_id:req.body.userId});
+            if(!savedUser){
+                return res.status(404).json({message:`User Not Found With Id:${req.body.userId}`});
+                }
+        
+                savedUser.SubscriptionEndDate = moment().add(savedSubscription.duration,'day').format('DD-MM-YYYY')  != undefined
+                ? moment().add(savedSubscription.duration,'day').format('DD-MM-YYYY')
+                : savedUser.SubscriptionEndDate ;
+        
+                savedUser.SubscriptionId = savedSubscription._id  != undefined
+                ? savedSubscription._id 
+                :savedUser.SubscriptionId
+        
+                const updatedUser = await savedUser.save()
+        
+                res.status(201).json({message:"Subscription Added Successfully",updatedUser})
+        } catch (error) {
+            res.status(500).json({message:error.message,status:`ERROR`});
+        }
+        }
 module.exports = 
 {
     createSubscription,
@@ -152,5 +184,6 @@ module.exports =
     getYearlyInr,
     FindSubscriptionById,
     updatePlans,
-    deletePlans
+    deletePlans,
+    userSubscribe
 }

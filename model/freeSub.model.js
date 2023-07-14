@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const moment = require('moment');
 const Schema = mongoose.Schema;
-const subscriptionSchema = new Schema({
+const freeSubscriptionSchema = new Schema({
 name:{
     type:String,
     required: true
@@ -16,7 +16,6 @@ duration:{
 },
 description:{
     type:String,
-    
     required: true
 },
 createdAt: {
@@ -30,4 +29,4 @@ updatedAt: {
 }
 });
 
-module.exports = mongoose.model("subscription",subscriptionSchema);
+module.exports = mongoose.model("freeSubscription",freeSubscriptionSchema);

@@ -20,7 +20,7 @@ routes.put('/App/api/v1/update/user/:id',userController.UpdateUser);
 
 routes.delete('/App/api/v1/delete/user/:id', userController.deleteUser);
 
-routes.put('/App/api/v1/get/subscription',userController.userSubscribe);
+
 
 routes.put('/App/api/v1/update/fireBaseToken/:userId',userController.addFireBaseId);
 

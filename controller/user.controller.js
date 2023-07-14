@@ -1,4 +1,5 @@
 const User = require('../model/users.model');
+const freeSub =require('../model/freeSub.model');
 require('../passport-setup');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -252,27 +253,7 @@ async function TotalActiveUser(req,res){
 }
 
 
-async function userSubscribe(req,res,){
-try {
-    const savedSubscription = Subscription.findOne({_id:req.body.planId});
-    if(!savedSubscription){
-    return res.status(404).json({message:`Plan Not Found With Id:${req.body.planId}`});
-    }
-    const savedUser = await User.findOne({_id:req.body.userId});
-    if(!savedUser){
-        return res.status(404).json({message:`User Not Found With Id:${req.body.userId}`});
-        }
-        savedUser.SubscriptionId = req.body.planId  != undefined
-        ? req.body.planId
-        :savedUser.SubscriptionId
 
-        const updatedUser = await savedUser.save()
-
-        res.status(201).json({message:"Subscription Added Successfully",updatedUser})
-} catch (error) {
-    res.status(500).json({message:error.message,status:`ERROR`});
-}
-}
 
 async function addFireBaseId(req,res){
     console.log('here');
@@ -402,19 +383,23 @@ async function verifyEmail(req,res){
             return;
         }
         jwt.verify(token,process.env.JWT_SECRET_KEY + savedUser.password);
-        
+        const freePlan = await freeSub.findOne({_id:'64b0fddf4a2d5d99a337021c'});
         savedUser.isEmailVerified = true  != undefined
         ? true
         : savedUser.isEmailVerified ;
+
         savedUser.isActive = true  != undefined
         ? true
         : savedUser.isActive ;
-        savedUser.SubscriptionId = '64b0e9def9f113fb70699106'  != undefined
-        ? '64b0e9def9f113fb70699106'
+
+        savedUser.SubscriptionId = freePlan._id  != undefined
+        ? freePlan._id
         : savedUser.SubscriptionId ;
-        savedUser.SubscriptionEndDate = moment().add(2,'month').format('DD-MM-YYYY')  != undefined
-        ? moment().add(2,'month').format('DD-MM-YYYY')
+
+        savedUser.SubscriptionEndDate = moment().add(freePlan.duration,'day').format('DD-MM-YYYY')  != undefined
+        ? moment().add(freePlan.duration,'day').format('DD-MM-YYYY')
         : savedUser.SubscriptionEndDate ;
+
         const updatedUser= await savedUser.save();
         const postRes = {
             Id:updatedUser._id,
@@ -435,7 +420,6 @@ module.exports = {
     loginUser,
     addFireBaseId,
     postImage,
-    userSubscribe,
     FindAll,
     UserCount,
     TotalActiveUser,

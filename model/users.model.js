@@ -36,7 +36,8 @@ photo:{
 },
 SubscriptionId:{
     type:mongoose.Types.ObjectId,
-    ref:"subscription"
+    ref:"subscription",
+    ref:"freeSubscription"
 },
 SubscriptionEndDate: {
     type: String,
