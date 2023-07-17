@@ -23,6 +23,7 @@ client.authorize(function(err,tokens){
 
 
 async function scrapData(req,res){
+    const nifty50Data=req.body.nifty50Data
     const data1=req.body.data1
     const data2 = req.body.data2
     const data3 = req.body.data3
@@ -74,6 +75,23 @@ async function scrapData(req,res){
     const data49 = req.body.data49
     const data50 = req.body.data50
     const data51 = req.body.data51
+
+    const nifty50DataObj={
+        SYMBOL:nifty50Data[0].SYMBOL,
+        OPEN:nifty50Data[0].OPEN,
+        HIGH:nifty50Data[0].HIGH,
+        LOW:nifty50Data[0].LOW,
+        PREVCLOSE:nifty50Data[0].PREVCLOSE,
+        LTP:nifty50Data[0].LTP,
+        CHNG:nifty50Data[0].CHNG,
+        CHANGPercentage:nifty50Data[0].CHANGPercentage,
+        VOLUME:nifty50Data[0].VOLUME,
+        fiftyTwo_WH:nifty50Data[0].fiftyTwo_WH,
+        fiftyTwo_WL:nifty50Data[0].fiftyTwo_WL,
+        Date:nifty50Data[0].Date,
+        Time:nifty50Data[0].Time,
+        Date_Time:nifty50Data[0].Date_Time
+    }
 
     const DataObj1={
         SYMBOL:data1.SYMBOL,
@@ -831,7 +849,9 @@ async function scrapData(req,res){
 
 
 try {
+    // console.log(nifty50DataObj);
 const savedData =await Data.insertMany([
+        nifty50DataObj,
         DataObj1,DataObj2,DataObj3,DataObj4,DataObj5,DataObj6,DataObj7,DataObj8,DataObj9,DataObj10,
         data11,DataObj12,DataObj13,DataObj14,DataObj15,DataObj16,DataObj17,DataObj18,DataObj19,DataObj20,
         DataObj21,DataObj22,DataObj23,DataObj24,DataObj25,DataObj26,DataObj27,DataObj28,DataObj29,DataObj30,

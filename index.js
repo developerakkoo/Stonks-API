@@ -133,32 +133,7 @@ mongoose.connect(MONGODB_URI, {
         console.log("Connected a User");
         socket.on("get:temp", (socket) => {
           console.log('nifty50 data socket');
-          io.emit('data',{msg: "hi"})
-          // const options = {
-          //   method: 'GET',url: 'https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/v2/get-quotes',
-          //   params: {
-          //     region: 'IN',
-          //     symbols: '^NSEI'
-          //   },headers: {
-          //     'X-RapidAPI-Key': 'c6e48adc6dmsh05900b13b361ae0p17f651jsn7a03c8e8b550',
-          //     'X-RapidAPI-Host': 'apidojo-yahoo-finance-v1.p.rapidapi.com'
-          //   }
-          //   };try {
-          //     const response = await axios.request(options);
-          //     const Data = response.data
-          //     const nifty50Data =[]
-          //     nifty50Data.push({SYMBOL:Data['quoteResponse']['result'][0]['shortName'],LTP: Data['quoteResponse']['result'][0]['regularMarketPrice'],CHNG: parseFloat(Data['quoteResponse']['result'][0]['regularMarketChange'].toFixed(2)),PcCHNG: parseFloat(Data['quoteResponse']['result'][0]['regularMarketChangePercent'].toFixed(2)),sign: Math.sign(Data['quoteResponse']['result'][0]['regularMarketChange'].toString().split('.')[0])});
-          //     io.emit('get:temp',nifty50Data);
-              
-          //       }
-          //     catch (error) {
-          //         console.error(error)
-          //     io.emit('error:Nifty50',error.message);
-                  
-          //   }
-          // socket.on("disconnect", () => {
-          //   console.log(">> Disconnected");
-          // });
+          io.emit('data',{msg: "hi"});
         });
   
         socket.on("disconnect", () => {
