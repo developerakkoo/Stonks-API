@@ -1,7 +1,9 @@
 const axios = require('axios');
 const IO = require('../socket');
+const moment = require('moment');
 
 async function getStock(req,res){
+
     const options = {
         method: 'GET',url: 'https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/v2/get-quotes',
         params: {

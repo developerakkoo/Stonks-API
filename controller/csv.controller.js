@@ -846,6 +846,22 @@ async function scrapData(req,res){
         Date:data50.Date,
         Time:data50.Time
     }
+    const DataObj51={
+        SYMBOL:nifty50Data[1].SYMBOL,
+        OPEN:nifty50Data[1].OPEN,
+        HIGH:nifty50Data[1].HIGH,
+        LOW:nifty50Data[1].LOW,
+        PREVCLOSE:nifty50Data[1].PREVCLOSE,
+        LTP:nifty50Data[1].LTP,
+        CHNG:nifty50Data[1].CHNG,
+        CHANGPercentage:nifty50Data[1].CHANGPercentage,
+        VOLUME:nifty50Data[1].VOLUME,
+        fiftyTwo_WH:nifty50Data[1].fiftyTwo_WH,
+        fiftyTwo_WL:nifty50Data[1].fiftyTwo_WL,
+        Date:nifty50Data[1].Date,
+        Time:nifty50Data[1].Time,
+        Date_Time:nifty50Data[1].Date_Time
+    }
 
 
 try {
@@ -857,6 +873,7 @@ const savedData =await Data.insertMany([
         DataObj21,DataObj22,DataObj23,DataObj24,DataObj25,DataObj26,DataObj27,DataObj28,DataObj29,DataObj30,
         DataObj31,DataObj32,DataObj33,DataObj34,DataObj35,DataObj36,DataObj37,DataObj38,DataObj39,DataObj40,
         DataObj41,DataObj42,DataObj43,DataObj44,DataObj45,DataObj46,DataObj47,DataObj48,DataObj49,DataObj50,
+        DataObj51
         
     ]);
     res.status(201).send(savedData);
@@ -987,6 +1004,7 @@ function covert(data){
     GetStock.push([data[48].SYMBOL,data[48].OPEN,data[48].HIGH,data[48].LOW,data[48].PREVCLOSE,data[48].LTP,data[48].CHNG,data[48].CHANGPercentage,data[48].VOLUME,data[48].fiftyTwo_WH,data[48].fiftyTwo_WL,data[48].Date,data[48].Time]);
     GetStock.push([data[49].SYMBOL,data[49].OPEN,data[49].HIGH,data[49].LOW,data[49].PREVCLOSE,data[49].LTP,data[49].CHNG,data[49].CHANGPercentage,data[49].VOLUME,data[49].fiftyTwo_WH,data[49].fiftyTwo_WL,data[49].Date,data[49].Time]);
     GetStock.push([data[50].SYMBOL,data[50].OPEN,data[50].HIGH,data[50].LOW,data[50].PREVCLOSE,data[50].LTP,data[50].CHNG,data[50].CHANGPercentage,data[50].VOLUME,data[50].fiftyTwo_WH,data[50].fiftyTwo_WL,data[50].Date,data[50].Time]);
+    GetStock.push([data[51].SYMBOL,data[51].OPEN,data[51].HIGH,data[51].LOW,data[51].PREVCLOSE,data[51].LTP,data[50].CHNG,data[51].CHANGPercentage,data[51].VOLUME,data[51].fiftyTwo_WH,data[51].fiftyTwo_WL,data[51].Date,data[51].Time]);
 
     console.log("1085: Data converted >>>")
             gsRun4(client,GetStock)

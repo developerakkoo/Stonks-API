@@ -60,3 +60,13 @@
 
 // The library needs to be configured with your account's secret key.
 // Ensure the key is kept out of any version control system you might be using.
+const cron = require('node-cron');
+let T =true
+cron.schedule('* * * * *',async () =>{
+    try{
+        T =false
+    }catch(error){
+        console.log(error);
+    }
+})
+console.log(T);
