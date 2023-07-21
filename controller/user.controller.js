@@ -130,7 +130,7 @@ async function postImage(req,res){
 async function FindAll(req,res){
     // console.log('1234');
     try{
-        const user = await User.find()
+        const user = await User.find().select('-password').populate('SubscriptionId') 
         if(!user){
             return res.status(400).json({message:`Users Not Found`});
         }
