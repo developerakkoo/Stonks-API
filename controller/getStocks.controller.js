@@ -98,7 +98,7 @@ async function getNifty50(req,res){
       const nifty50Data =[]
       nifty50Data.push({SYMBOL:Data['quoteResponse']['result'][0]['shortName'],LTP: Data['quoteResponse']['result'][0]['regularMarketPrice'],CHNG: parseFloat(Data['quoteResponse']['result'][0]['regularMarketChange'].toFixed(2)),PcCHNG: parseFloat(Data['quoteResponse']['result'][0]['regularMarketChangePercent'].toFixed(2)),sign: Math.sign(Data['quoteResponse']['result'][0]['regularMarketChange'].toString().split('.')[0])});
       IO.getIO().emit('get:Nifty50',nifty50Data);
-      res.status(200).json({message:'Nifty50'});
+      res.status(200).json({message:'Nifty50 Live',statusCode:200,data:nifty50Data});
       
         }
       catch (error) {
