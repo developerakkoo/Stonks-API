@@ -11,11 +11,9 @@ const paymentController = require('../controller/payment');
 
 // routes.post('/make/payment',controller.order)
 
-routes.get('/pay',(req,res) =>{
-    res.render('checkout')
-})
 
-routes.post('/payments',paymentController.payment);
+
+routes.post('/payment-sheet',paymentController.payment);
 
 
 
