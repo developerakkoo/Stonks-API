@@ -1,3 +1,4 @@
+console.log('getStock');
 const axios = require('axios');
 const IO = require('../socket');
 const moment = require('moment');
