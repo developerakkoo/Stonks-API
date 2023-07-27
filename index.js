@@ -85,7 +85,6 @@ app.post('/firebase/notification', (req, res)=>{
       res.status(404).json({msg: error})
         console.log(error);
     });
-
 })
 
 
