@@ -1,6 +1,151 @@
 const axios = require('axios');
 const IO = require('../socket');
 const moment = require('moment');
+const WebSocket = require('ws');
+
+    const  wsUri = "ws://nimblewebstream.lisuns.com:4575/";
+    const password = "df39da22-ff37-44c0-8f3c-44e7caf99172";
+    var output;
+    let isAuthenticate = false;
+    function init()
+    {
+    testWebSocket();
+    }
+    function testWebSocket()
+    {
+    websocket = new WebSocket(wsUri);
+    websocket.onopen = function(evt) { onOpen(evt) };
+    websocket.onclose = function(evt) { onClose(evt) };
+    websocket.onmessage = function(evt) { onMessage(evt) };
+    websocket.onerror = function(evt) { onError(evt) };
+    }
+    function onOpen(evt)
+    {
+    // writeToScreen("CONNECTED");
+	// writeToScreen("Endpoint :"+wsUri);
+    Authenticate();  
+    }
+    function onClose(evt)
+    {
+	writeToScreen("DISCONNECTED. Reason :"+evt.reason);
+	writeToScreen("DISCONNECTED. Reason :"+evt.code);
+	writeToScreen("Endpoint :"+wsUri);
+    }
+    function onMessage(evt)
+    {
+    var event = JSON.parse(evt.data);
+    if (event.MessageType == "AuthenticateResult")
+        if (event.Complete)
+        {
+            isAuthenticate = true;
+			// writeToScreen('Time : ' + new Date( Date.now()) + 'RESPONSE: AUTHENTICATED!!!');	            
+            setTimeout(doTest, 500);
+        }
+	//GFDL : Server sends Echo message every few seconds to confirm connection is live. To hide Echo Message, uncomment "if" statement below
+		writeToScreen(  evt.data);	
+    }
+    function onError(evt){
+	writeToScreen(' Time : ' + new Date( Date.now()));	
+    writeToScreen('ERROR data: ' + evt.data);
+    writeToScreen('ERROR message:' + evt.message);
+    writeToScreen('ERROR reason:' + evt.reason);
+	writeToScreen({Endpoint :wsUri});
+    }
+    function doSend(message)
+    {
+    const jsonmessage = JSON.stringify(message);
+    websocket.send(jsonmessage);
+	writeToScreen( jsonmessage);
+    }
+    function doClose()
+    {
+        websocket.close();
+    }
+  // GFDL : authentication request is sent by below code
+    function Authenticate()
+    {
+        // writeToScreen("Authenticate");
+    var message = 
+    {
+        MessageType: "Authenticate",
+        Password: password
+    };
+    doSend(message);
+    }
+    
+	setInterval(doTest, 1000)
+function doTest()
+{
+	GetLastQuoteArray()
+	// SubscribeRealtime();
+function GetLastQuoteArray()
+{
+	const  request = 
+		{
+			MessageType: "GetLastQuoteArray",
+			Exchange: "NSE",							
+			InstrumentIdentifiers: [
+			{Value:"TCS"}, {Value:"BAJAJ-AUTO"}, {Value:"BPCL"}, {Value:"INDUSINDBK"}, {Value:"AXISBANK"}, 
+			{Value:"POWERGRID"}, {Value:"LT"}, {Value:"ULTRACEMCO"}, {Value:"CIPLA"}, {Value:"ADANIENT"}, 
+			{Value:"GRASIM"}, {Value:"TATAMOTORS"}, {Value:"BRITANNIA"}, {Value:"NTPC"}, {Value:"DRREDDY"}, 
+			{Value:"BAJFINANCE"}, {Value:"JSWSTEEL"}, {Value:"ICICIBANK"}, {Value:"TITAN"}, {Value:"HDFCBANK"}, 
+			{Value:"HDFC"}, {Value:"NESTLEIND"}, {Value:"COALINDIA"}, {Value:"APOLLOHOSP"}, {Value:"SUNPHARMA"}, 
+		],
+		};
+	const request1 = 
+		{
+			MessageType: "GetLastQuoteArray",
+			Exchange: "NSE",							
+			InstrumentIdentifiers: [
+			{Value:"BAJAJFINSV"}, {Value:"DIVISLAB"}, {Value:"HDFCLIFE"}, {Value:"BHARTIARTL"}, {Value:"MARUTI"}, 
+			{Value:"ADANIPORTS"}, {Value:"ASIANPAINT"}, {Value:"WIPRO"}, {Value:"KOTAKBANK"}, {Value:"M&M"}, 
+			{Value:"RELIANCE"}, {Value:"TATACONSUM"}, {Value:"HINDALCO"}, {Value:"HEROMOTOCO"}, {Value:"TECHM"}, 
+			{Value:"SBILIFE"}, {Value:"ITC"}, {Value:"ONGC"}, {Value:"INFY"}, {Value:"HCLTECH"}, 
+			{Value:"HINDUNILVR"}, {Value:"UPL"}, {Value:"SBIN"}, {Value:"TATASTEEL"}, {Value:"EICHERMOT"}, 
+		], 
+		};
+	doSend(request);
+	doSend(request1);
+    }					
+}
+
+let metaData =[]
+    function writeToScreen(message)
+    {
+		let data = JSON.parse(message);
+    const Result = data.Result
+    // console.log(typeof(Result));
+    if (!Result) {
+      //console.log('Data Not Available');
+    }else{
+      if (!Result.length == 0) {
+      
+        // console.log(data.Result[0].InstrumentIdentifier,data.Result[0].PriceChangePercentage,"sign:"+ Math.sign(data.Result[0].PriceChangePercentage));
+        for (Data of data.Result) {
+  
+            metaData.push({SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)})
+          
+        }
+        // data.Result.forEach(Data => {
+        // });
+      }
+    }
+if (metaData.length == 50) {
+  // console.log('>>>>>',metaData.length);
+  IO.getIO().emit('get:Stocks',metaData);
+  metaData = []
+  // console.log('>>>>>',metaData.length);
+  }
+}
+
+init()
+
+
+
+
+
+
+
 
 async function getStock(req,res){
 
