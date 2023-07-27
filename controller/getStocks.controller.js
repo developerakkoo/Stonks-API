@@ -131,10 +131,10 @@ let metaData =[]
       }
     }
 if (metaData.length == 50) {
-  // console.log('>>>>>',metaData.length);
+  console.log('>>>>>',metaData.length);
   IO.getIO().emit('get:Stocks',metaData);
   metaData = []
-  // console.log('>>>>>',metaData.length);
+  console.log('>>>>>',metaData.length);
   }
 }
 
