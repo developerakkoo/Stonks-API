@@ -130,7 +130,7 @@ let nifty50Data =[]
     }else{
       if (!Result.length == 0) {
         if (Result.length == 1) {
-        // nifty50Data.push({SYMBOL:data.Result[0].InstrumentIdentifier,LTP: data.Result[0].LastTradePrice,CHNG: data.Result[0].PriceChange,PcCHNG: data.Result[0].PriceChangePercentage,sign: Math.sign(data.Result[0].PriceChangePercentage)})
+        nifty50Data.push({SYMBOL:data.Result[0].InstrumentIdentifier,LTP: data.Result[0].LastTradePrice,CHNG: data.Result[0].PriceChange,PcCHNG: data.Result[0].PriceChangePercentage,sign: Math.sign(data.Result[0].PriceChangePercentage)})
         }
         // console.log(data.Result[0].InstrumentIdentifier,data.Result[0].PriceChangePercentage,"sign:"+ Math.sign(data.Result[0].PriceChangePercentage));
         for (Data of data.Result) {
@@ -142,11 +142,18 @@ let nifty50Data =[]
         // });
       }
     }
+    // console.log(nifty50Data);
 if (metaData.length == 50) {
   // console.log('>>>>>',metaData.length);
   IO.getIO().emit('get:Stocks',metaData);
   metaData = []
   // console.log('>>>>>',metaData.length);
+  }
+  if (nifty50Data.length == 1) {
+  console.log('>>>>>',nifty50Data.length);
+    IO.getIO().emit('get:Nifty50',nifty50Data);
+    nifty50Data = [];
+  console.log('>>>>>',nifty50Data.length);
   }
 }
 
