@@ -50,3 +50,7 @@
 // socket.on('disconnect', () => {
 //   console.log('Mobile disconnected from Socket.io');
 // });
+
+
+
+//news api key cb84eeb4d7aa4f78816169f298d2d318
