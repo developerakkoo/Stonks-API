@@ -60,13 +60,41 @@
 
 // The library needs to be configured with your account's secret key.
 // Ensure the key is kept out of any version control system you might be using.
-const cron = require('node-cron');
-let T =true
-cron.schedule('* * * * *',async () =>{
-    try{
-        T =false
-    }catch(error){
-        console.log(error);
-    }
-})
-console.log(T);
+// const cron = require('node-cron');
+// let T =true
+// cron.schedule('* * * * *',async () =>{
+//     try{
+//         T =false
+//     }catch(error){
+//         console.log(error);
+//     }
+// })
+// console.log(T);
+
+const express = require('express');
+const http = require('http');
+const socketIO = require('socket.io');
+
+const app = express();
+const server = http.createServer(app);
+const io = socketIO(server);
+
+io.on('connection', (socket) => {
+  console.log('Laptop connected ');
+
+  socket.on('copyText', (text) => {
+    console.log('Received text:', text);
+    copiedText = text; // Store the received text
+  
+    console.log('done');
+  });
+
+  socket.on('disconnect', () => {
+    console.log('Laptop disconnected from Socket.io');
+  });
+});
+
+const port = 3000;
+server.listen(port, () => {
+  console.log(`Laptop server listening on port ${port}`);
+});
