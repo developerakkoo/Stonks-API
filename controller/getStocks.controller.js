@@ -108,15 +108,18 @@ function GetLastQuoteArray()
     const  request3 = 
 		{
 			MessageType: "GetLastQuoteArray",
-			Exchange: "NSE",							
-			InstrumentIdentifiers: [],
+			Exchange: "NSE_IDX",							
+			InstrumentIdentifiers: [{Value:"NIFTY 50"}],
 		};
 	doSend(request);
 	doSend(request1);
+	doSend(request3);
+
     }					
 }
 
 let metaData =[]
+let nifty50Data =[]
     function writeToScreen(message)
     {
 		let data = JSON.parse(message);
@@ -126,7 +129,9 @@ let metaData =[]
       //console.log('Data Not Available');
     }else{
       if (!Result.length == 0) {
-      
+        if (Result.length == 1) {
+        // nifty50Data.push({SYMBOL:data.Result[0].InstrumentIdentifier,LTP: data.Result[0].LastTradePrice,CHNG: data.Result[0].PriceChange,PcCHNG: data.Result[0].PriceChangePercentage,sign: Math.sign(data.Result[0].PriceChangePercentage)})
+        }
         // console.log(data.Result[0].InstrumentIdentifier,data.Result[0].PriceChangePercentage,"sign:"+ Math.sign(data.Result[0].PriceChangePercentage));
         for (Data of data.Result) {
   

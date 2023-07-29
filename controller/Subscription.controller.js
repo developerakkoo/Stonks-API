@@ -168,6 +168,11 @@ async function getYearlyInr(req,res){
                 savedUser.SubscriptionId = savedSubscription._id  != undefined
                 ? savedSubscription._id 
                 :savedUser.SubscriptionId
+
+                savedUser.Subscription= 'paidPlan'  != undefined
+                ? 'paidPlan'  
+                :savedUser.Subscription
+        
         
                 const updatedUser = await savedUser.save()
         
