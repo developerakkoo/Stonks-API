@@ -161,8 +161,8 @@ async function getYearlyInr(req,res){
                 return res.status(404).json({message:`User Not Found With Id:${req.body.userId}`});
                 }
         
-                savedUser.SubscriptionEndDate = moment().add(savedSubscription.duration,'day').format('DD-MM-YYYY')  != undefined
-                ? moment().add(savedSubscription.duration,'day').format('DD-MM-YYYY')
+                savedUser.SubscriptionEndDate = moment().add(savedSubscription.duration,'month').format('DD-MM-YYYY')  != undefined
+                ? moment().add(savedSubscription.duration,'month').format('DD-MM-YYYY')
                 : savedUser.SubscriptionEndDate ;
         
                 savedUser.SubscriptionId = savedSubscription._id  != undefined

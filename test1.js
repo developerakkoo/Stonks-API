@@ -28,15 +28,15 @@
 // // add entry price
 // //next day  call delete add new data
 // // profit loss 
-// const moment = require ('moment');
+const moment = require ('moment');
 // const labels =[1, 2, undefined,3, 4, 5]
 
 
 // function getDate(num){
 //     for(let D =num ; D<10; D++){
 
-//     let date = moment().subtract(D,"day").format('DD-MM-YYYY'); 
-//     console.log(date);
+    let date = moment().add(3,"month").format('DD-MM-YYYY'); 
+    console.log(date);
 //     if (date == undefined) {
 //         // SyntaxError: Illegal continue statement: no surrounding iteration statement
 //         break;
@@ -71,30 +71,30 @@
 // })
 // console.log(T);
 
-const express = require('express');
-const http = require('http');
-const socketIO = require('socket.io');
+// const express = require('express');
+// const http = require('http');
+// const socketIO = require('socket.io');
 
-const app = express();
-const server = http.createServer(app);
-const io = socketIO(server);
+// const app = express();
+// const server = http.createServer(app);
+// const io = socketIO(server);
 
-io.on('connection', (socket) => {
-  console.log('Laptop connected ');
+// io.on('connection', (socket) => {
+//   console.log('Laptop connected ');
 
-  socket.on('copyText', (text) => {
-    console.log('Received text:', text);
-    copiedText = text; // Store the received text
+//   socket.on('copyText', (text) => {
+//     console.log('Received text:', text);
+//     copiedText = text; // Store the received text
   
-    console.log('done');
-  });
+//     console.log('done');
+//   });
 
-  socket.on('disconnect', () => {
-    console.log('Laptop disconnected from Socket.io');
-  });
-});
+//   socket.on('disconnect', () => {
+//     console.log('Laptop disconnected from Socket.io');
+//   });
+// });
 
-const port = 3000;
-server.listen(port, () => {
-  console.log(`Laptop server listening on port ${port}`);
-});
+// const port = 3000;
+// server.listen(port, () => {
+//   console.log(`Laptop server listening on port ${port}`);
+// });
