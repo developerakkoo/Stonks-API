@@ -73,6 +73,7 @@ async function createUser (req,res){
     });
         res.status(201).json({message:`User created Successfully`,User:postRes})
         }catch(error){
+            console.log(error);
             res.status(500).json({status:'ERROR',message:error.message});
         }
     }
@@ -392,12 +393,12 @@ async function verifyEmail(req,res){
         ? true
         : savedUser.isActive ;
 
-        savedUser.SubscriptionId = freePlan._id  != undefined
-        ? freePlan._id
-        : savedUser.SubscriptionId ;
+        savedUser.Subscription = 'freePlan'  != undefined
+        ? 'freePlan'
+        : savedUser.Subscription ;
 
-        savedUser.SubscriptionEndDate = moment().add(freePlan.duration,'day').format('DD-MM-YYYY')  != undefined
-        ? moment().add(freePlan.duration,'day').format('DD-MM-YYYY')
+        savedUser.SubscriptionEndDate = moment().add(15,'day').format('DD-MM-YYYY')  != undefined
+        ? moment().add(15,'day').format('DD-MM-YYYY')
         : savedUser.SubscriptionEndDate ;
 
         const updatedUser= await savedUser.save();

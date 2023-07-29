@@ -34,14 +34,18 @@ photo:{
     type:String,
     
 },
+Subscription:{
+    type:String,
+    default:'_'
+},
 SubscriptionId:{
     type:mongoose.Types.ObjectId,
     ref:"subscription",
-    ref:"freeSubscription"
+    
 },
 SubscriptionEndDate: {
     type: String,
-    default:''
+    default:'_'
 },
 isActive: {
     type: Boolean,

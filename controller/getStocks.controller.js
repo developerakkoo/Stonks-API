@@ -105,6 +105,12 @@ function GetLastQuoteArray()
 			{Value:"HINDUNILVR"}, {Value:"UPL"}, {Value:"SBIN"}, {Value:"TATASTEEL"}, {Value:"EICHERMOT"}, 
 		], 
 		};
+    const  request3 = 
+		{
+			MessageType: "GetLastQuoteArray",
+			Exchange: "NSE",							
+			InstrumentIdentifiers: [],
+		};
 	doSend(request);
 	doSend(request1);
     }					

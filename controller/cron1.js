@@ -28,6 +28,7 @@ cron.schedule('* * * * *',async () =>{
                 await User.findByIdAndUpdate(user._id,{
                     isBlocked:true,
                     SubscriptionId:'00b00c0000bd0a000f000000',
+                    Subscription:'-',
                     SubscriptionEndDate:'-'
                 })
                 tokens.push(user.firebaseToken)
