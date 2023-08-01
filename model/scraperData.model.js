@@ -38,14 +38,18 @@ const dataSchema = mongoose.Schema({
         type:String,
         required: true
     },
-    fiftyTwo_WH:{
+    VALUE:{
         type:String,
         required: true
     },
-    fiftyTwo_WL:{
-        type:String,
-        required: true
-    },
+    // fiftyTwo_WH:{
+    //     type:String,
+    //     required: true
+    // },
+    // fiftyTwo_WL:{
+    //     type:String,
+    //     required: true
+    // },
     Date:{
         type:String,
         required: true
