@@ -298,7 +298,7 @@ let data1,data2,data3,data4,data5,data6,data7,data8,data9,data10,data11,data12,d
       }
     }
     console.log(metaData.length);
-if (metaData.length == 50 && metaData[26] != undefined) {
+if (metaData.length == 50 && data26 != undefined) {
 
   // console.log('>>>>>',metaData[0]);
   IO.getIO().emit('get:Stocks',metaData);
