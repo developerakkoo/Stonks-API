@@ -1,4 +1,3 @@
-console.log('getStock');
 const axios = require('axios');
 const IO = require('../socket');
 const moment = require('moment');
@@ -301,8 +300,8 @@ let nifty50Data =[]
       }
     }
     if (metaData.length == 49 ) {
-  console.log(metaData.length);
-  console.log('>>>>>',metaData[49]);
+  // console.log(metaData.length);
+  // console.log('>>>>>',metaData[49]);
   IO.getIO().emit('get:Stocks',metaData);
   metaData = []
   // console.log('>>>>>',metaData.length);
@@ -407,124 +406,9 @@ metaData.push({SYMBOL:Data['quoteResponse']['result'][49]['shortName'],LTP: Data
     }
   }
     
-async function getNifty50(req,res){
-  
-let  nifty50 = []
-try {  
-testWebSocket();
-  
-  function testWebSocket()
-  {
-  websocket = new WebSocket(wsUri);
-  websocket.onopen = function(evt) { onOpen(evt) };
-  websocket.onclose = function(evt) { onClose(evt) };
-  websocket.onmessage = function(evt) { onMessage(evt) };
-  websocket.onerror = function(evt) { onError(evt) };
-  }
-  function onOpen(evt)
-  {
-  // writeToScreen("CONNECTED");
-// writeToScreen("Endpoint :"+wsUri);
-  Authenticate();  
-  }
-  function onClose(evt)
-  {
-writeToScreen("DISCONNECTED. Reason :"+evt.reason);
-writeToScreen("DISCONNECTED. Reason :"+evt.code);
-writeToScreen("Endpoint :"+wsUri);
-  }
-  function onMessage(evt)
-  {
-  var event = JSON.parse(evt.data);
-  if (event.MessageType == "AuthenticateResult")
-      if (event.Complete)
-      {
-          isAuthenticate = true;
-    // writeToScreen('Time : ' + new Date( Date.now()) + 'RESPONSE: AUTHENTICATED!!!');	            
-          doTest()
-      }
-//GFDL : Server sends Echo message every few seconds to confirm connection is live. To hide Echo Message, uncomment "if" statement below
-  writeToScreen(  evt.data);	
-  }
-  function onError(evt){
-writeToScreen(' Time : ' + new Date( Date.now()));	
-  writeToScreen('ERROR data: ' + evt.data);
-  writeToScreen('ERROR message:' + evt.message);
-  writeToScreen('ERROR reason:' + evt.reason);
-writeToScreen({Endpoint :wsUri});
-  }
-  function doSend(message,req)
-  {
-  const jsonmessage = JSON.stringify(message);
-  websocket.send(jsonmessage);
-writeToScreen( jsonmessage,req);
-  }
-  function doClose()
-  {
-      websocket.close();
-  }
-// GFDL : authentication request is sent by below code
-  function Authenticate()
-  {
-      // writeToScreen("Authenticate");
-  var message = 
-  {
-      MessageType: "Authenticate",
-      Password: password
-  };
-  doSend(message);
-  }
-  
-function doTest()
-{
-GetLastQuoteArray()
-// SubscribeRealtime();
-function GetLastQuoteArray(){
-  const  request = {
-    MessageType: "GetLastQuoteArray",
-    Exchange: "NSE_IDX",							
-    InstrumentIdentifiers: [{Value:"NIFTY 50"}],
-  };
-doSend(request)
 
-  }					
-}
-function writeToScreen(message,reqNo){
-  let DataNo 
-let data = JSON.parse(message);
-// console.log(data.Result);
-const Result = data.Result
-if (!Result) {
-  //console.log('Data Not Available');
-}else{
-
-  // console.log("reqNo:",DataNo);
-  
-  if (Result.length == 1) {
-    // console.log(data.Result);
-    nifty50.push({SYMBOL:data.Result[0].InstrumentIdentifier,LTP: data.Result[0].LastTradePrice,CHNG: data.Result[0].PriceChange,PcCHNG: data.Result[0].PriceChangePercentage,sign: Math.sign(data.Result[0].PriceChangePercentage)})
-    }
-  }
-  console.log(nifty50);
-}
-res.status(200).json({meg:"OK",Data:nifty50});
-nifty50 = []
-      // const response = await axios.request(options);
-      // const Data = response.data
-      // const nifty50Data =[]
-      // nifty50Data.push({SYMBOL:Data['quoteResponse']['result'][0]['shortName'],LTP: Data['quoteResponse']['result'][0]['regularMarketPrice'],CHNG: parseFloat(Data['quoteResponse']['result'][0]['regularMarketChange'].toFixed(2)),PcCHNG: parseFloat(Data['quoteResponse']['result'][0]['regularMarketChangePercent'].toFixed(2)),sign: Math.sign(Data['quoteResponse']['result'][0]['regularMarketChange'].toString().split('.')[0])});
-      // IO.getIO().emit('get:Nifty50',nifty50Data);
-      // res.status(200).json({message:'Nifty50 Live',statusCode:200,data:nifty50Data});
-      
-        }
-      catch (error) {
-          console.log(error)
-          res.status(500).json({message:error.message,statusCode:500,status:'Error'});
-    }
-  }
 module.exports={
     getStock,
-    getNifty50
 }
 
 
