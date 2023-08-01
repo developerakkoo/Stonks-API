@@ -300,7 +300,7 @@ let nifty50Data =[]
         // });
       }
     }
-    if (metaData.length == 49 && metaData[49] != undefined) {
+    if (metaData.length == 49 ) {
   console.log(metaData.length);
   console.log('>>>>>',metaData[49]);
   IO.getIO().emit('get:Stocks',metaData);
