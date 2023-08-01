@@ -142,166 +142,170 @@ let nifty50Data =[]
         // console.log(data.Result[0].InstrumentIdentifier,data.Result[0].PriceChangePercentage,"sign:"+ Math.sign(data.Result[0].PriceChangePercentage));
         for (Data of data.Result) {
           if(Data.InstrumentIdentifier == 'TCS'){
-            metaData.push({SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)});
+           metaData[0] = {SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)};
           }
           if(Data.InstrumentIdentifier == 'BAJAJ-AUTO'){
-            metaData.push({SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)});
+           metaData[1] = {SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)};
           }
           if(Data.InstrumentIdentifier == 'BPCL'){
-            metaData.push({SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)});
+           metaData[2] = {SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)};
           }
           if(Data.InstrumentIdentifier == 'INDUSINDBK'){
-            metaData.push({SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)});
+           metaData[3] = {SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)};
           }
           if(Data.InstrumentIdentifier == 'AXISBANK'){
-            metaData.push({SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)});
+           metaData[4] = {SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)};
           }
           if(Data.InstrumentIdentifier == 'POWERGRIDLT'){
-            metaData.push({SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)});
+           metaData[5] = {SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)};
           }
           if(Data.InstrumentIdentifier == 'LT'){
-            metaData.push({SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)});
+           metaData[6] = {SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)};
           }
           if(Data.InstrumentIdentifier == 'ULTRACEMCO'){
-            metaData.push({SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)});
+           metaData[7] = {SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)};
           }
           if(Data.InstrumentIdentifier == 'CIPLA'){
-            metaData.push({SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)});
+           metaData[8] = {SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)};
           }
           if(Data.InstrumentIdentifier == 'ADANIENT'){
-            metaData.push({SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)});
+           metaData[9] = {SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)};
           }
           if(Data.InstrumentIdentifier == 'GRASIM'){
-            metaData.push({SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)});
+           metaData[10] = {SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)};
           }
           if(Data.InstrumentIdentifier == 'TATAMOTORS'){
-            metaData.push({SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)});
+           metaData[11] = {SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)};
           }
           if(Data.InstrumentIdentifier == 'BRITANNIA'){
-            metaData.push({SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)});
+           metaData[12] = {SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)};
           }
           if(Data.InstrumentIdentifier == 'NTPC'){
-            metaData.push({SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)});
+           metaData[13] = {SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)};
           }
           if(Data.InstrumentIdentifier == 'DRREDDY'){
-            metaData.push({SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)});
+           metaData[14] = {SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)};
           }
           if(Data.InstrumentIdentifier == 'BAJFINANCE'){
-            metaData.push({SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)});
+           metaData[15] = {SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)};
           }
           if(Data.InstrumentIdentifier == 'JSWSTEEL'){
-            metaData.push({SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)});
+           metaData[16] = {SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)};
           }
           if(Data.InstrumentIdentifier == 'ICICIBANK'){
-            metaData.push({SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)});
+           metaData[17] = {SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)};
           }
           if(Data.InstrumentIdentifier == 'TITAN'){
-            metaData.push({SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)});
+           metaData[18] = {SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)};
           }
           if(Data.InstrumentIdentifier == 'HDFCBANK'){
-            metaData.push({SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)});
+           metaData[19] = {SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)};
           }
           if(Data.InstrumentIdentifier == 'HDFC'){
-            metaData.push({SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)});
+           metaData[20] = {SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)};
           }
           if(Data.InstrumentIdentifier == 'NESTLEIND'){
-            metaData.push({SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)});
+           metaData[21] = {SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)};
           }
           if(Data.InstrumentIdentifier == 'COALINDIA'){
-            metaData.push({SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)});
+           metaData[22] = {SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)};
           }
           if(Data.InstrumentIdentifier == 'APOLLOHOSP'){
-            metaData.push({SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)});
+           metaData[23] ={SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)};
           }
           if(Data.InstrumentIdentifier == 'SUNPHARMA'){
-            metaData.push({SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)});
+           metaData[24] ={SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)};
           }
           if(Data.InstrumentIdentifier == 'BAJAJFINSV'){
-           
-            metaData.push({SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)});
+
+           metaData[25] ={SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)};
           }
           if(Data.InstrumentIdentifier == 'DIVISLAB'){
-            metaData.push({SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)});
+           metaData[26] ={SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)};
           }
           if(Data.InstrumentIdentifier == 'HDFCLIFE'){
-            metaData.push({SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)});
+           metaData[27] ={SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)};
           }
           if(Data.InstrumentIdentifier == 'BHARTIARTL'){
-            metaData.push({SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)});
+           metaData[28] = {SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)};
           }
           if(Data.InstrumentIdentifier == 'MARUTI'){
-            metaData.push({SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)});
+           metaData[29] = {SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)};
           }
           if(Data.InstrumentIdentifier == 'ADANIPORTS'){
-            metaData.push({SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)});
+           metaData[30] = {SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)};
           }
           if(Data.InstrumentIdentifier == 'ASIANPAINT'){
-            metaData.push({SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)});
+           metaData[31] = {SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)};
           }
           if(Data.InstrumentIdentifier == 'WIPRO'){
-            metaData.push({SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)});
+           metaData[32] = {SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)};
           }
           if(Data.InstrumentIdentifier == 'KOTAKBANK'){
-            metaData.push({SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)});
+           metaData[33] = {SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)};
           }
           if(Data.InstrumentIdentifier == 'M&M'){
-            metaData.push({SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)});
+           metaData[34] = {SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)};
           }
           if(Data.InstrumentIdentifier == 'RELIANCE'){
-            metaData.push({SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)});
+           metaData[35] = {SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)};
           }
           if(Data.InstrumentIdentifier == 'TATACONSUM'){
-            metaData.push({SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)});
+           metaData[36] = {SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)};
           }
           if(Data.InstrumentIdentifier == 'HINDALCO'){
-            metaData.push({SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)});
+           metaData[37] = {SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)};
           }
           if(Data.InstrumentIdentifier == 'HEROMOTOCO'){
-            metaData.push({SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)});
+           metaData[38] = {SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)};
           }
           if(Data.InstrumentIdentifier == 'TECHM'){
-            metaData.push({SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)});
+           metaData[39] = {SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)};
           }
           if(Data.InstrumentIdentifier == 'SBILIFE'){
-            metaData.push({SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)});
+           metaData[40] = {SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)};
           }
           if(Data.InstrumentIdentifier == 'ITC'){
-            metaData.push({SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)});
+           metaData[41] = {SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)};
           }
           if(Data.InstrumentIdentifier == 'ONGC'){
-            metaData.push({SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)});
+           metaData[42] = {SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)};
           }
           if(Data.InstrumentIdentifier == 'INFY'){
-            metaData.push({SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)});
+           metaData[43] = {SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)};
           }
           if(Data.InstrumentIdentifier == 'HCLTECH'){
-            metaData.push({SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)});
+           metaData[44] = {SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)};
           }
           if(Data.InstrumentIdentifier == 'HINDUNILVR'){
-            metaData.push({SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)});
+           metaData[45] = {SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)};
           }
           if(Data.InstrumentIdentifier == 'UPL'){
-            metaData.push({SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)});
+           metaData[46] = {SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)};
           }
           if(Data.InstrumentIdentifier == 'SBIN'){
-            metaData.push({SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)});
+           metaData[47] = {SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)};
           }
           if(Data.InstrumentIdentifier == 'TATASTEEL'){
-            metaData.push({SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)});
+           metaData[48] = {SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)};
           }
           if(Data.InstrumentIdentifier == 'EICHERMOT'){
-            metaData.push({SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)});
+           metaData[49] = {SYMBOL:Data.InstrumentIdentifier,LTP: Data.LastTradePrice,CHNG: Data.PriceChange,PcCHNG: Data.PriceChangePercentage,sign: Math.sign(Data.PriceChangePercentage)};
           }
-
-          
         }
+          
+        
         // data.Result.forEach(Data => {
         // });
       }
     }
     // console.log(metaData.length);
-if (metaData.length == 49) {
-  // console.log('>>>>>',metaData[0]);
+    if (metaData.length == 50 && (metaData[0] == undefined || metaData[25] == undefined) ) {
+      metaData = []
+
+    }
+if (metaData.length == 50 && (metaData[0] != undefined || metaData[25] != undefined) ) {
+  console.log('>>>>>',metaData.length);
   IO.getIO().emit('get:Stocks',metaData);
   metaData = []
   // console.log('>>>>>',metaData.length);
