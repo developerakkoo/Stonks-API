@@ -83,7 +83,7 @@ const password = "df39da22-ff37-44c0-8f3c-44e7caf99172";
           { Value: "POWERGRID"}, { Value: "LT" },        {Value: "ULTRACEMCO"}, { Value: "CIPLA" },      { Value: "ADANIENT" },
           { Value: "GRASIM" },   { Value: "TATAMOTORS" },{Value: "BRITANNIA" }, { Value: "NTPC" },       { Value: "DRREDDY" },
           { Value: "BAJFINANCE"},{ Value: "JSWSTEEL" },  {Value: "ICICIBANK" }, { Value: "TITAN" },      { Value: "HDFCBANK" },
-          { Value: "LTIM" },     {Value: "NESTLEIND" },  {Value: "COALINDIA" }, { Value: "APOLLOHOSP" }, { Value: "SUNPHARMA" },
+          { Value: "HDFC" },     {Value: "NESTLEIND" },  {Value: "COALINDIA" }, { Value: "APOLLOHOSP" }, { Value: "SUNPHARMA" },
         ],
       };
       const request1 =
