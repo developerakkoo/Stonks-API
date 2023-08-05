@@ -293,13 +293,19 @@ const sortedData = [...metaData];
 
 // Sort the copied array in ascending order based on SYMBOL
 sortedData.sort((a, b) => a.SYMBOL.localeCompare(b.SYMBOL));
-    if (metaData.length == 49) {
-
-      // console.log(sortedData);
-      // console.log('>>>>>',metaData[49]);
-      IO.getIO().emit('get:Stocks', sortedData);
-      metaData = []
-      // console.log('>>>>>',metaData.length);
+if (metaData.length == 49 ) {
+  console.log(metaData[25].SYMBOL);
+  if (metaData[25].SYMBOL == 'TCS') {
+    
+    
+    // console.log(sortedData);
+    // console.log('>>>>>',metaData[49]);
+    IO.getIO().emit('get:Stocks', sortedData);
+    metaData = []
+    // console.log('>>>>>',metaData.length);
+  }else{
+    metaData = []
+  }
     }
     if (nifty50Data.length == 1) {
       // console.log('>>>>>',nifty50Data.length);
