@@ -79,11 +79,11 @@ const password = "df39da22-ff37-44c0-8f3c-44e7caf99172";
         MessageType: "GetLastQuoteArray",
         Exchange: "NSE",
         InstrumentIdentifiers: [
-          { Value: "TCS" }, { Value: "BAJAJ-AUTO" }, { Value: "BPCL" }, { Value: "INDUSINDBK" }, { Value: "AXISBANK" },
-          { Value: "POWERGRID" }, { Value: "LT" }, { Value: "ULTRACEMCO" }, { Value: "CIPLA" }, { Value: "ADANIENT" },
-          { Value: "GRASIM" }, { Value: "TATAMOTORS" }, { Value: "BRITANNIA" }, { Value: "NTPC" }, { Value: "DRREDDY" },
-          { Value: "BAJFINANCE" }, { Value: "JSWSTEEL" }, { Value: "ICICIBANK" }, { Value: "TITAN" }, { Value: "HDFCBANK" },
-          { Value: "HDFC" }, { Value: "NESTLEIND" }, { Value: "COALINDIA" }, { Value: "APOLLOHOSP" }, { Value: "SUNPHARMA" },
+          { Value: "TCS" },      {Value: "BAJAJ-AUTO" }, { Value: "BPCL" },     { Value: "INDUSINDBK" }, { Value: "AXISBANK" },
+          { Value: "POWERGRID"}, { Value: "LT" },        {Value: "ULTRACEMCO"}, { Value: "CIPLA" },      { Value: "ADANIENT" },
+          { Value: "GRASIM" },   { Value: "TATAMOTORS" },{Value: "BRITANNIA" }, { Value: "NTPC" },       { Value: "DRREDDY" },
+          { Value: "BAJFINANCE"},{ Value: "JSWSTEEL" },  {Value: "ICICIBANK" }, { Value: "TITAN" },      { Value: "HDFCBANK" },
+          { Value: "HDFC" },     {Value: "NESTLEIND" },  {Value: "COALINDIA" }, { Value: "APOLLOHOSP" }, { Value: "SUNPHARMA" },
         ],
       };
       const request1 =
@@ -91,11 +91,11 @@ const password = "df39da22-ff37-44c0-8f3c-44e7caf99172";
         MessageType: "GetLastQuoteArray",
         Exchange: "NSE",
         InstrumentIdentifiers: [
-          { Value: "BAJAJFINSV" }, { Value: "DIVISLAB" }, { Value: "HDFCLIFE" }, { Value: "BHARTIARTL" }, { Value: "MARUTI" },
-          { Value: "ADANIPORTS" }, { Value: "ASIANPAINT" }, { Value: "WIPRO" }, { Value: "KOTAKBANK" }, { Value: "M&M" },
-          { Value: "RELIANCE" }, { Value: "TATACONSUM" }, { Value: "HINDALCO" }, { Value: "HEROMOTOCO" }, { Value: "TECHM" },
-          { Value: "SBILIFE" }, { Value: "ITC" }, { Value: "ONGC" }, { Value: "INFY" }, { Value: "HCLTECH" },
-          { Value: "HINDUNILVR" }, { Value: "UPL" }, { Value: "SBIN" }, { Value: "TATASTEEL" }, { Value: "EICHERMOT" },
+          { Value: "BAJAJFINSV" }, { Value: "DIVISLAB" }, { Value: "HDFCLIFE" }, {Value: "BHARTIARTL" }, { Value: "MARUTI"},
+          { Value: "ADANIPORTS" }, { Value: "ASIANPAINT"},{ Value: "WIPRO" },    {Value: "KOTAKBANK" },  { Value: "M&M"},
+          { Value: "RELIANCE" },   {Value: "TATACONSUM"}, { Value: "HINDALCO" }, { Value: "HEROMOTOCO"}, { Value: "TECHM"},
+          { Value: "SBILIFE" },    { Value: "ITC" },      { Value: "ONGC" },     { Value: "INFY" },      {Value: "HCLTECH"},
+          { Value: "HINDUNILVR" },  { Value: "UPL" },     { Value: "SBIN" },     {Value: "TATASTEEL" },  {Value: "EICHERMOT"},
         ],
       };
       const request3 =
@@ -118,7 +118,7 @@ const password = "df39da22-ff37-44c0-8f3c-44e7caf99172";
 
     function writeToScreen(message,reqNo){
     try {
-      // console.log(message);
+      console.log(message);
 		let data = JSON.parse(message);
     const Result = data.Result
     
@@ -312,7 +312,7 @@ sortedData.sort((a, b) => a.SYMBOL.localeCompare(b.SYMBOL));
     }
   } catch (error) {
     console.log('ERROR>>',error);
-  init()
+  doClose()
 
   }
 }
