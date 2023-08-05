@@ -4,7 +4,7 @@ const moment = require('moment');
 const WebSocket = require('ws');
 const wsUri = "ws://nimblewebstream.lisuns.com:4575/";
 const password = "df39da22-ff37-44c0-8f3c-44e7caf99172";
-try {
+
   setInterval(init, 5000)
 
   var output;
@@ -48,9 +48,13 @@ try {
     writeToScreen({ Endpoint: wsUri });
   }
   function doSend(message, req) {
+    try{
     const jsonmessage = JSON.stringify(message);
     websocket.send(jsonmessage);
     writeToScreen(jsonmessage, req);
+    }catch(error){
+      console.log('error>>',error);
+    }
   }
   function doClose() {
     websocket.close();
@@ -112,17 +116,17 @@ try {
 
 
 
-    function writeToScreen(message,reqNo)
-    {
+    function writeToScreen(message,reqNo){
+    try {
+      // console.log(message);
 		let data = JSON.parse(message);
-    // console.log(data.Result);
     const Result = data.Result
+    
+  
     if (!Result) {
       //console.log('Data Not Available');
     } else {
-
       // console.log("reqNo:",DataNo);
-
       if (Result.length == 1) {
         // console.log(data.Result);
         nifty50Data.push({ SYMBOL: data.Result[0].InstrumentIdentifier, LTP: data.Result[0].LastTradePrice, CHNG: data.Result[0].PriceChange, PcCHNG: data.Result[0].PriceChangePercentage, sign: Math.sign(data.Result[0].PriceChangePercentage) })
@@ -282,8 +286,6 @@ try {
           if (Data.InstrumentIdentifier == 'EICHERMOT') {
             metaData.push({ SYMBOL: Data.InstrumentIdentifier, LTP: Data.LastTradePrice, CHNG: Data.PriceChange, PcCHNG: Data.PriceChangePercentage, sign: Math.sign(Data.PriceChangePercentage) });
           }
-
-
         }
       
       }
@@ -294,7 +296,7 @@ const sortedData = [...metaData];
 // Sort the copied array in ascending order based on SYMBOL
 sortedData.sort((a, b) => a.SYMBOL.localeCompare(b.SYMBOL));
     if (metaData.length == 49 ) {
-      console.log(metaData[25].SYMBOL);
+      // console.log(metaData[25].SYMBOL);
     sortedData.sort()
       // console.log(sortedData);
       // console.log('>>>>>',metaData[49]);
@@ -306,15 +308,16 @@ sortedData.sort((a, b) => a.SYMBOL.localeCompare(b.SYMBOL));
       // console.log('>>>>>',nifty50Data.length);
       IO.getIO().emit('get:Nifty50', nifty50Data);
       nifty50Data = [];
-
       // console.log('>>>>>',nifty50Data.length);
     }
-  }
-
+  } catch (error) {
+    console.log('ERROR>>',error);
   init()
-} catch (error) {
-  console.log(error);
+
+  }
 }
+
+
 
 
 
@@ -409,13 +412,3 @@ module.exports = {
 
 
 
-
-
-
-
-
-
-
-
-
- 

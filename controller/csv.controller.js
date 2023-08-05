@@ -866,11 +866,6 @@ async function scrapData(req,res){
     //     Time:nifty50Data[1].Time,
     //     Date_Time:nifty50Data[1].Date_Time
     // }
-} catch (error) {
-        console.log('ERROR');
-}
-
-try {
     // console.log(nifty50DataObj);
 const savedData =await Data.insertMany([
         nifty50DataObj,
