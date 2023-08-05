@@ -123,7 +123,6 @@ let nifty50Data =[]
 
     function writeToScreen(message,reqNo)
     {
-      let DataNo 
 		let data = JSON.parse(message);
     // console.log(data.Result);
     const Result = data.Result

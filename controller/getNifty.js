@@ -8,9 +8,6 @@ async function getNifty50(req,res){
       
       var output;
       var isAuthenticate = false;
-    
-      
-        // output = document.getElementById("output");
         
       function testWebSocket()
       {
@@ -23,12 +20,14 @@ async function getNifty50(req,res){
     
       function onOpen(evt)
       {
-        // writeToScreen("CONNECTED");
-        // writeToScreen("Endpoint :"+wsUri);
         Authenticate();  
       }
-    
+          function doClose()
+      {
+          websocket.close();
+      }
       function onClose(evt){
+        doClose()
       }
     
       function onMessage(evt)
@@ -46,11 +45,7 @@ async function getNifty50(req,res){
     
       function onError(evt)
       {
-        // writeToScreen('<span style="color: red;"> Time : ' + new Date( Date.now()) + '</span>');	
-        // writeToScreen('<span style="color: red;">ERROR data:</span> ' + evt.data);
-        // writeToScreen('<span style="color: red;">ERROR message:</span> ' + evt.message);
-        // writeToScreen('<span style="color: red;">ERROR reason:</span> ' + evt.reason);
-        // writeToScreen("Endpoint :"+wsUri);
+        console.log(evt);
       }
     
       function doSend(message)
@@ -64,16 +59,13 @@ async function getNifty50(req,res){
       {
           websocket.close();
       }
-    
-      // GFDL : authentication request is sent by below code
       function Authenticate()
       {
-        //  writeToScreen("Authenticate");
-        var message = 
+        const message = 
         {
-           MessageType: "Authenticate",
-           Password: password
-         };
+            MessageType: "Authenticate",
+            Password: password
+          };
         doSend(message);
       }
       
@@ -101,14 +93,14 @@ async function getNifty50(req,res){
     function writeToScreen(message){
       let data = JSON.parse(message);
       
-      if (data.Result) {
-        Result = data.Result
-        // console.log(Result);
-        // console.log(Result[0]);
-        IO.getIO().emit('get:Nifty50',Result[0].LastTradePrice)
-        return res.status(200).json({message:'Nifty50 Live',statusCode:200,data:Result[0].LastTradePrice});
-        
+      if (!data.Result) {
+      
+        }else{
+          Result = data.Result
+          IO.getIO().emit('get:Nifty50',Result[0].LastTradePrice)
+          return res.status(200).json({message:'Nifty50 Live',statusCode:200,data:Result[0].LastTradePrice});
         }
+
       }
       testWebSocket()
           // const response = await axios.request(options);
