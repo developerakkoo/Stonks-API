@@ -23,6 +23,9 @@ client.authorize(function(err,tokens){
 
 
 async function scrapData(req,res){
+    try {
+        
+
     const nifty50Data=req.body.nifty50Data
     console.log('here Data inserted to DB>>');
     const data1=req.body.data1
@@ -863,9 +866,6 @@ async function scrapData(req,res){
     //     Time:nifty50Data[1].Time,
     //     Date_Time:nifty50Data[1].Date_Time
     // }
-
-
-try {
     // console.log(nifty50DataObj);
 const savedData =await Data.insertMany([
         nifty50DataObj,

@@ -4,7 +4,7 @@ const moment = require('moment');
 const WebSocket = require('ws');
 const wsUri = "ws://nimblewebstream.lisuns.com:4575/";
 const password = "df39da22-ff37-44c0-8f3c-44e7caf99172";
-try {
+
   setInterval(init, 5000)
 
   var output;
@@ -48,9 +48,13 @@ try {
     writeToScreen({ Endpoint: wsUri });
   }
   function doSend(message, req) {
+    try{
     const jsonmessage = JSON.stringify(message);
     websocket.send(jsonmessage);
     writeToScreen(jsonmessage, req);
+    }catch(error){
+      console.log('error>>',error);
+    }
   }
   function doClose() {
     websocket.close();
@@ -75,11 +79,11 @@ try {
         MessageType: "GetLastQuoteArray",
         Exchange: "NSE",
         InstrumentIdentifiers: [
-          { Value: "TCS" }, { Value: "BAJAJ-AUTO" }, { Value: "BPCL" }, { Value: "INDUSINDBK" }, { Value: "AXISBANK" },
-          { Value: "POWERGRID" }, { Value: "LT" }, { Value: "ULTRACEMCO" }, { Value: "CIPLA" }, { Value: "ADANIENT" },
-          { Value: "GRASIM" }, { Value: "TATAMOTORS" }, { Value: "BRITANNIA" }, { Value: "NTPC" }, { Value: "DRREDDY" },
-          { Value: "BAJFINANCE" }, { Value: "JSWSTEEL" }, { Value: "ICICIBANK" }, { Value: "TITAN" }, { Value: "HDFCBANK" },
-          { Value: "HDFC" }, { Value: "NESTLEIND" }, { Value: "COALINDIA" }, { Value: "APOLLOHOSP" }, { Value: "SUNPHARMA" },
+          { Value: "TCS" },      {Value: "BAJAJ-AUTO" }, { Value: "BPCL" },     { Value: "INDUSINDBK" }, { Value: "AXISBANK" },
+          { Value: "POWERGRID"}, { Value: "LT" },        {Value: "ULTRACEMCO"}, { Value: "CIPLA" },      { Value: "ADANIENT" },
+          { Value: "GRASIM" },   { Value: "TATAMOTORS" },{Value: "BRITANNIA" }, { Value: "NTPC" },       { Value: "DRREDDY" },
+          { Value: "BAJFINANCE"},{ Value: "JSWSTEEL" },  {Value: "ICICIBANK" }, { Value: "TITAN" },      { Value: "HDFCBANK" },
+          { Value: "HDFC" },     {Value: "NESTLEIND" },  {Value: "COALINDIA" }, { Value: "APOLLOHOSP" }, { Value: "SUNPHARMA" },
         ],
       };
       const request1 =
@@ -87,11 +91,11 @@ try {
         MessageType: "GetLastQuoteArray",
         Exchange: "NSE",
         InstrumentIdentifiers: [
-          { Value: "BAJAJFINSV" }, { Value: "DIVISLAB" }, { Value: "HDFCLIFE" }, { Value: "BHARTIARTL" }, { Value: "MARUTI" },
-          { Value: "ADANIPORTS" }, { Value: "ASIANPAINT" }, { Value: "WIPRO" }, { Value: "KOTAKBANK" }, { Value: "M&M" },
-          { Value: "RELIANCE" }, { Value: "TATACONSUM" }, { Value: "HINDALCO" }, { Value: "HEROMOTOCO" }, { Value: "TECHM" },
-          { Value: "SBILIFE" }, { Value: "ITC" }, { Value: "ONGC" }, { Value: "INFY" }, { Value: "HCLTECH" },
-          { Value: "HINDUNILVR" }, { Value: "UPL" }, { Value: "SBIN" }, { Value: "TATASTEEL" }, { Value: "EICHERMOT" },
+          { Value: "BAJAJFINSV" }, { Value: "DIVISLAB" }, { Value: "HDFCLIFE" }, {Value: "BHARTIARTL" }, { Value: "MARUTI"},
+          { Value: "ADANIPORTS" }, { Value: "ASIANPAINT"},{ Value: "WIPRO" },    {Value: "KOTAKBANK" },  { Value: "M&M"},
+          { Value: "RELIANCE" },   {Value: "TATACONSUM"}, { Value: "HINDALCO" }, { Value: "HEROMOTOCO"}, { Value: "TECHM"},
+          { Value: "SBILIFE" },    { Value: "ITC" },      { Value: "ONGC" },     { Value: "INFY" },      {Value: "HCLTECH"},
+          { Value: "HINDUNILVR" },  { Value: "UPL" },     { Value: "SBIN" },     {Value: "TATASTEEL" },  {Value: "EICHERMOT"},
         ],
       };
       const request3 =
@@ -110,17 +114,19 @@ try {
   let metaData = []
   let nifty50Data = []
 
-  function writeToScreen(message, reqNo) {
-    let DataNo
-    let data = JSON.parse(message);
-    // console.log(data.Result);
+
+
+    function writeToScreen(message,reqNo){
+    try {
+      console.log(message);
+		let data = JSON.parse(message);
     const Result = data.Result
+    
+  
     if (!Result) {
       //console.log('Data Not Available');
     } else {
-
       // console.log("reqNo:",DataNo);
-
       if (Result.length == 1) {
         // console.log(data.Result);
         nifty50Data.push({ SYMBOL: data.Result[0].InstrumentIdentifier, LTP: data.Result[0].LastTradePrice, CHNG: data.Result[0].PriceChange, PcCHNG: data.Result[0].PriceChangePercentage, sign: Math.sign(data.Result[0].PriceChangePercentage) })
@@ -280,10 +286,8 @@ try {
           if (Data.InstrumentIdentifier == 'EICHERMOT') {
             metaData.push({ SYMBOL: Data.InstrumentIdentifier, LTP: Data.LastTradePrice, CHNG: Data.PriceChange, PcCHNG: Data.PriceChangePercentage, sign: Math.sign(Data.PriceChangePercentage) });
           }
-
-
         }
-       
+      
       }
     }
    // Create a copy of the array
@@ -291,9 +295,10 @@ const sortedData = [...metaData];
 
 // Sort the copied array in ascending order based on SYMBOL
 sortedData.sort((a, b) => a.SYMBOL.localeCompare(b.SYMBOL));
-    if (metaData.length == 49) {
-
-      console.log(sortedData);
+    if (metaData.length == 49 ) {
+      // console.log(metaData[25].SYMBOL);
+    sortedData.sort()
+      // console.log(sortedData);
       // console.log('>>>>>',metaData[49]);
       IO.getIO().emit('get:Stocks', sortedData);
       metaData = []
@@ -303,15 +308,16 @@ sortedData.sort((a, b) => a.SYMBOL.localeCompare(b.SYMBOL));
       // console.log('>>>>>',nifty50Data.length);
       IO.getIO().emit('get:Nifty50', nifty50Data);
       nifty50Data = [];
-
       // console.log('>>>>>',nifty50Data.length);
     }
-  }
+  } catch (error) {
+    console.log('ERROR>>',error);
+  doClose()
 
-  init()
-} catch (error) {
-  console.log(error);
+  }
 }
+
+
 
 
 
@@ -406,13 +412,3 @@ module.exports = {
 
 
 
-
-
-
-
-
-
-
-
-
- 
