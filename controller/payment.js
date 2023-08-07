@@ -8,20 +8,20 @@ const stripe = require('stripe')('sk_test_51NRBG8SBGsqYtPbhSk9hzpx7xQPQ2Y96IRW69
 // Create a new payment
 exports.payment = async (req, res) => {
     try{
+        let amount = req.body.amount;
         let params = {
             name:req.body.name,
             email: req.body.email
             }
-            const customer = await stripe.customers.create(params);
+            const customer = await stripe.customers.create();
             const ephemeralKey = await stripe.ephemeralKeys.create(
             {customer: customer.id},
             {apiVersion: '2022-11-15'}
             );
         
-            let amount = req.body.amount;
         
             const paymentIntent = await stripe.paymentIntents.create({
-            amount: parseInt(amount)*100,
+            amount: amount * 100,
             currency: 'INR',
             customer: customer.id,
             automatic_payment_methods: {
@@ -29,7 +29,7 @@ exports.payment = async (req, res) => {
             },
             });
         
-        res.json({
+        res.status(200).json({
             paymentIntent: paymentIntent.client_secret,
             ephemeralKey: ephemeralKey.secret,
             customer: customer.id,
