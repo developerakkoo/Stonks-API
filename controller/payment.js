@@ -21,7 +21,7 @@ exports.payment = async (req, res) => {
             let amount = req.body.amount;
         
             const paymentIntent = await stripe.paymentIntents.create({
-            amount: amount*100,
+            amount: parseInt(amount)*100,
             currency: 'INR',
             customer: customer.id,
             automatic_payment_methods: {
