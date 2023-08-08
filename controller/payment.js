@@ -29,7 +29,7 @@ exports.payment = async (req, res) => {
             },
             });
         
-        res.status(200).json({
+        res.json({
             paymentIntent: paymentIntent.client_secret,
             ephemeralKey: ephemeralKey.secret,
             customer: customer.id,
