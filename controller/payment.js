@@ -13,7 +13,7 @@ exports.payment = async (req, res) => {
             name:req.body.name,
             email: req.body.email
             }
-            const customer = await stripe.customers.create();
+            const customer = await stripe.customers.create(params);
             const ephemeralKey = await stripe.ephemeralKeys.create(
             {customer: customer.id},
             {apiVersion: '2022-11-15'}
