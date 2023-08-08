@@ -1,6 +1,6 @@
 require('dotenv').config();
 const key = process.env.STRIPE_KEY
-const stripe = require('stripe')('pk_live_51NRBG8SBGsqYtPbhK4qyxgcKOnavch0nVOWlWzEOhig3PFOl0J9SyCbIV80TMgwasInL4wWUgG3DRgwd0ywMyDa300fTyvbfDF');
+const stripe = require('stripe')('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');
 
 
 
