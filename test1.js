@@ -101,7 +101,7 @@
 
 const io = require('socket.io-client');
 console.log('here')
-const socket = io('http://192.168.3.102:8000'); // Replace with the actual IP address of your laptop
+const socket = io('http://192.168.0.227:8000'); // Replace with the actual IP address of your laptop
 
 
 

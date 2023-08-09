@@ -4,7 +4,7 @@ const moment = require('moment');
 const WebSocket = require('ws');
 const wsUri = "ws://nimblewebstream.lisuns.com:4575/";
 const password = "df39da22-ff37-44c0-8f3c-44e7caf99172";
-const myInterval = setInterval(testWebSocket,10000)
+const myInterval = setInterval(testWebSocket,2000)
 
   var output;
   var isAuthenticate = false;
