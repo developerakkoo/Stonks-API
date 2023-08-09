@@ -4,14 +4,11 @@ const moment = require('moment');
 const WebSocket = require('ws');
 const wsUri = "ws://nimblewebstream.lisuns.com:4575/";
 const password = "df39da22-ff37-44c0-8f3c-44e7caf99172";
-
-  setInterval(init, 5000)
+const myInterval = setInterval(testWebSocket,10000)
 
   var output;
-  let isAuthenticate = false;
-  function init() {
-    testWebSocket();
-  }
+  var isAuthenticate = false;
+
   function testWebSocket() {
     websocket = new WebSocket(wsUri);
     websocket.onopen = function (evt) { onOpen(evt) };
@@ -19,33 +16,29 @@ const password = "df39da22-ff37-44c0-8f3c-44e7caf99172";
     websocket.onmessage = function (evt) { onMessage(evt) };
     websocket.onerror = function (evt) { onError(evt) };
   }
+  try{ 
   function onOpen(evt) {
     // writeToScreen("CONNECTED");
     // writeToScreen("Endpoint :"+wsUri);
     Authenticate();
   }
   function onClose(evt) {
-    writeToScreen("DISCONNECTED. Reason :" + evt.reason);
-    writeToScreen("DISCONNECTED. Reason :" + evt.code);
-    writeToScreen("Endpoint :" + wsUri);
   }
   function onMessage(evt) {
     var event = JSON.parse(evt.data);
     if (event.MessageType == "AuthenticateResult")
       if (event.Complete) {
         isAuthenticate = true;
-        // writeToScreen('Time : ' + new Date( Date.now()) + 'RESPONSE: AUTHENTICATED!!!');	            
         setTimeout(doTest, 500);
       }
-    //GFDL : Server sends Echo message every few seconds to confirm connection is live. To hide Echo Message, uncomment "if" statement below
     writeToScreen(evt.data);
   }
   function onError(evt) {
-    writeToScreen(' Time : ' + new Date(Date.now()));
-    writeToScreen('ERROR data: ' + evt.data);
-    writeToScreen('ERROR message:' + evt.message);
-    writeToScreen('ERROR reason:' + evt.reason);
-    writeToScreen({ Endpoint: wsUri });
+    // writeToScreen(' Time : ' + new Date(Date.now()));
+    // writeToScreen('ERROR data: ' + evt.data);
+    // writeToScreen('ERROR message:' + evt.message);
+    // writeToScreen('ERROR reason:' + evt.reason);
+    // writeToScreen({ Endpoint: wsUri });
   }
   function doSend(message, req) {
     try{
@@ -59,7 +52,6 @@ const password = "df39da22-ff37-44c0-8f3c-44e7caf99172";
   function doClose() {
     websocket.close();
   }
-  // GFDL : authentication request is sent by below code
   function Authenticate() {
     // writeToScreen("Authenticate");
     var message =
@@ -69,51 +61,48 @@ const password = "df39da22-ff37-44c0-8f3c-44e7caf99172";
     };
     doSend(message);
   }
-
   function doTest() {
     GetLastQuoteArray()
-    // SubscribeRealtime();
-    function GetLastQuoteArray() {
-      const request =
-      {
-        MessageType: "GetLastQuoteArray",
-        Exchange: "NSE",
-        InstrumentIdentifiers: [
-          { Value: "TCS" },      {Value: "BAJAJ-AUTO" }, { Value: "BPCL" },     { Value: "INDUSINDBK" }, { Value: "AXISBANK" },
-          { Value: "POWERGRID"}, { Value: "LT" },        {Value: "ULTRACEMCO"}, { Value: "CIPLA" },      { Value: "ADANIENT" },
-          { Value: "GRASIM" },   { Value: "TATAMOTORS" },{Value: "BRITANNIA" }, { Value: "NTPC" },       { Value: "DRREDDY" },
-          { Value: "BAJFINANCE"},{ Value: "JSWSTEEL" },  {Value: "ICICIBANK" }, { Value: "TITAN" },      { Value: "HDFCBANK" },
-          { Value: "HDFC" },     {Value: "NESTLEIND" },  {Value: "COALINDIA" }, { Value: "APOLLOHOSP" }, { Value: "SUNPHARMA" },
-        ],
-      };
-      const request1 =
-      {
-        MessageType: "GetLastQuoteArray",
-        Exchange: "NSE",
-        InstrumentIdentifiers: [
-          { Value: "BAJAJFINSV" }, { Value: "DIVISLAB" }, { Value: "HDFCLIFE" }, {Value: "BHARTIARTL" }, { Value: "MARUTI"},
-          { Value: "ADANIPORTS" }, { Value: "ASIANPAINT"},{ Value: "WIPRO" },    {Value: "KOTAKBANK" },  { Value: "M&M"},
-          { Value: "RELIANCE" },   {Value: "TATACONSUM"}, { Value: "HINDALCO" }, { Value: "HEROMOTOCO"}, { Value: "TECHM"},
-          { Value: "SBILIFE" },    { Value: "ITC" },      { Value: "ONGC" },     { Value: "INFY" },      {Value: "HCLTECH"},
-          { Value: "HINDUNILVR" },  { Value: "UPL" },     { Value: "SBIN" },     {Value: "TATASTEEL" },  {Value: "EICHERMOT"},
-        ],
-      };
-      const request3 =
-      {
-        MessageType: "GetLastQuoteArray",
-        Exchange: "NSE_IDX",
-        InstrumentIdentifiers: [{ Value: "NIFTY 50" }],
-      };
-      doSend(request, 1);
-      doSend(request1, 2);
-      doSend(request3, 3);
+  }
+  function GetLastQuoteArray() {
+    const request =
+    {
+      MessageType: "GetLastQuoteArray",
+      Exchange: "NSE",
+      InstrumentIdentifiers: [
+        { Value: "TCS" },      {Value: "BAJAJ-AUTO" }, { Value: "BPCL" },     { Value: "INDUSINDBK" }, { Value: "AXISBANK" },
+        { Value: "POWERGRID"}, { Value: "LT" },        {Value: "ULTRACEMCO"}, { Value: "CIPLA" },      { Value: "ADANIENT" },
+        { Value: "GRASIM" },   { Value: "TATAMOTORS" },{Value: "BRITANNIA" }, { Value: "NTPC" },       { Value: "DRREDDY" },
+        { Value: "BAJFINANCE"},{ Value: "JSWSTEEL" },  {Value: "ICICIBANK" }, { Value: "TITAN" },      { Value: "HDFCBANK" },
+        { Value: "HDFC" },     {Value: "NESTLEIND" },  {Value: "COALINDIA" }, { Value: "APOLLOHOSP" }, { Value: "SUNPHARMA" },
+      ],
+    };
+    const request1 =
+    {
+      MessageType: "GetLastQuoteArray",
+      Exchange: "NSE",
+      InstrumentIdentifiers: [
+        { Value: "BAJAJFINSV" }, { Value: "DIVISLAB" }, { Value: "HDFCLIFE" }, {Value: "BHARTIARTL" }, { Value: "MARUTI"},
+        { Value: "ADANIPORTS" }, { Value: "ASIANPAINT"},{ Value: "WIPRO" },    {Value: "KOTAKBANK" },  { Value: "M&M"},
+        { Value: "RELIANCE" },   {Value: "TATACONSUM"}, { Value: "HINDALCO" }, { Value: "HEROMOTOCO"}, { Value: "TECHM"},
+        { Value: "SBILIFE" },    { Value: "ITC" },      { Value: "ONGC" },     { Value: "INFY" },      {Value: "HCLTECH"},
+        { Value: "HINDUNILVR" },  { Value: "UPL" },     { Value: "SBIN" },     {Value: "TATASTEEL" },  {Value: "EICHERMOT"},
+      ],
+    };
+    const request3 =
+    {
+      MessageType: "GetLastQuoteArray",
+      Exchange: "NSE_IDX",
+      InstrumentIdentifiers: [{ Value: "NIFTY 50" }],
+    };
+    doSend(request, 1);
+    doSend(request1, 2);
+    doSend(request3, 3);
 
-    }
   }
 
   let metaData = []
   let nifty50Data = []
-
 
 
     function writeToScreen(message,reqNo){
@@ -122,18 +111,12 @@ const password = "df39da22-ff37-44c0-8f3c-44e7caf99172";
 		let data = JSON.parse(message);
     const Result = data.Result
     
-  
     if (!Result) {
-      //console.log('Data Not Available');
     } else {
-      // console.log("reqNo:",DataNo);
       if (Result.length == 1) {
-        // console.log(data.Result);
         nifty50Data.push({ SYMBOL: data.Result[0].InstrumentIdentifier, LTP: data.Result[0].LastTradePrice, CHNG: data.Result[0].PriceChange, PcCHNG: data.Result[0].PriceChangePercentage, sign: Math.sign(data.Result[0].PriceChangePercentage) })
       }
       if (Result.length == 25) {
-        // console.log(data.Result[0]);
-        // console.log(data.Result[0].InstrumentIdentifier,data.Result[0].PriceChangePercentage,"sign:"+ Math.sign(data.Result[0].PriceChangePercentage));
         for (Data of data.Result) {
           if (Data.InstrumentIdentifier == 'TCS') {
             metaData.push({ SYMBOL: Data.InstrumentIdentifier, LTP: Data.LastTradePrice, CHNG: Data.PriceChange, PcCHNG: Data.PriceChangePercentage, sign: Math.sign(Data.PriceChangePercentage) });
@@ -296,24 +279,21 @@ const sortedData = [...metaData];
 // Sort the copied array in ascending order based on SYMBOL
 sortedData.sort((a, b) => a.SYMBOL.localeCompare(b.SYMBOL));
     if (metaData.length == 49 ) {
-      // console.log(metaData[25].SYMBOL);
-    sortedData.sort()
-      // console.log(sortedData);
-      // console.log('>>>>>',metaData[49]);
+        sortedData.sort()
       IO.getIO().emit('get:Stocks', sortedData);
       metaData = []
-      // console.log('>>>>>',metaData.length);
     }
     if (nifty50Data.length == 1) {
-      // console.log('>>>>>',nifty50Data.length);
       IO.getIO().emit('get:Nifty50', nifty50Data);
       nifty50Data = [];
-      // console.log('>>>>>',nifty50Data.length);
     }
   } catch (error) {
     console.log('ERROR>>',error);
   doClose()
   }
+}
+}catch(error){
+  console.log(error);  
 }
 
 
