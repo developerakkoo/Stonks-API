@@ -118,7 +118,7 @@ const password = "df39da22-ff37-44c0-8f3c-44e7caf99172";
 
     function writeToScreen(message,reqNo){
     try {
-      console.log(message);
+      // console.log(message);
 		let data = JSON.parse(message);
     const Result = data.Result
     
@@ -313,7 +313,6 @@ sortedData.sort((a, b) => a.SYMBOL.localeCompare(b.SYMBOL));
   } catch (error) {
     console.log('ERROR>>',error);
   doClose()
-
   }
 }
 

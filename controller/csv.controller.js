@@ -25,7 +25,6 @@ client.authorize(function(err,tokens){
 async function scrapData(req,res){
     try {
         
-
     const nifty50Data=req.body.nifty50Data
     console.log('here Data inserted to DB>>');
     const data1=req.body.data1
