@@ -1,6 +1,5 @@
 require('dotenv').config();
-const key = process.env.STRIPE_KEY
-const stripe = require('stripe')('sk_test_51NRBG8SBGsqYtPbhSk9hzpx7xQPQ2Y96IRW69M7HD2b7ebnGX5hG3OoSZGOdozxznS1s6BXyts6WN7l6RvsuOJqf00mhRtUHFs');
+const stripe = require('stripe')('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');
 
 
 
@@ -8,6 +7,7 @@ const stripe = require('stripe')('sk_test_51NRBG8SBGsqYtPbhSk9hzpx7xQPQ2Y96IRW69
 // Create a new payment
 exports.payment = async (req, res) => {
     try{
+        let amount = req.body.amount;
         let params = {
             name:req.body.name,
             email: req.body.email
@@ -18,10 +18,9 @@ exports.payment = async (req, res) => {
             {apiVersion: '2022-11-15'}
             );
         
-            let amount = req.body.amount;
         
             const paymentIntent = await stripe.paymentIntents.create({
-            amount: amount*100,
+            amount: amount * 100,
             currency: 'INR',
             customer: customer.id,
             automatic_payment_methods: {
@@ -34,7 +33,7 @@ exports.payment = async (req, res) => {
             ephemeralKey: ephemeralKey.secret,
             customer: customer.id,
             customerEmail: customer.email,
-            publishableKey: 'pk_test_51NRBG8SBGsqYtPbhHvE8XO8NY6vxgKLTv6wENQM3friu7i3hb2pMcEZjAOl0B5ETUthd5AXUTmuJYduVCsvIBLxp003kjz2LWn'
+            publishableKey: 'pk_live_51NRBG8SBGsqYtPbhK4qyxgcKOnavch0nVOWlWzEOhig3PFOl0J9SyCbIV80TMgwasInL4wWUgG3DRgwd0ywMyDa300fTyvbfDF'
         });
         }catch(error){
         res.status(500).json(error)
