@@ -834,21 +834,21 @@ async function scrapData(req,res){
     Date:data49.Date,
     Time:data9.Time
     }  
-    // const DataObj50={
-    //     SYMBOL:data50.SYMBOL,
-    //     OPEN:data50.OPEN,
-    //     HIGH:data50.HIGH,
-    //     LOW:data50.LOW,
-    //     PREVCLOSE:data50.PREVCLOSE,
-    //     LTP:data50.LTP,
-    //     CHNG:data50.CHNG,
-    //     CHANGPercentage:data50.CHANGPercentage,
-    //     VOLUME:data50.VOLUME,
-    //     VALUE:data50.VALUE,
-    //     fiftyTwo_WL:data50.fiftyTwo_WL,
-    //     Date:data50.Date,
-    //     Time:data50.Time
-    // }
+    const DataObj50={
+        SYMBOL:data50.SYMBOL,
+        OPEN:data50.OPEN,
+        HIGH:data50.HIGH,
+        LOW:data50.LOW,
+        PREVCLOSE:data50.PREVCLOSE,
+        LTP:data50.LTP,
+        CHNG:data50.CHNG,
+        CHANGPercentage:data50.CHANGPercentage,
+        VOLUME:data50.VOLUME,
+        VALUE:data50.VALUE,
+        fiftyTwo_WL:data50.fiftyTwo_WL,
+        Date:data50.Date,
+        Time:data50.Time
+    }
     // const DataObj51={
     //     SYMBOL:nifty50Data[1].SYMBOL,
     //     OPEN:nifty50Data[1].OPEN,
@@ -872,7 +872,7 @@ const savedData =await Data.insertMany([
         data11,DataObj12,DataObj13,DataObj14,DataObj15,DataObj16,DataObj17,DataObj18,DataObj19,DataObj20,
         DataObj21,DataObj22,DataObj23,DataObj24,DataObj25,DataObj26,DataObj27,DataObj28,DataObj29,DataObj30,
         DataObj31,DataObj32,DataObj33,DataObj34,DataObj35,DataObj36,DataObj37,DataObj38,DataObj39,DataObj40,
-        DataObj41,DataObj42,DataObj43,DataObj44,DataObj45,DataObj46,DataObj47,DataObj48,DataObj49//,DataObj50,
+        DataObj41,DataObj42,DataObj43,DataObj44,DataObj45,DataObj46,DataObj47,DataObj48,DataObj49,DataObj50,
        // DataObj51
         
     ]);
