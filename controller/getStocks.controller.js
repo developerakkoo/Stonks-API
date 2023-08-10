@@ -273,11 +273,13 @@ const myInterval = setInterval(testWebSocket,2000)
       
       }
     }
+    console.log(metaData.length);
    // Create a copy of the array
 const sortedData = [...metaData];
 
 // Sort the copied array in ascending order based on SYMBOL
 sortedData.sort((a, b) => a.SYMBOL.localeCompare(b.SYMBOL));
+
     if (metaData.length == 49 ) {
         sortedData.sort()
       IO.getIO().emit('get:Stocks', sortedData);
@@ -286,6 +288,9 @@ sortedData.sort((a, b) => a.SYMBOL.localeCompare(b.SYMBOL));
     if (nifty50Data.length == 1) {
       IO.getIO().emit('get:Nifty50', nifty50Data);
       nifty50Data = [];
+    }
+    if (metaData.length >49) {
+      metaData = []
     }
   } catch (error) {
     console.log('ERROR>>',error);
