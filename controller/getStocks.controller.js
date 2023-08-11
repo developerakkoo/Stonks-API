@@ -273,7 +273,7 @@ const myInterval = setInterval(testWebSocket,2000)
       
       }
     }
-    console.log(metaData.length);
+    // console.log(metaData.length);
    // Create a copy of the array
 const sortedData = [...metaData];
 
