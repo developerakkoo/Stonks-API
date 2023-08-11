@@ -9,13 +9,16 @@ async function getNifty50(req,res){
       var output;
       var isAuthenticate = false;
         
-      function testWebSocket()
-      {
+      function testWebSocket(){
+        try{
         websocket = new WebSocket(wsUri);
         websocket.onopen = function(evt) { onOpen(evt) };
         websocket.onclose = function(evt) { onClose(evt) };
         websocket.onmessage = function(evt) { onMessage(evt) };
         websocket.onerror = function(evt) { onError(evt) };
+        }catch(error){
+          console.log(error);
+        }
       }
     
       function onOpen(evt)
@@ -30,43 +33,49 @@ async function getNifty50(req,res){
         doClose()
       }
     
-      function onMessage(evt)
-      {
-        var event = JSON.parse(evt.data);
-        if (event.MessageType == "AuthenticateResult")
-            if (event.Complete)
-            {
-                isAuthenticate = true;
-                setTimeout(doTest1, 500);
+      function onMessage(evt){
+        try {
+          var event = JSON.parse(evt.data);
+          if (event.MessageType == "AuthenticateResult")
+            if (event.Complete){
+              isAuthenticate = true;
+              setTimeout(doTest1, 500);
             }
-            
             writeToScreen(evt.data);	
+        } catch (error) {
+          console.log(error);
+        }
       }
     
-      function onError(evt)
-      {
+      function onError(evt){
         console.log(evt);
       }
     
-      function doSend(message)
-      {
-        var jsonmessage = JSON.stringify(message);
-        websocket.send(jsonmessage);
-        writeToScreen(jsonmessage);
+      function doSend(message){
+        try {
+          var jsonmessage = JSON.stringify(message);
+          websocket.send(jsonmessage);
+          writeToScreen(jsonmessage);
+        } catch (error) {
+          console.log(error);        
+        }
       }
       
       function doClose()
       {
           websocket.close();
       }
-      function Authenticate()
-      {
-        const message = 
-        {
-            MessageType: "Authenticate",
-            Password: password
-          };
-        doSend(message);
+      function Authenticate(){
+        try {
+          const message = 
+          {
+              MessageType: "Authenticate",
+              Password: password
+            };
+          doSend(message);
+        } catch (error) {
+          console.log(error);
+        }
       }
       
       
@@ -78,43 +87,36 @@ async function getNifty50(req,res){
     
     
     function GetLastQuoteArray(){
-            var request = 
-                {
-                    MessageType: "GetLastQuoteArray",
-                    Exchange: "NSE_IDX",							//GFDL : Supported Values : NFO, NSE, NSE_IDX, CDS, MCX. Mandatory Parameter
-                    InstrumentIdentifiers: [{Value:"NIFTY 50"}],
-                    //isShortIdentifiers: "true"					//GFDL : When using contractwise symbol like NIFTY20JULFUT, 
-                                                                //this argument must be sent with value "true" 
-                    
-                };
-        doSend(request);
+      try {
+        var request = {
+        MessageType: "GetLastQuoteArray",
+        Exchange: "NSE_IDX",							//GFDL : Supported Values : NFO, NSE, NSE_IDX, CDS, MCX. Mandatory Parameter
+        InstrumentIdentifiers: [{Value:"NIFTY 50"}],
+        };
+      doSend(request);
+      } catch (error) {
+        console.log(error);
+      }
     }
     
-    function writeToScreen(message){
+  function writeToScreen(message){
+    try {
       let data = JSON.parse(message);
-      
       if (!data.Result) {
-      
         }else{
           Result = data.Result
           IO.getIO().emit('get:Nifty50',Result[0].LastTradePrice)
-          return res.status(200).json({message:'Nifty50 Live',statusCode:200,data:Result[0].LastTradePrice});
+          res.status(200).json({message:'Nifty50 Live',statusCode:200,data:Result[0].LastTradePrice});
         }
-
-      }
-      testWebSocket()
-          // const response = await axios.request(options);
-          // const Data = response.data
-          // const nifty50Data =[]
-          // nifty50Data.push({SYMBOL:Data['quoteResponse']['result'][0]['shortName'],LTP: Data['quoteResponse']['result'][0]['regularMarketPrice'],CHNG: parseFloat(Data['quoteResponse']['result'][0]['regularMarketChange'].toFixed(2)),PcCHNG: parseFloat(Data['quoteResponse']['result'][0]['regularMarketChangePercent'].toFixed(2)),sign: Math.sign(Data['quoteResponse']['result'][0]['regularMarketChange'].toString().split('.')[0])});
-          // IO.getIO().emit('get:Nifty50',nifty50Data);
-          // res.status(200).json({message:'Nifty50 Live',statusCode:200,data:nifty50Data});
-          
-            }
-          catch (error) {
-              console.log(error)
-              res.status(500).json({message:error.message,statusCode:500,status:'Error'});
-        }
-      }
-
-    module.exports = {getNifty50}
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  testWebSocket()
+    }
+      catch (error) {
+        console.log(error)
+        return res.status(500).json({message:error.message,statusCode:500,status:'Error'});
+    }
+  }
+  module.exports = {getNifty50}
