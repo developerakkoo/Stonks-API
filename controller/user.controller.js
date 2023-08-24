@@ -59,7 +59,7 @@ async function createUser (req,res){
 
 
     let mailOptions = {
-        from: 'serviceacount.premieleague@gmail.com',
+        from: 'nlvltracker@gmail.com',
         to: createdUser.email,
         subject:'Verify your email',
         text:`Hi ${createdUser.name}, To activate your Account, please verify your email address. Click Or copy and paste the following URL into your browser:  ${Link}`
