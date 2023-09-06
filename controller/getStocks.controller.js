@@ -5,7 +5,7 @@ const WebSocket = require('ws');
 const wsUri = "ws://nimblewebstream.lisuns.com:4575/";
 const password = "df39da22-ff37-44c0-8f3c-44e7caf99172";
 const myInterval = setInterval(testWebSocket,2000)
-
+const liveNifty50Data = require('../model/nifty50Data');
   var output;
   var isAuthenticate = false;
 
@@ -105,7 +105,7 @@ const myInterval = setInterval(testWebSocket,2000)
   let nifty50Data = []
 
 
-    function writeToScreen(message,reqNo){
+    async function writeToScreen(message,reqNo){
     try {
       // console.log(message);
 		let data = JSON.parse(message);
@@ -114,7 +114,17 @@ const myInterval = setInterval(testWebSocket,2000)
     if (!Result) {
     } else {
       if (Result.length == 1) {
-        nifty50Data.push({ SYMBOL: data.Result[0].InstrumentIdentifier, LTP: data.Result[0].LastTradePrice, CHNG: data.Result[0].PriceChange, PcCHNG: data.Result[0].PriceChangePercentage, sign: Math.sign(data.Result[0].PriceChangePercentage) })
+        nifty50Data.push({ SYMBOL: data.Result[0].InstrumentIdentifier, LTP: data.Result[0].LastTradePrice, CHNG: data.Result[0].PriceChange, PcCHNG: data.Result[0].PriceChangePercentage, sign: Math.sign(data.Result[0].PriceChangePercentage) });
+        const ltp = nifty50Data[0].LTP
+        const num = (ltp + "").split('.')[0]
+        const stockObj = {
+          LTP:num
+        }
+
+              if( moment().format('LT')!== '3:30 PM'){
+                console.log('LTP:',num);
+                await liveNifty50Data.create(stockObj)
+                }
       }
       if (Result.length == 25) {
         for (Data of data.Result) {

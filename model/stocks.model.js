@@ -7,7 +7,7 @@ call:{
     type:String,
 },
 entryPrice:{
-    type:String,
+    type:Number,
 },
 targetPrice:{
     type:Number,
@@ -19,6 +19,14 @@ stopLoss:{
 },
 isCall:{
     type: Boolean,
+    default:false
+},
+isProfit:{
+    type: Boolean,
+    default:false
+},
+trackNifty50:{
+    type: [],
     default:false
 },
 Date: {

@@ -1,9 +1,13 @@
 const Stock = require('../model/stocks.model');
+const scrapData = require('../model/scraperData.model');
 const User = require('../model/users.model');
 const moment = require('moment');
 const admin = require('firebase-admin');
+const axios = require('axios');
 const serviceAccount  = require('../stonks-b66d4-be8791d7d5c7.json');
 const IO = require('../socket');
+const liveNifty50Data = require('../model/nifty50Data');
+
 const csvWriter =  require('csv-writer');
 const writer = csvWriter.createObjectCsvWriter(
     {path:'public/stokeData.csv',
@@ -318,15 +322,21 @@ async function chartData(req, res, next){
             if (item == undefined) {
                 continue;
             }
-            data.push(Math.abs(item.entryPrice - item.stopLoss))
-            
+            const num = item.trackNifty50.length -1
+            if (item.isProfit == false) {
+                data.push(Math.abs(item.entryPrice - item.trackNifty50[num].LTP))
+            }
+            // data.push(0);
         }
         for(item of metaData){
             if (item == undefined) {
                 continue;
             }
-            dataSet.push(Math.abs(item.entryPrice - item.targetPrice))
-            
+            if (item.isProfit == true) {
+                const num = item.trackNifty50.length -1
+                dataSet.push(Math.abs(item.entryPrice - item.trackNifty50[num].LTP));
+            }
+            // dataSet.push(0);
         }
         // console.log("Date:",label);
         // metaData.forEach(item=>{
@@ -347,6 +357,7 @@ async function chartData(req, res, next){
         // res.status(200).json({message:'ChartData',length:label.length,label})
         res.status(200).json({message:'ChartData',length:label.length,label,Profit:{dataSet},loss:{data}});
     } catch (error) {
+        console.log(error);
         res.status(500).json({message:error.message,Status:'ERROR'});
     }
 
@@ -375,6 +386,53 @@ async function exportExcelCalls(req,res){
         res.status(500).json({message:error.message,status:`ERROR`})
     }
 }
+
+
+
+async function trackNifty(req,res){
+    try {
+        // console.log(moment().subtract(1,'minutes').format('LT') );
+        const date =  moment().format('DD-MM-YYYY');
+        const time = moment().subtract(1,'minutes').format('LT') //'4:38:00 PM'
+        const savedCall= await Stock.find({Date:date});
+        const data = await liveNifty50Data.find({Date:date,Time:time});
+        const latestData = data.length -1
+
+        savedCall.forEach (async element => {
+            if (data[latestData] ) {
+                if (data[latestData].isCall = true) {
+                    console.log(data[latestData]);
+                    if (data[latestData].LTP == element.targetPrice ||data[latestData].LTP == element.targetPrice+10 ||data[latestData].LTP == element.targetPrice+20 && element.isProfit == false) {
+                        console.log('isCall = true',data[latestData]);
+                        element.trackNifty50.push(data[latestData]) ;
+                        element.isProfit = true  
+                        await element.save()
+                    }
+                }
+                if (data[latestData].isCall = false) {
+                    console.log('isCall = false',data[latestData]);
+                    if (data[latestData].LTP == element.targetPrice ||data[latestData].LTP == element.targetPrice-10 ||data[latestData].LTP == element.targetPrice-20 & element.isProfit ==false) {
+                        console.log(data[latestData].LTP,element.targetPrice);
+                        element.trackNifty50.push(data[latestData]) ;
+                        element.isProfit = true  
+                        await element.save()
+                    }
+                }
+
+                if (data[latestData].LTP == element.stopLoss || data[latestData].LTP == element.stopLoss-10 ||data[latestData].LTP == element.stopLoss-20) {
+                    
+                    element.trackNifty50.push(data[latestData]) ;
+                    element.isProfit = false  
+                    await element.save()
+                }
+            }
+        });
+        } catch (error) {
+            console.log(error.message);
+    }
+}
+myInterval = setInterval(trackNifty, 10000);
+// 
 
 module.exports = 
 {

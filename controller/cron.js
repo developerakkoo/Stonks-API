@@ -3,6 +3,7 @@ const noCall = require('../model/NoCalls.model');
 const IO = require('../socket');
 const moment = require('moment');
 const cron = require('node-cron');
+const nifty50Data = require('../model/nifty50Data');
 
 cron.schedule('* * * * *',async () =>{
     try{
@@ -29,12 +30,14 @@ console.log('noCall:true');
 
 cron.schedule('* * * * *',async () =>{
     try{
-        const id = moment().subtract(20,"day").format('DD-MM-YYYY')
+        const id = moment().subtract(20,"day").format('DD-MM-YYYY');
+        const Id = moment().subtract(10,"day").format('DD-MM-YYYY');
         const data =  await stock.find({ Date:id})
         if (!data===[]){
             console.log("Calls Not Found");
         }
-        await stock.deleteMany({Date:id})
+        await stock.deleteMany({Date:id});
+        await nifty50Data.deleteMany({Date:Id});
         console.log('Previous Calls History Deleted');
     }catch(error){
     }
