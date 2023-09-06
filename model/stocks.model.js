@@ -25,6 +25,10 @@ isProfit:{
     type: Boolean,
     default:false
 },
+isLoss:{
+    type: Boolean,
+    default:false
+},
 trackNifty50:{
     type: [],
     default:false

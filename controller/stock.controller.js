@@ -332,7 +332,7 @@ async function chartData(req, res, next){
             if (item == undefined) {
                 continue;
             }
-            if (item.isProfit == true) {
+            if (item.isLoss == true) {
                 const num = item.trackNifty50.length -1
                 dataSet.push(Math.abs(item.entryPrice - item.trackNifty50[num].LTP));
             }
@@ -411,7 +411,7 @@ async function trackNifty(req,res){
                 }
                 if (data[latestData].isCall = false) {
                     console.log('isCall = false',data[latestData]);
-                    if (data[latestData].LTP == element.targetPrice ||data[latestData].LTP == element.targetPrice-10 ||data[latestData].LTP == element.targetPrice-20 & element.isProfit ==false) {
+                    if (data[latestData].LTP == element.targetPrice ||data[latestData].LTP == element.targetPrice-10 ||data[latestData].LTP == element.targetPrice-20 & element.isProfit == false) {
                         console.log(data[latestData].LTP,element.targetPrice);
                         element.trackNifty50.push(data[latestData]) ;
                         element.isProfit = true  
@@ -419,10 +419,10 @@ async function trackNifty(req,res){
                     }
                 }
 
-                if (data[latestData].LTP == element.stopLoss || data[latestData].LTP == element.stopLoss-10 ||data[latestData].LTP == element.stopLoss-20) {
+                if (data[latestData].LTP == element.stopLoss || data[latestData].LTP == element.stopLoss-10 ||data[latestData].LTP == element.stopLoss-20 && element.isLoss == false) {
                     
                     element.trackNifty50.push(data[latestData]) ;
-                    element.isProfit = false  
+                    element.isLoss = true  
                     await element.save()
                 }
             }
