@@ -31,7 +31,7 @@ isLoss:{
 },
 trackNifty50:{
     type: [],
-    default:false
+    default:[]
 },
 Date: {
     type: String,
