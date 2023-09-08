@@ -333,7 +333,7 @@ async function chartData(req, res, next){
             if (item == undefined) {
                 continue;
             }
-            if (item.isLoss == true) {
+            if (item.isProfit == true) {
                 const num = item.trackNifty50.length -1
                 dataSet.push(Math.abs(item.entryPrice - item.trackNifty50[num].LTP));
             }
