@@ -122,7 +122,7 @@ const liveNifty50Data = require('../model/nifty50Data');
         }
 
               if( moment().format('LT')!== '3:30 PM'){
-                console.log('LTP:',num);
+                // console.log('LTP:',num);
                 await liveNifty50Data.create(stockObj)
                 }
       }
