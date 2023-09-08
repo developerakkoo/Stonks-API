@@ -323,7 +323,7 @@ async function chartData(req, res, next){
                 continue;
             }
             const num = item.trackNifty50.length -1
-            if (item.isProfit == true) {
+            if (item.isLoss == true) {
                 console.log(Math.abs(item.entryPrice - item.trackNifty50[num].LTP));
                 data.push(Math.abs(item.entryPrice - item.trackNifty50[num].LTP))
             }
