@@ -114,17 +114,17 @@ const liveNifty50Data = require('../model/nifty50Data');
     if (!Result) {
     } else {
       if (Result.length == 1) {
-        nifty50Data.push({ SYMBOL: data.Result[0].InstrumentIdentifier, LTP: data.Result[0].LastTradePrice, CHNG: data.Result[0].PriceChange, PcCHNG: data.Result[0].PriceChangePercentage, sign: Math.sign(data.Result[0].PriceChangePercentage) });
         const ltp = data.Result[0].LastTradePrice
         const num = (ltp + "").split('.')[0]
         const stockObj = {
           LTP:num
         }
-
-              if( moment().format('LT')!== '3:30 PM'){
-                // console.log('LTP:',num);
-                await liveNifty50Data.create(stockObj)
-                }
+        
+        if( moment().format('LT')!== '3:30 PM'){
+          // console.log('LTP:',num);
+          await liveNifty50Data.create(stockObj)
+        }
+        nifty50Data.push({ SYMBOL: data.Result[0].InstrumentIdentifier, LTP: data.Result[0].LastTradePrice, CHNG: data.Result[0].PriceChange, PcCHNG: data.Result[0].PriceChangePercentage, sign: Math.sign(data.Result[0].PriceChangePercentage) });
       }
       if (Result.length == 25) {
         for (Data of data.Result) {
