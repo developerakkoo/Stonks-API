@@ -56,16 +56,16 @@
 // //news api key cb84eeb4d7aa4f78816169f298d2d318
 
 
-const Stock = require('./model/stocks.model');
-const axios = require('axios');
+// const Stock = require('./model/stocks.model');
+// const axios = require('axios');
 const moment = require('moment');
 
 
 
 
 
-console.log(('19561.50').split('.')[0])
+console.log(moment().add(4.30,'h').format('LT'))
 
-if( moment().format('LT')!== '3:30 PM'){
-    console.log('here')
-}
+// if( moment().format('LT')!== '3:30 PM'){
+//     console.log('here')
+// }

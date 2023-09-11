@@ -9,20 +9,20 @@ cron.schedule('* * * * *',async () =>{
     try{
         
         let currentTime = moment().format('LT'); 
-        if ('3:30 PM' === currentTime ||'3:31 PM'=== currentTime ||'3:32 PM'=== currentTime ||'3:33 PM'=== currentTime ||'3:34 PM'=== currentTime ||'3:35 PM'=== currentTime)  {
+        if ('3:30 AM' === currentTime ||'3:31 PM'=== currentTime ||'3:32 PM'=== currentTime ||'3:33 PM'=== currentTime ||'3:34 PM'=== currentTime ||'3:35 PM'=== currentTime ||'3:36 PM'=== currentTime ||'3:37 PM'=== currentTime ||'3:38 PM'=== currentTime ||'3:39 PM'=== currentTime ||'3:40 PM'=== currentTime)  {
             // console.log('here');
             const calls = await noCall.find({isNoCall:false});
             // console.log(calls);
-            if (calls.length !== 0) {
+
                 // console.log('>>');
-                for (call of calls){
-                await noCall.findByIdAndUpdate(call._id,{
+                const Id ='6494098da741612bc7797121'
+                await noCall.findByIdAndUpdate(Id,{
                     isNoCall:true
                 })
-                }
-            }
+                
+            
+                console.log('noCall:true');
         }
-console.log('noCall:true');
     }catch(error){
         console.log(error);
     }
@@ -31,13 +31,13 @@ console.log('noCall:true');
 cron.schedule('* * * * *',async () =>{
     try{
         const id = moment().subtract(20,"day").format('DD-MM-YYYY');
-        const Id = moment().subtract(10,"day").format('DD-MM-YYYY');
+        const Id = moment().subtract(1,"day").format('DD-MM-YYYY');
         const data =  await stock.find({ Date:id})
-        if (!data===[]){
+        await nifty50Data.deleteMany({Date:Id});
+        if (data.length == 0){
             console.log("Calls Not Found");
         }
         await stock.deleteMany({Date:id});
-        await nifty50Data.deleteMany({Date:Id});
         console.log('Previous Calls History Deleted');
     }catch(error){
     }
