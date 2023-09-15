@@ -120,10 +120,10 @@ const liveNifty50Data = require('../model/nifty50Data');
           LTP:num
         }
         
-        if( moment().format('LT')!== '3:30 PM'){
-          // console.log('LTP:',num);
+        // if( moment().format('LT')!== '3:30 PM'){
           const  ltp = await liveNifty50Data.create(stockObj)
-        }
+          // console.log('LTP:',ltp);
+        // }
         nifty50Data.push({ SYMBOL: data.Result[0].InstrumentIdentifier, LTP: data.Result[0].LastTradePrice, CHNG: data.Result[0].PriceChange, PcCHNG: data.Result[0].PriceChangePercentage, sign: Math.sign(data.Result[0].PriceChangePercentage) });
       }
       if (Result.length == 25) {

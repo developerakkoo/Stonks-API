@@ -402,7 +402,7 @@ async function trackNifty(req,res){
         savedCall.forEach (async element => {
             if (data[latestData] ) {
                 if (data[latestData].isCall = true) {
-                    // console.log(data[latestData]);
+                    console.log(data[latestData]);
                     if (data[latestData].LTP == element.targetPrice ||data[latestData].LTP == element.targetPrice+2 ||data[latestData].LTP == element.targetPrice+4 && element.isProfit == false) {
                         console.log('isCall = true',data[latestData]);
                         element.trackNifty50.push(data[latestData]) ;
