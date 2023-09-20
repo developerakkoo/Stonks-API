@@ -66,5 +66,5 @@ updatedAt: {
     type: String,
     default: moment().format('LL')
 }
-},{timestamp:true}); 
+}); 
 module.exports = mongoose.model("User",userSchema);

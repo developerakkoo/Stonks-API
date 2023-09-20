@@ -406,7 +406,7 @@ async function trackNifty(req,res){
             if (data[latestData] ) {
                 if (data[latestData].isCall = true) {
                     console.log(data[latestData]);
-                    if (data[latestData].LTP == element.targetPrice ||data[latestData].LTP == element.targetPrice+2 ||data[latestData].LTP == element.targetPrice+4 && element.isProfit == false) {
+                    if (data[latestData].LTP == element.targetPrice ||data[latestData].LTP == element.targetPrice+1 ||data[latestData].LTP == element.targetPrice+2 && element.isProfit == false && element.isLoss == false) {
                         console.log('isCall = true',data[latestData]);
                         element.trackNifty50.push(data[latestData]) ;
                         element.isProfit = true  
@@ -415,7 +415,7 @@ async function trackNifty(req,res){
                 }
                 if (data[latestData].isCall = false) {
                     console.log('isCall = false',data[latestData]);
-                    if (data[latestData].LTP == element.targetPrice ||data[latestData].LTP == element.targetPrice-2 ||data[latestData].LTP == element.targetPrice-4 & element.isLoss == false) {
+                    if (data[latestData].LTP == element.targetPrice ||data[latestData].LTP == element.targetPrice-1 ||data[latestData].LTP == element.targetPrice-2 && element.isLoss == false && element.isProfit == false) {
                         console.log(data[latestData].LTP,element.targetPrice);
                         element.trackNifty50.push(data[latestData]) ;
                         element.isProfit = true  
