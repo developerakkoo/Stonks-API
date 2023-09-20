@@ -15,7 +15,7 @@ const nifty50DataSchema = mongoose.Schema({
         type:String,
         default: moment().format('LT')
     }
-});
+},{timestamps: true});
 
 
 module.exports = mongoose.model("nifty50Data",nifty50DataSchema);
