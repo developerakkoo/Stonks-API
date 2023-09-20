@@ -37,6 +37,6 @@ Date: {
     type: String,
     default: moment().format('DD-MM-YYYY'),
 }
-});
+},{timestamps: true});
 
 module.exports = mongoose.model("stock",stockSchema);

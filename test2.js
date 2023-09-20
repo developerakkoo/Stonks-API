@@ -64,7 +64,7 @@ const moment = require('moment');
 
 
 
-console.log(moment().add(4.30,'h').format('LT'))
+console.log(moment().format('HH:MM A'))
 
 // if( moment().format('LT')!== '3:30 PM'){
 //     console.log('here')
