@@ -117,7 +117,8 @@ const liveNifty50Data = require('../model/nifty50Data');
         const ltp = data.Result[0].LastTradePrice
         const num = (ltp + "").split('.')[0]
         const stockObj = {
-          LTP:num
+          LTP:num,
+          Time:moment().format('LT')
         }
         
         if( moment().format('LT')!== '3:30 PM'){
