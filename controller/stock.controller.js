@@ -31,7 +31,8 @@ async function createStock(req,res){
         targetPrice: req.body.targetPrice,
         stopLoss:req.body.stopLoss,
         isCall: req.body.isCall,
-        entryPrice:req.body.entryPrice
+        entryPrice:req.body.entryPrice,
+        Date: moment().format('DD-MM-YYYY')
     }
     try {
         const stockCreated = await Stock.create(stockObj);

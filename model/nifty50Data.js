@@ -13,6 +13,7 @@ const nifty50DataSchema = mongoose.Schema({
     },
     Time:{
         type:String,
+        required: true
         // default: moment().format('LT')
     }
 },{timestamp:true});
