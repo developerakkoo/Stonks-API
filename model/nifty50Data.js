@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const moment = require('moment');
-const {formatAMPM} = require('../constant/time')
 
 
 const nifty50DataSchema = mongoose.Schema({
@@ -14,9 +13,9 @@ const nifty50DataSchema = mongoose.Schema({
     },
     Time:{
         type:String,
-        default: formatAMPM(new Date)
+        default: moment().format('LT')
     }
-},{timestamps: true});
+},{timestamp:true});
 
 
 module.exports = mongoose.model("nifty50Data",nifty50DataSchema);
