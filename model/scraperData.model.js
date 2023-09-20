@@ -58,7 +58,7 @@ const dataSchema = mongoose.Schema({
         type:String,
         required: true
     }
-});
+},{timestamp:true});
 
 dataSchema.plugin(mongoosePaginate);
 module.exports = mongoose.model("Data",dataSchema);

@@ -28,6 +28,6 @@ updatedAt: {
     type: Date,
     default: moment().format('LL')
 }
-});
+},{timestamp:true});
 
 module.exports = mongoose.model("subscription",subscriptionSchema);
