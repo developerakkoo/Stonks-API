@@ -63,9 +63,14 @@ const moment = require('moment');
 
 
 
+const date = new Date();
+const hour = date.getHours();
+const min = date.getMinutes();
+console.log(`${hour}:${min}`)
 
-console.log(moment().format('HH:MM A'))
-
+const {formatAMPM} = require('./constant/time')
+  
+  console.log(formatAMPM(new Date));
 // if( moment().format('LT')!== '3:30 PM'){
 //     console.log('here')
 // }

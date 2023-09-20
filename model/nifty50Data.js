@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const moment = require('moment');
+const {formatAMPM} = require('../constant/time')
 
 
 const nifty50DataSchema = mongoose.Schema({
@@ -13,7 +14,7 @@ const nifty50DataSchema = mongoose.Schema({
     },
     Time:{
         type:String,
-        default: moment().format('HH:MM A')
+        default: formatAMPM(new Date)
     }
 },{timestamps: true});
 
