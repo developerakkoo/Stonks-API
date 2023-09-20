@@ -316,7 +316,9 @@ async function chartData(req, res, next){
             if (item == undefined) {
                 continue;
             }
-            label.push(item.Date)
+            if (item.isLoss == true || item.isProfit == true) {
+                label.push(item.Date)
+            }
             
         }
         for(item of metaData){
