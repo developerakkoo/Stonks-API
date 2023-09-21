@@ -36,6 +36,11 @@ trackNifty50:{
 Date: {
     type: String,
     default: moment().format('DD-MM-YYYY'),
+},
+Time:{
+    type:String,
+    required: true
+    // default: moment().format('LT')
 }
 },{timestamps: true});
 
