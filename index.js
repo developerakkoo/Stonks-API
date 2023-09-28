@@ -118,6 +118,11 @@ app.get('/google/callback',passport.authenticate('google',
     failureRedirect:'/failed'
 }))
 
+app.all("*", (req, res, next) => {
+  res.status(404).json({
+      message:"Page not found"
+  });
+});
 mongoose.connect(MONGODB_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,

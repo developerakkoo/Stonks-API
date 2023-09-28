@@ -377,7 +377,7 @@ async  function get(req,res){
 async function exportExcelCalls(req,res){
     try{
         const calls= await Stock.find();
-        if(!calls){
+        if(calls.length==0){
         return res.status(201).json({message:`Call's Not found `})
         }
         res.status(201).json({message:`Excel Generated Successfully`,statusCode:200,DownloadLink:`${req.protocol +"://"+req.hostname +"/"+`public/stokeData.csv`}`})
@@ -406,7 +406,7 @@ async function trackNifty(req,res){
         savedCall.forEach (async element => {
             if (data[latestData] ) {
                 if (element.isCall == true) {
-                    console.log('>>sd',data[latestData]);
+                    // console.log('>>sd',data[latestData]);
                     if (data[latestData].LTP == element.targetPrice ||data[latestData].LTP == element.targetPrice+1 ||data[latestData].LTP == element.targetPrice+2 ) {
                         if (element.isProfit == false && element.isLoss == false) {
                             console.log('isCall = true',data[latestData]);
@@ -417,7 +417,7 @@ async function trackNifty(req,res){
                     }
                 }
                 if (element.isCall == false) {
-                    console.log('isCall = false',data[latestData]);
+                    // console.log('isCall = false',data[latestData]);
                     if (data[latestData].LTP == element.targetPrice ||data[latestData].LTP == element.targetPrice-1 ||data[latestData].LTP == element.targetPrice-2) {
                         if (element.isLoss == false && element.isProfit == false) {
                             console.log(data[latestData].LTP,element.targetPrice);

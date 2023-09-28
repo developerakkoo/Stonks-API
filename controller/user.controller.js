@@ -8,27 +8,48 @@ const nodemailer = require('nodemailer');
 const path = require('path');
 const moment = require('moment');
 const csvWriter =  require('csv-writer');
+const deleteFile = require('../constant/DImage');
 const writer = csvWriter.createObjectCsvWriter(
-    {path:'public/userData.csv',
+    {path:'public/paid-plane-user-data.csv',
     header:[
         { id: 'userName', title: 'Name' },
         { id: 'email', title: 'Email'},
         { id: 'SubscriptionName', title: 'Subscribed Plane'},
+        { id: 'SubscriptionEndDate', title: 'Subscription End Date' },
         { id: 'price', title: 'Price' },
         { id: 'duration', title: 'Duration'},
         { id: 'description', title: 'Description' },
         { id: 'isActive', title: 'Active' },
         { id: 'isBlocked', title: 'Blocked' },
 ]});
+const writer1 = csvWriter.createObjectCsvWriter(
+    {path:'public/all-user-data.csv',
+    header:[
+        { id: 'name', title: 'Name' },
+        { id: 'email', title: 'Email'},
+        { id: 'Subscription', title: 'Subscribed Plane'},
+        { id: 'SubscriptionEndDate', title: 'Subscription End Date' },
+        { id: 'isActive', title: 'Active' },
+        { id: 'isBlocked', title: 'Blocked' },
+]});
 
-let msg = nodemailer.createTransport({
-    service: 'gmail',
+// let msg = nodemailer.createTransport({
+//     service: 'gmail',
+//     auth: {
+//     user: process.env.EMAIL,
+//     pass: process.env.PASS_KEY
+//     }
+// });
+
+
+var msg = nodemailer.createTransport({
+    host: "live.smtp.mailtrap.io",
+    port: 587,
     auth: {
-    user: process.env.EMAIL,
-    pass: process.env.PASS_KEY
+      user: "api",
+      pass: "4a68b14a027a7586494b53d63ddb6e92"
     }
-}); 
-
+  });
 async function createUser (req,res){
     const defaultImage  = 'public/defaultProfile.png'
     try {    const userData = {
@@ -59,7 +80,7 @@ async function createUser (req,res){
 
 
     let mailOptions = {
-        from: 'nlvltracker@gmail.com',
+        from: 'mailtrap@niftyleveltracker.in',
         to: createdUser.email,
         subject:'Verify your email',
         text:`Hi ${createdUser.name}, To activate your Account, please verify your email address. Click Or copy and paste the following URL into your browser:  ${Link}`
@@ -166,7 +187,9 @@ async function exportData(req,res){
         if (!user){
             return res.status(400).json({message:"User Doesn't Exists"})
         }
-        res.status(200).json({message:`Excel Generated Successfully`,statusCode:200, DownloadLink:`${req.protocol +"://"+req.hostname +"/"+`public/userData.csv`}`});
+        deleteFile.clearImage('public/all-user-data.csv');
+        deleteFile.clearImage('public/paid-plane-user-data.csv');
+        res.status(200).json({message:`Excel Generated Successfully`,statusCode:200,DownloadLink:[{allUserData:`${req.protocol +"://"+req.hostname +"/"+`public/all-user-data.csv`}`,paidPlanUserData:`${req.protocol +"://"+req.hostname +"/"+`public/paid-plane-user-data.csv`}`},]});
         const metadata = []
         for(item of user){
             if (item.SubscriptionId == undefined) {
@@ -180,11 +203,18 @@ async function exportData(req,res){
                 SubscriptionName:item['SubscriptionId'].name,
                 price:item['SubscriptionId'].price,
                 duration:item['SubscriptionId'].duration,
-                description:item['SubscriptionId'].description
+                description:item['SubscriptionId'].description,
+                SubscriptionEndDate:item.SubscriptionEndDate
             })
             
         }
         writer.writeRecords(metadata)
+        .then(() =>{
+        console.log("DONE!");
+        }).catch((error) =>{
+        console.log(error);
+        });
+        writer1.writeRecords(user)
         .then(() =>{
         console.log("DONE!");
         }).catch((error) =>{
@@ -296,7 +326,7 @@ async function forgotPassword(req,res){
 
 
     let mailOptions = {
-        from: 'serviceacount.premieleague@gmail.com',
+        from: 'mailtrap@niftyleveltracker.in',
         to: savedUser.email,
         subject:'Rest password' ,
         text:`Click on link to reset your password    ${Link}`
@@ -402,12 +432,6 @@ async function verifyEmail(req,res){
         : savedUser.SubscriptionEndDate ;
 
         const updatedUser= await savedUser.save();
-        const postRes = {
-            Id:updatedUser._id,
-            email:updatedUser.email,
-            isActive:updatedUser.isActive,
-            isEmailVerified:updatedUser.isEmailVerified
-        }
         res.render('emailSuccess'); 
     } catch (error) {
         res.status(500).json({message:error.message,statusCode:500,status:'ERROR'});

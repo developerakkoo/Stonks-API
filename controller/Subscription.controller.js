@@ -173,6 +173,10 @@ async function getYearlyInr(req,res){
                 ? 'paidPlan'  
                 :savedUser.Subscription
         
+                savedUser.isBlocked= false  != undefined
+                ? false
+                :savedUser.isBlocked
+        
         
                 const updatedUser = await savedUser.save()
         

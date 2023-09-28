@@ -29,7 +29,8 @@ cron.schedule('* * * * *',async () =>{
                     isBlocked:true,
                     SubscriptionId:'00b00c0000bd0a000f000000',
                     Subscription:'-',
-                    SubscriptionEndDate:'-'
+                    SubscriptionEndDate:'-',
+                    isBlocked:true
                 })
                 tokens.push(user.firebaseToken)
                 
