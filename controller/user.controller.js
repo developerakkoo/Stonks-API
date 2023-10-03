@@ -1,6 +1,5 @@
 const User = require('../model/users.model');
 const freeSub =require('../model/freeSub.model');
-require('../passport-setup');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const Subscription =  require('../model/subscription.model');
