@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"
+    "start": "node index.js"
   },
   "author": "",
   "license": "ISC",
@@ -15,14 +15,12 @@
     "body-parser": "^1.20.1",
     "cors": "^2.8.5",
     "csv-writer": "^1.6.0",
-    "csvtojson": "^2.0.10",
     "dotenv": "^16.0.3",
     "ejs": "^3.1.9",
     "express": "^4.18.2",
     "fcm-node": "^1.6.1",
     "firebase-admin": "^11.4.1",
     "googleapis": "^118.0.0",
-    "jsonexport": "^3.2.0",
     "jsonwebtoken": "^9.0.0",
     "mailtrap": "^3.2.0",
     "moment": "^2.29.4",
@@ -35,7 +33,6 @@
     "socket.io": "^4.6.1",
     "socket.io-client": "^4.7.1",
     "stripe": "^12.12.0",
-    "uninstall": "^0.0.0",
     "ws": "^8.13.0"
   }
 }

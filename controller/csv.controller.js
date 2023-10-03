@@ -1,10 +1,6 @@
 const Data = require('../model/scraperData.model')
-const  mongoose         = require('mongoose');
 const {google}= require('googleapis');
 const key = require('../keys.json');
-const mongoosePaginate = require('mongoose-paginate');
-const moment= require ('moment')
-const momentTime= moment()
 
 const client = new google.auth.JWT(
     key.client_email,
