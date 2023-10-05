@@ -33,6 +33,7 @@ app.use(bodyParser.urlencoded({extended:false}))
 app.use(bodyParser.json())
 app.use(express.json())
 
+app.set("view engine", "ejs");
 app.use(UserRoutes);
 app.use(StockRoutes)
 app.use(GetStocksRoute)
@@ -42,10 +43,15 @@ app.use(PaymentRoute)
 app.use(ImageRoutes);
 app.use(NoCallRoute);
 app.use(express.urlencoded({extended:false}));
+app.use(function (req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, POST, PUT, PATCH, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', '*');
+  res.setHeader('Access-Control-Allow-Credentials', true);
+  next();
+  });
 
-app.set("view engine", "ejs");
 
-const MONGODB_URI = process.env.DB_URL
 
 const notification_options = {
   priority: "high",
@@ -75,26 +81,20 @@ app.post('/firebase/notification', (req, res)=>{
     });
 })
 
-
-mongoose.connect(process.env.DB_URL)
-const db = mongoose.connection
-db.on("error", () => console.log("ERROR while connecting to DB"))  //code for connecting mongodb
-db.once("open", () => {console.log("Connected to mongoDB ")
-})
-
-
-
 app.get('/Export-to-excel-weeklyOrder', (req, res,next)=>{
   res.status(200).json({
     file:"http://localhost:8000/public/stokeData.csv",
   })
 })
+
 app.all("*", (req, res, next) => {
+  console.log('>>>>>>>>>>');
   res.status(404).json({
       message:"Page not found"
   });
 });
-mongoose.connect(MONGODB_URI, {
+
+mongoose.connect(process.env.DB_URL, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       
@@ -121,13 +121,3 @@ mongoose.connect(MONGODB_URI, {
     .catch((err) => {
       console.log(err);
     });
-  
-// app.use((error,req,res,next)=>{
-//   console.log(">>>",error)
-//   error.statusCode = error.statusCode || 500;
-//   error.status = error.statusCode || 'error';
-//   res.status(error.statusCode).json({
-//     status :error.statusCode,
-//     message:error.message
-//   })
-// })
