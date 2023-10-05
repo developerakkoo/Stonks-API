@@ -79,7 +79,7 @@ async function createUser (req,res){
 
 
     let mailOptions = {
-        from: 'mailtrap@niftyleveltracker.in',
+        from: 'niftyleveltracker@niftyleveltracker.in',
         to: createdUser.email,
         subject:'Verify your email',
         text:`Hi ${createdUser.name}, To activate your Account, please verify your email address. Click Or copy and paste the following URL into your browser:  ${Link}`
@@ -325,7 +325,7 @@ async function forgotPassword(req,res){
 
 
     let mailOptions = {
-        from: 'mailtrap@niftyleveltracker.in',
+        from: 'niftyleveltracker@niftyleveltracker.in',
         to: savedUser.email,
         subject:'Rest password' ,
         text:`Click on link to reset your password    ${Link}`
