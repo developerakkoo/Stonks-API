@@ -176,6 +176,10 @@ async function getYearlyInr(req,res){
                 savedUser.isBlocked= false  != undefined
                 ? false
                 :savedUser.isBlocked
+
+                savedUser.isActive= true  != undefined
+                ? true
+                :savedUser.isActive
         
         
                 const updatedUser = await savedUser.save()
