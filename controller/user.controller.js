@@ -20,6 +20,7 @@ const writer = csvWriter.createObjectCsvWriter(
         { id: 'description', title: 'Description' },
         { id: 'isActive', title: 'Active' },
         { id: 'isBlocked', title: 'Blocked' },
+        { id: 'isEmailVerified', title: 'Email Verification'}
 ]});
 const writer1 = csvWriter.createObjectCsvWriter(
     {path:'public/all-user-data.csv',
@@ -30,6 +31,7 @@ const writer1 = csvWriter.createObjectCsvWriter(
         { id: 'SubscriptionEndDate', title: 'Subscription End Date' },
         { id: 'isActive', title: 'Active' },
         { id: 'isBlocked', title: 'Blocked' },
+        { id: 'isEmailVerified', title: 'Email Verification'}
 ]});
 
 // let msg = nodemailer.createTransport({
@@ -199,6 +201,7 @@ async function exportData(req,res){
                 email:item.email,
                 isActive:item.isActive,
                 isBlocked:item.isBlocked,
+                isEmailVerified:item.isEmailVerified,
                 SubscriptionName:item['SubscriptionId'].name,
                 price:item['SubscriptionId'].price,
                 duration:item['SubscriptionId'].duration,

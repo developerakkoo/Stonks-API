@@ -17,22 +17,26 @@ cron.schedule('* * * * *',async () =>{
         const savedUser =  await User.find({
             SubscriptionEndDate:date,
         });
-        // console.log(savedUser);
         if (savedUser.length !== 0) {
             for(user of savedUser){
-
-                if (user.firebaseToken == undefined) {
-                    continue;
-                }
+                
+                // if (!user.firebaseToken ) {
+                //     continue;
+                // }
+                // console.log(date,user);
     
-                await User.findByIdAndUpdate(user._id,{
-                    isBlocked:true,
+                const undatedUser = await User.findByIdAndUpdate(user._id,{
+                    isActive:false,
                     SubscriptionId:'00b00c0000bd0a000f000000',
                     Subscription:'-',
                     SubscriptionEndDate:'-',
                     isBlocked:true
                 })
-                tokens.push(user.firebaseToken)
+                if (user.firebaseToken) {
+                    tokens.push(user.firebaseToken)
+                }
+                console.log(">>>>>>>>>>>>>",undatedUser);
+    
                 
                 
             }

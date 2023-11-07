@@ -1,3 +1,4 @@
-Name,Email,Subscribed Plane,Subscription End Date,Price,Duration,Description,Active,Blocked
-Ram,ramsrga@gmail.com,3 month,08-11-2023,169,3,Regular ,true,false
-sakib,sakibde01@gmail.com,3 month,08-11-2023,169,3,Regular ,true,false
+Name,Email,Subscribed Plane,Subscription End Date,Price,Duration,Description,Active,Blocked,Email Verification
+knockup,knockuptrader@gmail.com,1 month ,14-11-2023,69,1,Basic,true,false,true
+Anbukumar ,kumaranbu10@gmail.com,1 month ,14-11-2023,69,1,Basic,true,false,true
+sakib,sakibde01@gmail.com,6 months,18-01-2024,339,6,Pro,true,false,true

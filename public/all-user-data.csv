@@ -1,27 +1,40 @@
-Name,Email,Subscribed Plane,Subscription End Date,Active,Blocked
-karthika ,karthikaalagappan@gmail.com,_,,true,false
-Ram,ramsrga@gmail.com,paidPlan,08-11-2023,true,false
-karthika,karthika.ramalingam09@gmail.com,-,-,true,true
-Akshay Jadhav,developerakshayjadhav@gmail.com,-,-,true,true
-sakib,sakibde01@gmail.com,paidPlan,08-11-2023,true,false
-rajan,gcgrajan@gmail.com,-,-,true,true
-knockup,knockuptrader@gmail.com,-,-,true,true
-JAYA K,rameshraman1969@gmail.com,_,_,false,false
-Rahul,raul.shah@yahoo.com,-,-,true,true
-Anbukumar ,kumaranbu10@gmail.com,-,-,true,true
-sheik ,sheik4trading@gmail.com,freePlan,07-10-2023,true,false
-Anand,anandayyasamy@gmail.com,freePlan,07-10-2023,true,false
-Mohamed ,mohamedraffic@gmail.com,freePlan,07-10-2023,true,false
-Jagmel,jaggubanjara@gmail.com,freePlan,07-10-2023,true,false
-sam,sraj_sen@yahoo.com,_,_,false,false
-Ashok,samrat_405@yahoo.com,_,_,false,false
-Sasikumar S,rssasikumar@gmail.com,freePlan,07-10-2023,true,false
-Ashok samrat s,ashoksamrat@gmail.com,_,_,false,false
-raj,samseny@gmail.com,freePlan,07-10-2023,true,false
-Kiran ,kirannavayuga@gmail.com,freePlan,07-10-2023,true,false
-Ashok,ashoksamrat18@gmail.com,freePlan,08-10-2023,true,false
-Ganesan,tabgans@gmail.com,freePlan,08-10-2023,true,false
-thana,thanam8@yahoo.co.in,freePlan,10-10-2023,true,false
-nlvl,nlvltrader@yahoo.com,_,_,false,false
-nlvltrack,niftyleveltracker@yahoo.com,freePlan,12-10-2023,true,false
-dev,sddeveloper96@gmail.com,freePlan,13-10-2023,true,false
+Name,Email,Subscribed Plane,Subscription End Date,Active,Blocked,Email Verification
+karthika ,karthikaalagappan@gmail.com,_,,true,true,true
+Ram,ramsrga@gmail.com,-,-,true,true,true
+karthika,karthika.ramalingam09@gmail.com,-,-,true,true,true
+rajan,gcgrajan@gmail.com,-,-,true,true,true
+knockup,knockuptrader@gmail.com,paidPlan,14-11-2023,true,false,true
+JAYA K,rameshraman1969@gmail.com,_,_,false,false,false
+Rahul,raul.shah@yahoo.com,-,-,true,true,true
+Anbukumar ,kumaranbu10@gmail.com,paidPlan,14-11-2023,true,false,true
+sheik ,sheik4trading@gmail.com,-,-,true,true,true
+Anand,anandayyasamy@gmail.com,-,-,true,true,true
+Mohamed ,mohamedraffic@gmail.com,-,-,true,true,true
+Jagmel,jaggubanjara@gmail.com,-,-,true,true,true
+sam,sraj_sen@yahoo.com,_,_,false,false,false
+Ashok,samrat_405@yahoo.com,_,_,false,false,false
+Sasikumar S,rssasikumar@gmail.com,-,-,true,true,true
+Ashok samrat s,ashoksamrat@gmail.com,_,_,false,false,false
+raj,samseny@gmail.com,-,-,true,true,true
+Kiran ,kirannavayuga@gmail.com,-,-,true,true,true
+Ashok,ashoksamrat18@gmail.com,-,-,true,true,true
+Ganesan,tabgans@gmail.com,-,-,true,true,true
+thana,thanam8@yahoo.co.in,-,-,true,true,true
+nlvl,nlvltrader@yahoo.com,_,_,false,false,false
+nlvltrack,niftyleveltracker@yahoo.com,-,-,false,true,true
+rama,ram_srga@yahoo.com,_,_,false,false,false
+Dom,redcolour230@gmail.com,-,-,true,true,true
+lokesh,Lokesh.raghuveer@gmail.com,-,-,false,true,true
+Admin nlvltracker,nlvltracker@gmail.com,-,-,false,true,true
+Akshay Jadhav,developerakshayjadhav@gmail.com,-,-,false,true,true
+muthu,amathalai@yahoo.com,_,_,false,false,false
+karthika,karthika.ram08@yahoo.com,_,_,false,false,false
+sakib,sakibde01@gmail.com,6 months,18-01-2024,true,false,true
+Jyoti ranjan sahoo ,jyotiranjan0071@gmail.com,-,-,true,true,true
+Anbarasu29,anbarasua2z@gmail.com,-,-,true,true,true
+NFTY,niftyleveltracker@gmail.com,-,-,false,true,true
+Amit ,4gamitkr@gmail.com,-,-,true,true,true
+Amit Kumar ,amitkumarbhandari309@gmail.com,-,-,false,true,true
+nagaraju,nageshreddynarmita@gmail.com,_,_,false,false,false
+tejas,tej.vaishnani@gmail.com,freePlan,11-11-2023,true,false,true
+Manjunath ,Mnjnthc@yahoo.com,freePlan,13-11-2023,true,false,true

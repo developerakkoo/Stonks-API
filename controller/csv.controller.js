@@ -896,11 +896,12 @@ async function getAdminSpecificData(req,res){
 } 
 async function getScrapData(req,res){
     try{
-        console.log("t>>>",req.headers.time)
+        console.log("t>>>",req.headers.time,req.headers.date)
         const stocksData = await Data.find({
             Date:req.headers.date,
             Time:req.headers.time
         })
+        // console.log('data:',stocksData);
         if(!stocksData[0]){
             return res.status(404).send({message:`Stock data is not found for "Sheet2" with given Time please wait we are collecting data`})
         }
