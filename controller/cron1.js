@@ -23,7 +23,6 @@ cron.schedule('* * * * *',async () =>{
                 // if (!user.firebaseToken ) {
                 //     continue;
                 // }
-                // console.log(date,user);
     
                 const undatedUser = await User.findByIdAndUpdate(user._id,{
                     isActive:false,
