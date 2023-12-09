@@ -207,7 +207,7 @@ async function exportData(req,res){
                 duration:item['SubscriptionId'].duration,
                 description:item['SubscriptionId'].description,
                 SubscriptionEndDate:item.SubscriptionEndDate
-            })
+            });
             
         }
         writer.writeRecords(metadata)

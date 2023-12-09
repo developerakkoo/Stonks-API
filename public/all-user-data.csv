@@ -1,12 +1,11 @@
-Name,Email,Subscribed Plane,Subscription End Date,Active,Blocked,Email Verification
-karthika ,karthikaalagappan@gmail.com,_,,true,true,true
-Ram,ramsrga@gmail.com,-,-,true,true,true
-karthika,karthika.ramalingam09@gmail.com,-,-,true,true,true
+karthika ,karthikaalagappan@gmail.com,_,,false,true,true
+Ram,ramsrga@gmail.com,paidPlan,09-01-2024,true,false,true
+karthika,karthika.ramalingam09@gmail.com,-,-,false,true,true
 rajan,gcgrajan@gmail.com,-,-,true,true,true
-knockup,knockuptrader@gmail.com,paidPlan,14-11-2023,true,false,true
+knockup,knockuptrader@gmail.com,-,-,false,true,true
 JAYA K,rameshraman1969@gmail.com,_,_,false,false,false
 Rahul,raul.shah@yahoo.com,-,-,true,true,true
-Anbukumar ,kumaranbu10@gmail.com,paidPlan,14-11-2023,true,false,true
+Anbukumar ,kumaranbu10@gmail.com,-,-,false,true,true
 sheik ,sheik4trading@gmail.com,-,-,true,true,true
 Anand,anandayyasamy@gmail.com,-,-,true,true,true
 Mohamed ,mohamedraffic@gmail.com,-,-,true,true,true
@@ -26,15 +25,43 @@ rama,ram_srga@yahoo.com,_,_,false,false,false
 Dom,redcolour230@gmail.com,-,-,true,true,true
 lokesh,Lokesh.raghuveer@gmail.com,-,-,false,true,true
 Admin nlvltracker,nlvltracker@gmail.com,-,-,false,true,true
-Akshay Jadhav,developerakshayjadhav@gmail.com,-,-,false,true,true
+Akshay Jadhav,developerakshayjadhav@gmail.com,1 Month,10-01-2024,false,true,true
 muthu,amathalai@yahoo.com,_,_,false,false,false
 karthika,karthika.ram08@yahoo.com,_,_,false,false,false
-sakib,sakibde01@gmail.com,6 months,18-01-2024,true,false,true
+sakib,sakibde01@gmail.com,6 months,18-1-2024,true,false,true
 Jyoti ranjan sahoo ,jyotiranjan0071@gmail.com,-,-,true,true,true
 Anbarasu29,anbarasua2z@gmail.com,-,-,true,true,true
 NFTY,niftyleveltracker@gmail.com,-,-,false,true,true
 Amit ,4gamitkr@gmail.com,-,-,true,true,true
 Amit Kumar ,amitkumarbhandari309@gmail.com,-,-,false,true,true
 nagaraju,nageshreddynarmita@gmail.com,_,_,false,false,false
-tejas,tej.vaishnani@gmail.com,freePlan,11-11-2023,true,false,true
-Manjunath ,Mnjnthc@yahoo.com,freePlan,13-11-2023,true,false,true
+tejas,tej.vaishnani@gmail.com,-,-,false,true,true
+Manjunath ,Mnjnthc@yahoo.com,-,-,false,true,true
+manoj kumar yadaw,ots.manoj9118@gmail.com,-,-,false,true,true
+inder sarki,indersarki168@gmail.com,_,_,false,false,false
+rakha rasaily,rasailysupriya180@gmail.com,_,_,false,false,false
+somashekar ,ksomashekarr@gmail.com,-,-,false,true,true
+Tarun,tarunsingh32865@gmail.com,-,-,false,true,true
+Nageswara,nag1508@gmail.com,-,-,false,true,true
+shaikh,shaikhqayyum202@gmail.com,-,-,false,true,true
+vikas sharma,sharmavikas515@gmail.com,freePlan,10-12-2023,true,false,true
+Shantaram,shantaram.bombe1979@gmail.com,_,_,false,false,false
+Shantaram,shantaram.bombe1979@gmail,_,_,false,false,false
+Ratnmala,jeevanjyotifarm@gmail.com,freePlan,10-12-2023,true,false,true
+Deepak ,waghdeepak.wd@gmail.com,_,_,false,false,false
+danish,h75110157@gmail.com,freePlan,15-12-2023,true,false,true
+manda meena,mandabedre701@gmail.com,_,_,false,false,false
+Pradip Das,pradipdas02060508@gmail.com,freePlan,18-12-2023,true,false,true
+Pradip Das,pradip19833@gamil.com,_,_,false,false,false
+sudhakaran ,sudhakaran949532@gmail.com,_,_,false,false,false
+Shanvika@2017,chellx.animator@gmail.com,freePlan,19-12-2023,true,false,true
+Parveen Kumar ,parveenparveenkumar03364@gmail.com,_,_,false,false,false
+Senthil,srirajaganapathydgl@gmail.com,_,_,false,false,false
+Janni Darling ,jhome042@gmail.com,_,_,false,false,false
+Ram,ramsrga@yahoo.co.in,_,_,false,false,false
+Ram,ram_srga@yahoo.co.in,freePlan,22-12-2023,true,false,true
+Arvind kumar ,arvindkumar1998th@gmail.com,_,_,false,false,false
+arun,arunpriyam28@gamil.com,_,_,false,false,false
+priya,priyapriya17@gamil.com,_,_,false,false,false
+mohit,mohitkushwaha08071994@gmail.com,freePlan,23-12-2023,true,false,true
+Mohit kushwaha,mohitkushwaha08071994@gmail.comm,_,_,false,false,false

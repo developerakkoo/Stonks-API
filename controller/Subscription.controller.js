@@ -146,8 +146,7 @@ async function getYearlyInr(req,res){
             }
         }
 
-        async function userSubscribe(req,res,){
-
+async function userSubscribe(req,res,){
         try {
             const {planId}=req.body
             const savedSubscription = await Subscription.findOne({_id:planId});
@@ -188,7 +187,7 @@ async function getYearlyInr(req,res){
         } catch (error) {
             res.status(500).json({message:error.message,status:`ERROR`});
         }
-        }
+    }
 module.exports = 
 {
     createSubscription,
