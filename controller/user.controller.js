@@ -195,6 +195,7 @@ async function exportData(req,res){
             userName:"Name",
             email:"Email",
             isActive:"isActive",
+            isBlocked:"isBlocked",
             isEmailVerified:"isEmailVerified",
             SubscriptionName:"Subscription Plan",
             price:"Price",
