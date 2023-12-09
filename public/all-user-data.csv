@@ -1,8 +1,9 @@
+Name,Email,Subscription Plan,Subscription End Date,isActive,isBlocked,isEmailVerified
 karthika ,karthikaalagappan@gmail.com,_,,false,true,true
 Ram,ramsrga@gmail.com,paidPlan,09-01-2024,true,false,true
 karthika,karthika.ramalingam09@gmail.com,-,-,false,true,true
 rajan,gcgrajan@gmail.com,-,-,true,true,true
-knockup,knockuptrader@gmail.com,-,-,false,true,true
+knockup,knockuptrader@gmail.com,paidPlan,09-01-2024,true,false,true
 JAYA K,rameshraman1969@gmail.com,_,_,false,false,false
 Rahul,raul.shah@yahoo.com,-,-,true,true,true
 Anbukumar ,kumaranbu10@gmail.com,-,-,false,true,true
@@ -28,7 +29,7 @@ Admin nlvltracker,nlvltracker@gmail.com,-,-,false,true,true
 Akshay Jadhav,developerakshayjadhav@gmail.com,1 Month,10-01-2024,false,true,true
 muthu,amathalai@yahoo.com,_,_,false,false,false
 karthika,karthika.ram08@yahoo.com,_,_,false,false,false
-sakib,sakibde01@gmail.com,6 months,18-1-2024,true,false,true
+sakib,sakibde01@gmail.com,6 months,18-1-2024,false,false,false
 Jyoti ranjan sahoo ,jyotiranjan0071@gmail.com,-,-,true,true,true
 Anbarasu29,anbarasua2z@gmail.com,-,-,true,true,true
 NFTY,niftyleveltracker@gmail.com,-,-,false,true,true

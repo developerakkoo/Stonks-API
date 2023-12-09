@@ -27,7 +27,7 @@ const writer1 = csvWriter.createObjectCsvWriter(
     header:[
         { id: 'name', title: 'Name' },
         { id: 'email', title: 'Email'},
-        { id: 'Subscription', title: 'Subscribed Plane'},
+        { id: 'Subscription', title: 'Subscription Plane'},
         { id: 'SubscriptionEndDate', title: 'Subscription End Date' },
         { id: 'isActive', title: 'Active' },
         { id: 'isBlocked', title: 'Blocked' },
@@ -191,7 +191,41 @@ async function exportData(req,res){
         deleteFile.clearImage('public/all-user-data.csv');
         deleteFile.clearImage('public/paid-plane-user-data.csv');
         res.status(200).json({message:`Excel Generated Successfully`,statusCode:200,DownloadLink:[{allUserData:`${req.protocol +"://"+req.hostname +"/"+`public/all-user-data.csv`}`,paidPlanUserData:`${req.protocol +"://"+req.hostname +"/"+`public/paid-plane-user-data.csv`}`},]});
-        const metadata = []
+        const metadata = [{
+            userName:"Name",
+            email:"Email",
+            isActive:"isActive",
+            isEmailVerified:"isEmailVerified",
+            SubscriptionName:"Subscription Plan",
+            price:"Price",
+            duration:"Duration",
+            description:"Description",
+            SubscriptionEndDate:"Subscription End Date"
+        }]
+        const userMetadata = [{
+            name:"Name",
+            email:"Email",
+            Subscription:"Subscription Plan",
+            SubscriptionEndDate:"Subscription End Date",
+            isActive:"isActive",
+            isBlocked:"isBlocked",
+            isEmailVerified:"isEmailVerified",
+        }]
+        for(item of user){
+            // if (item.SubscriptionId == undefined) {
+            //     continue;
+            // }
+            userMetadata.push({
+                name:item.name,
+                email:item.email,
+                isActive:item.isActive,
+                isBlocked:item.isBlocked,
+                isEmailVerified:item.isEmailVerified,
+                Subscription:item.Subscription,
+                SubscriptionEndDate:item.SubscriptionEndDate
+            });
+            
+        }
         for(item of user){
             if (item.SubscriptionId == undefined) {
                 continue;
@@ -216,7 +250,7 @@ async function exportData(req,res){
         }).catch((error) =>{
         console.log(error);
         });
-        writer1.writeRecords(user)
+        writer1.writeRecords(userMetadata)
         .then(() =>{
         console.log("DONE!");
         }).catch((error) =>{
