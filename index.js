@@ -11,6 +11,7 @@ admin.initializeApp({
 })
 require('./controller/cron1');
 require('./controller/cron');
+require('./controller/cron2');
 const {UserRoutes,ScrapDataRoutes,GetStocksRoute,StockRoutes,ImageRoutes,SubscriptionRoutes,PaymentRoute,NoCallRoute}= require ('./routes/index.routes');
 const cors = require('cors');
 const app = express();
@@ -88,7 +89,6 @@ app.get('/Export-to-excel-weeklyOrder', (req, res,next)=>{
 })
 
 app.all("*", (req, res, next) => {
-  console.log('>>>>>>>>>>');
   res.status(404).json({
       message:"Page not found"
   });
