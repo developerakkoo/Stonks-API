@@ -1,6 +1,5 @@
 
 const io = require('socket.io-client');
-console.log('here')
 const socket = io('http://192.168.0.113:8000'); // Replace with the actual IP address of your laptop
 
 

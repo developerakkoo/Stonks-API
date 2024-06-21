@@ -100,7 +100,7 @@ mongoose.connect(process.env.DB_URL, {
       
     })
     .then((result) => {
-      const server = app.listen(8000);
+      const server = app.listen(9000);
       console.log("app is running")
       const io = require("./socket").init(server);
   
