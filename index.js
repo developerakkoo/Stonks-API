@@ -9,7 +9,7 @@ admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: "https://stonks-b66d4-default-rtdb.firebaseio.com/"
 })
-require('./controller/cron1');
+// require('./controller/cron1');
 require('./controller/cron');
 require('./controller/cron2');
 const {UserRoutes,ScrapDataRoutes,GetStocksRoute,StockRoutes,ImageRoutes,SubscriptionRoutes,PaymentRoute,NoCallRoute}= require ('./routes/index.routes');
